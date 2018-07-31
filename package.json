@@ -1,11 +1,32 @@
 {
-  "name": "gluons-spa",
+  "name": "gluons",
   "version": "0.1.0",
   "private": true,
+  "description": "This is gluons' SPA on a react project",
+  "author": "euonymus",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/euonymus-prod/gluons-spa"
+  },
+  "license": "ISC",
   "dependencies": {
+    "ajv": "^6.5.2",
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "react": "^16.4.1",
+    "react-autosuggest": "^9.3.4",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-ga": "^2.5.3",
+    "react-infinite-scroller": "^1.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-router-last-location": "^1.1.0",
+    "react-router-scroll-memory": "^1.0.2",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,0 +1,1 @@
+export const FETCH_SUGGEST = 'FETCH_SUGGEST';

@@ -1,0 +1,3 @@
+export const INIT_PRIVACY   = 'INIT_PRIVACY';
+export const CHANGE_PRIVACY = 'CHANGE_PRIVACY';
+

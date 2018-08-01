@@ -76,22 +76,25 @@ class Navbar extends Component {
            <QuarkNav />
 
            <li className="dropdown">
+{/*
               <a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{ logged_in_user.username } <span className="caret"></span></a>
+*/}
+              <button className="dropdown-toggle plain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{ logged_in_user.username } <span className="caret"></span></button>
               <ul className="dropdown-menu">
                  <li><Link to={`/users/edit/${logged_in_user.id}`}>Edit User</Link></li>
                  <li role="separator" className="divider"></li>
                  <li className="dropdown-header">Privacy Modes</li>
 
               {(() => { if (login_util.isAdmin(logged_in_user)) { return (
-                 <li><a href="javascript:void(0)" name="4" onClick={this.onPrivacyChangeClick} >Admin</a></li>
+                 <li><button type="submit" className="plain" name="4" onClick={this.onPrivacyChangeClick} >Admin</button></li>
               );} })()}
 
-                 <li><a href="javascript:void(0)" name="1" onClick={this.onPrivacyChangeClick} >Public</a></li>
-                 <li><a href="javascript:void(0)" name="2" onClick={this.onPrivacyChangeClick} >Private</a></li>
-                 <li><a href="javascript:void(0)" name="3" onClick={this.onPrivacyChangeClick} >All</a></li>
+                 <li><button type="submit" className="plain" name="1" onClick={this.onPrivacyChangeClick} >Public</button></li>
+                 <li><button type="submit" className="plain" name="2" onClick={this.onPrivacyChangeClick} >Private</button></li>
+                 <li><button type="submit" className="plain" name="3" onClick={this.onPrivacyChangeClick} >All</button></li>
 
                  <li role="separator" className="divider"></li>
-                 <li><a href="javascript:void(0)" onClick={this.onLogoutClick}>Logout</a></li>
+                 <li><button type="submit" className="plain" onClick={this.onLogoutClick} >Logout</button></li>
               </ul>
            </li>
         </ul>

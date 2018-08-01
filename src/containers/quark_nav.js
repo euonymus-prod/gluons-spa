@@ -50,10 +50,18 @@ class QuarkNav extends Component {
 	}
 	return (
            <li className="dropdown">
+{/*
               <a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quark <span className="caret"></span></a>
+*/}
+              <button className="dropdown-toggle plain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quark <span className="caret"></span></button>
               <ul className="dropdown-menu">
                  <li><Link to={`/subjects/edit/${current_quark.id}`}>Edit Quark</Link></li>
-                 <li><a href="javascript:void(0)" onClick={this.onDeleteClick}>Delete</a></li>
+                 <li>
+{/*
+<a href="javascript:void(0)" onClick={this.onDeleteClick}>Delete</a>
+*/}
+                    <button type="submit" className="plain" onClick={this.onDeleteClick}>Delete</button>
+                 </li>
               </ul>
            </li>
 	)

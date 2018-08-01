@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 // main routes
+import './index.css';
 import AppRoutes from './routes';
 import store from './store';
 

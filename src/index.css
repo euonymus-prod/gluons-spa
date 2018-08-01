@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+button.plain {
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     //border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+.dropdown-menu>li>button {
+    margin: 5px 15px 5px 25px;
+    color: #777;
+}
+button.dropdown-toggle {
+    margin: 5px 15px 5px 15px;
+    color: #777;
+}

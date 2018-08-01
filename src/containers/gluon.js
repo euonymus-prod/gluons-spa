@@ -62,7 +62,9 @@ class Gluon extends Component {
                  <input type="hidden" name="_method" value="POST"/>
               </form>
 */}
-              <a href="javascript:void(0)" className="glyphicon glyphicon-remove-sign" onClick={this.onDeleteClick}></a>
+              <button type="submit" className="plain" onClick={this.onDeleteClick}>
+                 <i className="glyphicon glyphicon-remove-sign"></i>
+              </button>
            </span>
 	)
     }

@@ -1,5 +1,3 @@
-// general
-import axios from 'axios';
 // react
 import React, { Component } from 'react';
 // redux

@@ -4,7 +4,7 @@
 */
 // react
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { withLastLocation } from 'react-router-last-location';
 // redux
 import { connect } from 'react-redux';
@@ -39,7 +39,7 @@ class Login extends Component {
      const login_util = new LoginUtil();
      if (login_util.isLoggedIn(logged_in_user)) {
 	 let redirectLocation = '/';
-	 if (lastLocation && (lastLocation.pathname != '/signup') && (lastLocation.pathname != '/login')) {
+	 if (lastLocation && (lastLocation.pathname !== '/signup') && (lastLocation.pathname !== '/login')) {
 	     redirectLocation = lastLocation;
 	 }
 	 return (
@@ -72,7 +72,7 @@ class Login extends Component {
                             onChange={this.handlePasswordChange} />
                   </div>
                   <br />
-                  <button className="btn btn-primary" type="button" type="submit">Login</button>
+                  <button className="btn btn-primary" type="submit">Login</button>
                </div>
             </form>
          </div>

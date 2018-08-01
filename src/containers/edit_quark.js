@@ -4,7 +4,7 @@ Thanks to redux-form
 */
 // react
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // redux
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -58,7 +58,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 class EditQuark extends Component {
     componentWillMount() {
-	const { qtype_properties, quark_types, editing_quark, quarks } = this.props;
+	const { qtype_properties, quark_types } = this.props;
         if (!quark_types) {
             this.props.fetchQuarkTypes();
         }
@@ -70,7 +70,7 @@ class EditQuark extends Component {
         // initialize
 	const login_util = new LoginUtil();
 	if (!nextProps.editing_quark ||
-	    (nextProps.match.params.id != nextProps.editing_quark.id)) {
+	    (nextProps.match.params.id !== nextProps.editing_quark.id)) {
 	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
 	} else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
             // !Important: Authorization check. This has to be after initialization of editing_quark
@@ -88,7 +88,7 @@ class EditQuark extends Component {
 		    alert(nextProps.editing_quark.message);
 		}
 
-		if (nextProps.editing_quark.status == 1) {
+		if (nextProps.editing_quark.status === 1) {
 		    this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
 		}
 	    }
@@ -224,6 +224,7 @@ export default connect(
   ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
     let ret = { 
 	initialValues: editing_quark,
+	validate,
 	qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
     };
     if (ret.initialValues) {

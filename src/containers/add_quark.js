@@ -4,7 +4,7 @@ Thanks to redux-form
 */
 // react
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // redux
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -91,7 +91,7 @@ class AddQuark extends Component {
 		    alert(nextProps.added_quark.message);
 		}
 
-		if (nextProps.added_quark.status == 1) {
+		if (nextProps.added_quark.status === 1) {
 		    this.props.history.push('/subjects/relations/' + nextProps.added_quark.result.name);
 		}
 	    }

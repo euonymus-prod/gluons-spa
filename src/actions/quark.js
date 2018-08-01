@@ -34,7 +34,7 @@ export const fetchCurrentQuark = (quark_name, qtype_properties, privacy) => {
 
     let endpoint = 'quarks'
     let privacy_level = ''
-    if (parseInt(privacy) !== 1) {
+    if (parseInt(privacy, 10) !== 1) {
 	endpoint = 'private_quarks'
 	privacy_level = privacy
     }
@@ -47,7 +47,7 @@ export const fetchCurrentQuark = (quark_name, qtype_properties, privacy) => {
 	    }
 	})
 	    .then((response) => {
-		if (response.data.status && response.data.status == 0) {
+		if (response.data.status && response.data.status === 0) {
 		    dispatch({
 			type: FETCH_ONE_QUARK_NOT_FOUND,
 			payload: response.data
@@ -82,7 +82,7 @@ export const fetchQuarks = (qtype_properties, privacy, limit = 100, page = 1) =>
 
     let endpoint = 'quarks'
     let privacy_level = ''
-    if (parseInt(privacy) !== 1) {
+    if (parseInt(privacy, 10) !== 1) {
 	endpoint = 'private_quarks'
 	privacy_level = privacy
     }
@@ -132,7 +132,7 @@ export const searchQuarks = (qtype_properties, keywords, privacy, limit = 100, p
 
     let endpoint = 'quarks'
     let privacy_level = ''
-    if (parseInt(privacy) !== 1) {
+    if (parseInt(privacy, 10) !== 1) {
 	endpoint = 'private_quarks'
 	privacy_level = privacy
     }
@@ -222,7 +222,7 @@ export const fetchEditingQuark = (quark_id, qtype_properties) => {
     }
 }
 export const readEditingQuark = (quark_id, quarks) => {
-    if (!quarks || !quarks.list || Object.keys(quarks.list).length == 0) {
+    if (!quarks || !quarks.list || Object.keys(quarks.list).length === 0) {
 	return {
 	    type: READ_EDITING_QUARK_FAILURE,
 	    payload: null

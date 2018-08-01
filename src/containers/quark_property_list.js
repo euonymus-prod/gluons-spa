@@ -2,7 +2,6 @@
 import _ from 'lodash';
 // react
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 // redux
 import { connect } from 'react-redux';
 // component

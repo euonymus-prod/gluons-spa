@@ -25,7 +25,7 @@ export const fetchGluons = (quark, qtype_properties, privacy, limit = 100) => {
 
     let endpoint = 'gluons'
     let privacy_level = ''
-    if (parseInt(privacy) !== 1) {
+    if (parseInt(privacy, 10) !== 1) {
 	endpoint = 'private_gluons'
 	privacy_level = privacy
     }

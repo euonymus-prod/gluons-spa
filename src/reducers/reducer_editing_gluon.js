@@ -7,7 +7,7 @@ export default (state = initState, action) => {
     switch(action.type) {
 
     case FETCH_EDITING_GLUON:
-	if (action.payload['status'] == 0) {
+	if (action.payload['status'] === 0) {
 	    action.payload['message'] = 'Please login';
 	} else {
 	    action.payload['status'] = -1;

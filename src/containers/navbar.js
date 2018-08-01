@@ -24,14 +24,15 @@ class Navbar extends Component {
     }
 
     renderSearchBar () {
-	let patterns = ['^\/(?!\/)$', '^\/login\/?', '^\/signup\/?',
-			'^\/subjects\/add\/?', '^\/subjects\/edit\/', '^\/relations\/add\/?', '^\/relations\/edit\/']
+	let patterns = ['^/(?!/)$', '^/login/?', '^/signup/?',
+			'^/subjects/add/?', '^/subjects/edit/', '^/relations/add/?', '^/relations/edit/']
 
 	let withSearchBar = true
 	patterns.map(x => {
 	    if (this.props.location.pathname.match(x)) {
 		withSearchBar = false
 	    }
+	    return null
 	});
 
        if (withSearchBar) {
@@ -57,7 +58,7 @@ class Navbar extends Component {
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
       </button>
-      <Link to="/" className="navbar-brand"><img src="/img/logo.gif" /></Link>
+      <Link to="/" className="navbar-brand"><img src="/img/logo.gif" alt="gluons" /></Link>
       {this.renderSearchBar()}
     </div>
 

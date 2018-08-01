@@ -7,7 +7,7 @@
 import _ from 'lodash';
 // react
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Autosuggest from 'react-autosuggest';
 // redux
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ const getSuggestionValue = suggestion => suggestion.name;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
    <div className="autocomplete-item">
-      <img src={suggestion.image_path} />
+      <img src={suggestion.image_path} alt={suggestion.name} />
       {suggestion.name}
    </div>
 );
@@ -124,7 +124,7 @@ class AddGluon extends Component {
             this.props.fetchGluonTypes();
         }
         // initialize
-        if (qtype_properties && (Object.keys(quarks.list).length == 0)) {
+        if (qtype_properties && (Object.keys(quarks.list).length === 0)) {
             this.props.fetchEditingQuark(this.props.match.params.quark_id, qtype_properties);
 	}
     }
@@ -133,7 +133,7 @@ class AddGluon extends Component {
         // initialize
 	const login_util = new LoginUtil();
 	if (!nextProps.editing_quark ||
-	    (nextProps.match.params.quark_id != nextProps.editing_quark.id)) {
+	    (nextProps.match.params.quark_id !== nextProps.editing_quark.id)) {
 	    this.props.readEditingQuark(nextProps.match.params.quark_id, nextProps.quarks);
 	} else if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
 	    // !Important: Authorization check. This has to be after initialization of editing_quark
@@ -157,7 +157,7 @@ class AddGluon extends Component {
 		    alert(nextProps.added_gluon.message);
 		}
 
-		if (nextProps.added_gluon.status == 1) {
+		if (nextProps.added_gluon.status === 1) {
 		    this.props.history.push('/subjects/relations/' + nextProps.editing_quark.name);
 		}
 	    }

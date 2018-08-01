@@ -16,7 +16,7 @@ class GluonList extends Component {
 	    return (
 		<div key={gluon.id}>
                     {(() => {
-                        if (gluon.id != first.id)
+                        if (gluon.id !== first.id)
                         return <hr />;
                     })()}
                     <Gluon gluon={gluon} />
@@ -26,7 +26,7 @@ class GluonList extends Component {
     }
 
     render () {
-	if (!this.props.quark_property.gluons || this.props.quark_property.gluons.length == 0) {
+	if (!this.props.quark_property.gluons || this.props.quark_property.gluons.length === 0) {
 	    return '';
 	}
 	return (

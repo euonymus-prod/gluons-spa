@@ -1,6 +1,5 @@
 // react
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 // component
 import Navbar from '../containers/navbar';
 import SearchBar from './search_bar';
@@ -14,7 +13,7 @@ class Home extends Component {
          <Navbar />
       <div className="container">
          <div className="logo-top">
-             <img src="/img/logo.gif" />
+             <img src="/img/logo.gif" alt="gluons" />
          </div>
 
          <div className="home">

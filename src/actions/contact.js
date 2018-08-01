@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { SEND_CONTACT_FORM, SEND_CONTACT_FORM_FAILURE } from '../types/contact';
 import { API_URI } from '../statics';
-import LoginUtil from '../utils/login';
 
 export const sendContactForm = (form) => {
     return dispatch => {

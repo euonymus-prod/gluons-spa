@@ -4,7 +4,7 @@ Thanks to redux-form
 */
 // react
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // redux
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -77,7 +77,7 @@ class EditGluon extends Component {
 		    alert(nextProps.editing_gluon.message);
 		}
 
-		if (nextProps.editing_gluon.status == 1) {
+		if (nextProps.editing_gluon.status === 1) {
 	    	    this.props.history.push('/subjects/relations/' + nextProps.editing_gluon.result.active.name);
 		}
 	    }
@@ -120,7 +120,7 @@ class EditGluon extends Component {
 
  render () {
      const { editing_gluon, gluon_types } = this.props;
-     if (!editing_gluon || (editing_gluon.status != -1) || !gluon_types) {
+     if (!editing_gluon || (editing_gluon.status !== -1) || !gluon_types) {
 	 return ''
      }
 
@@ -189,6 +189,7 @@ export default connect(
   ({ logged_in_user, gluon_types, editing_gluon, submit_count }, ownProps) => {
     let ret = { 
 	initialValues: editing_gluon,
+	validate,
 	logged_in_user, gluon_types, editing_gluon, submit_count
     };
     return ret

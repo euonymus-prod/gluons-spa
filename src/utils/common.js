@@ -19,11 +19,11 @@ class Util {
     date2str(date, accuracy) {
 	if (!date) return '';
 	let format = '';
-	if (accuracy == 'year') {
+	if (accuracy === 'year') {
 	    format = 'YYYY';
-	} else if (accuracy == 'month') {
+	} else if (accuracy === 'month') {
 	    format = 'YYYY-MM';
-	} else if (accuracy == 'day') {
+	} else if (accuracy === 'day') {
 	    format = 'YYYY-MM-DD';
 	} else {
 	    format = 'YYYY-MM-DD';
@@ -45,15 +45,16 @@ class Util {
     sanitizeFormData(form) {
 	let ret = {};
 	Object.keys(form).map((value, index) => {
-	    if ( (form[value] == null) || (typeof form[value] == 'undefined')) {
-		return;
+	    if ( (form[value] === null) || (typeof form[value] === 'undefined')) {
+		return null;
 	    }
 
-	    if (typeof form[value] == 'boolean') {
+	    if (typeof form[value] === 'boolean') {
 		ret[value] = form[value] ? 1 : 0;
 	    } else {
 		ret[value] = form[value];
 	    }
+	    return null
 	});
 	return ret;
     }

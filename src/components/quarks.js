@@ -13,7 +13,7 @@ class Quarks extends Component {
 
     renderQuarks() {
 	const { current_quarks } = this.props;
-	if (current_quarks.results.length == 0) {
+	if (current_quarks.results.length === 0) {
 	    if (current_quarks.pagination.has_next) {
 		return '';
 	    } else {
@@ -30,7 +30,7 @@ class Quarks extends Component {
 	    return (
 		<div key={quark.id}>
                     {(() => {
-                        if (quark.id != first.id)
+                        if (quark.id !== first.id)
                         return <hr />;
                     })()}
                     <QuarkInList quark_in_list={quark} />

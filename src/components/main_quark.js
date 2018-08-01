@@ -13,7 +13,7 @@ class MainQuark extends Component {
 	return (
            <div className="col-md-3 card subject-main">
                <div className="subject-image">
-                   <img src={quark.image_path} className="card-img-top" />
+                   <img src={quark.image_path} className="card-img-top" alt={quark.name} />
                </div>
 
                <div className="card-block">

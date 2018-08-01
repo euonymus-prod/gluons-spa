@@ -1,9 +1,7 @@
 // general
 import _ from 'lodash';
-import axios from 'axios';
 // react
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -49,7 +47,7 @@ class SubGluonList extends Component {
 	if (!quarks.list[sub_quark.id] || !quarks.list[sub_quark.id].is_gluon_fetched) {
 	    return '';
 	}
-	if (sub_gluon_side == 'none') {
+	if (sub_gluon_side === 'none') {
 	    return '';
 	}
 

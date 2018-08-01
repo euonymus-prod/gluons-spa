@@ -1,9 +1,7 @@
 // general
 import _ from 'lodash';
-import axios from 'axios';
 // react
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -16,7 +14,7 @@ import { fetchPickups } from '../actions/quark';
 class TopPickups extends Component {
     componentWillMount() {
 	const { pickups, qtype_properties } = this.props;
-	if (pickups.length == 0) {
+	if (pickups.length === 0) {
 	    this.props.fetchPickups(qtype_properties);
 	}
     }
@@ -34,7 +32,7 @@ class TopPickups extends Component {
 
     render () {
 	const { pickups } = this.props;
-	if (pickups.length == 0) {
+	if (pickups.length === 0) {
 	    return '';
 	}
 

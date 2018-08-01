@@ -1,6 +1,5 @@
 // react
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ReactGa from 'react-ga';
 // redux
 import { connect } from 'react-redux';
@@ -61,16 +60,16 @@ class Detail extends Component {
         const { current_quark } = this.props;
         // initialize
 
-	if (nextProps.current_quark && nextProps.current_quark.hasOwnProperty('status') && nextProps.current_quark.status == 0) {
+	if (nextProps.current_quark && nextProps.current_quark.hasOwnProperty('status') && nextProps.current_quark.status === 0) {
 	    if (!current_quark) {
 		alert(nextProps.current_quark.message);
 	    }
 	    return false;
 	}
 	
-	// Note: 以下ちょっと様子見。Object.keys(quarks.list).length == 0 のチェックがなぜ必要だったのか。
-        // if (qtype_properties && (Object.keys(nextProps.quarks.list).length == 0) && (Object.keys(quarks.list).length == 0)) {
-        if (nextProps.qtype_properties && (Object.keys(nextProps.quarks.list).length == 0)) {
+	// Note: 以下ちょっと様子見。Object.keys(quarks.list).length === 0 のチェックがなぜ必要だったのか。
+        // if (qtype_properties && (Object.keys(nextProps.quarks.list).length === 0) && (Object.keys(quarks.list).length === 0)) {
+        if (nextProps.qtype_properties && (Object.keys(nextProps.quarks.list).length === 0)) {
 	    if (nextProps.quarks.error_message) {
 		alert(nextProps.quarks.error_message)
 	    } else {
@@ -82,8 +81,8 @@ class Detail extends Component {
 		this.props.changeCurrentQuark(newQuark);
 	    }
 	} else if (
-	    (nextProps.match.params.quark_name != this.props.match.params.quark_name) ||
-            (nextProps.match.params.quark_name != nextProps.current_quark.name)
+	    (nextProps.match.params.quark_name !== this.props.match.params.quark_name) ||
+            (nextProps.match.params.quark_name !== nextProps.current_quark.name)
 	) {
 	    let newQuark = nextProps.quarks.list[nextProps.quarks.quark_name2id[nextProps.match.params.quark_name]]
 	    if (newQuark) {
@@ -93,13 +92,13 @@ class Detail extends Component {
 	// --------------------------------------------------------
 	
 	if (nextProps.sub_gluon_side) {
-	    if (!this.props.sub_gluon_side || nextProps.sub_gluon_side != this.props.sub_gluon_side) {
-		if (nextProps.sub_gluon_side == 'active') {
+	    if (!this.props.sub_gluon_side || nextProps.sub_gluon_side !== this.props.sub_gluon_side) {
+		if (nextProps.sub_gluon_side === 'active') {
 		    this.setState({
 			'activeActiveness':  'active',
 			'noneActiveness':    '',
 		    })
-		} else if (nextProps.sub_gluon_side == 'none') {
+		} else if (nextProps.sub_gluon_side === 'none') {
 		    this.setState({
 			'activeActiveness':  '',
 			'noneActiveness':    'active',

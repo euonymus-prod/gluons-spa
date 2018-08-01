@@ -1,10 +1,8 @@
-import _ from 'lodash';
 import { FETCH_ONE_QUARK, FETCH_ONE_QUARK_FAILURE, FETCH_QUARKS, SEARCH_QUARKS, FETCH_PICKUPS, ADD_QUARK,
 	 FETCH_EDITING_QUARK, EDIT_QUARK, DELETE_QUARK } from '../types/quark';
 import { ADD_GLUON, EDIT_GLUON, DELETE_GLUON } from '../types/gluon';
 import { FETCH_GLUONS } from '../types/gluon';
 import { CHANGE_PRIVACY } from '../types/privacy';
-import Util from '../utils/common';
 import QuarkUtil from '../utils/quark';
 import GluonUtil from '../utils/gluon';
 
@@ -60,7 +58,9 @@ export default (state = initState, action) => {
 
 		newQuarks[quark.id] = quark;
 		newQuarkName2Id[quark.name] = quark.id;
+		return null
 	    });
+	    return null
 	});
 	copiedState = {
 	    list:          {...copiedState.list, ...newQuarks },
@@ -75,6 +75,7 @@ export default (state = initState, action) => {
 
 	    newQuarks[quark.id] = quark;
 	    newQuarkName2Id[quark.name] = quark.id;
+	    return null
 	});
 	copiedState = {
 	    list:          {...copiedState.list, ...newQuarks },
@@ -89,6 +90,7 @@ export default (state = initState, action) => {
 
 	    newQuarks[quark.id] = quark;
 	    newQuarkName2Id[quark.name] = quark.id;
+	    return null
 	});
 	copiedState = {
 	    list:          {...copiedState.list, ...newQuarks },
@@ -97,7 +99,7 @@ export default (state = initState, action) => {
 	return copiedState;
 
     case ADD_QUARK:
-	if (action.payload.status == 1) {
+	if (action.payload.status === 1) {
 	    quark = quark_util.addExtendedInfo(action.payload.result, null);
 	    let newState = {
 		list:          { ...state.list, [quark.id]: quark },
@@ -110,7 +112,6 @@ export default (state = initState, action) => {
 
     // This should be optimized to be more presisely configured when reducer should return initState
     case CHANGE_PRIVACY:
-    case ADD_QUARK:
     case EDIT_QUARK:
     case DELETE_QUARK:
     case ADD_GLUON:

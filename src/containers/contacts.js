@@ -1,7 +1,7 @@
 // general
 // react
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 // redux
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -99,7 +99,7 @@ class Contacts extends Component {
       <div className="container">
          <h1>contact us</h1>
          <div className="jumbotron contact-us">
-            <img src="/img/logo.gif" />
+            <img src="/img/logo.gif" alt="gluons" />
             <p>Leverage your knowledge by seeking relations among things, people, ETC. If you’d like to know more about how we can help you, put down anything here.</p>
 
             <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8" className="search_top">

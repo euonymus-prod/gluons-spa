@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { FETCH_ONE_QUARK, FETCH_QUARKS, FETCH_QUARKS_FAILURE, SEARCH_QUARKS } from '../types/quark';
+import { FETCH_QUARKS, FETCH_QUARKS_FAILURE, SEARCH_QUARKS } from '../types/quark';
 import { CHANGE_PRIVACY } from '../types/privacy';
 
 const initState = {results:[], pagination:{current_page:0, has_next:true, has_prev:false}};

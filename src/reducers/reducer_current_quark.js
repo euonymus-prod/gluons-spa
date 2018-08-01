@@ -19,7 +19,7 @@ export default (state = initState, action) => {
 
     case FETCH_GLUONS :
 	let quark_util = new QuarkUtil();
-	if (state.id == action.payload.quark.id) {
+	if (state.id === action.payload.quark.id) {
 		copiedState = quark_util.addGluons(copiedState, action.payload.response);
 	}	
 	return copiedState;
@@ -34,6 +34,8 @@ export default (state = initState, action) => {
     case DELETE_GLUON:
 	return initState
 
+    // TODO: This should be designed little more specificly
+    case FETCH_GLUONS_FAILURE:
     default :
 	return state
     }

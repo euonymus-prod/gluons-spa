@@ -9,25 +9,24 @@ import Util from '../utils/common';
 
 class SubGluon extends Component {
     gluedQuark() {
-	if (this.props.sub_quark_id == this.props.gluon.active_id) {
+	if (this.props.sub_quark_id === this.props.gluon.active_id) {
 	    return this.props.gluon.passive
-	} else if (this.props.sub_quark_id == this.props.gluon.passive_id) {
+	} else if (this.props.sub_quark_id === this.props.gluon.passive_id) {
 	    return this.props.gluon.active
 	}
 	return '';
     }
 
     relationText() {
-	this.props.gluon
 	this.gluedQuark();
 
-	if (this.props.sub_quark_id == this.props.gluon.active_id) {
+	if (this.props.sub_quark_id === this.props.gluon.active_id) {
             return (
               <span>
                   <Link to={`/subjects/relations/${this.gluedQuark().name}`}>{this.gluedQuark().name}</Link> {this.props.gluon.relation} {this.props.gluon.suffix}
               </span>
 	    );
-	} else if (this.props.sub_quark_id == this.props.gluon.passive_id) {
+	} else if (this.props.sub_quark_id === this.props.gluon.passive_id) {
             return (
               <span>
                    <Link to={`/subjects/relations/${this.gluedQuark().name}`}>{this.gluedQuark().name}</Link> は

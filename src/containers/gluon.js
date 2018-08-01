@@ -20,7 +20,7 @@ class Gluon extends Component {
 	if (nextProps.submit_count > this.props.submit_count) {
 
 	    if (nextProps.deleted_gluon) {
-		if (nextProps.gluon.id == nextProps.deleted_gluon.gluon_id) {
+		if (nextProps.gluon.id === nextProps.deleted_gluon.gluon_id) {
 		    if (!nextProps.deleted_gluon.message) {
 			this.props.execLogout();
 			alert('Please login again');
@@ -28,7 +28,7 @@ class Gluon extends Component {
 			alert(nextProps.deleted_gluon.message);
 		    }
 
-		    if (nextProps.deleted_gluon.status == 1) {
+		    if (nextProps.deleted_gluon.status === 1) {
 			this.props.history.push('/subjects/relations/' + nextProps.current_quark.name);
 		    }
 		}
@@ -68,7 +68,7 @@ class Gluon extends Component {
     }
 
     relationText() {
-	if (this.props.current_quark.id == this.props.gluon.active_id) {
+	if (this.props.current_quark.id === this.props.gluon.active_id) {
             return (
                <h4 className="media-heading">
                   {this.props.gluon.active.name} は
@@ -76,7 +76,7 @@ class Gluon extends Component {
                   {this.renderGluonEdits(this.props.gluon)}
                </h4>
 	    );
-	} else if (this.props.current_quark.id == this.props.gluon.passive_id) {
+	} else if (this.props.current_quark.id === this.props.gluon.passive_id) {
             return (
                <h4 className="media-heading">
                   <Link to={`/subjects/relations/${this.gluedQuark().name}`}>{this.gluedQuark().name}</Link> は

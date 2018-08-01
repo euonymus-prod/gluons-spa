@@ -26,9 +26,9 @@ class QuarkUtil {
 	let quark_properties = [];
 	if (quark.quark_properties) {
 	    quark_properties = quark.quark_properties.map(x => {
-			if (!x) {
-				return null;
-			}
+		if (!x) {
+		    return null;
+		}
 		let gluons = response[x.quark_property_id];
 		if (!gluons) {
 		    return null;
@@ -79,6 +79,7 @@ class QuarkUtil {
 	    if (this.form_keys.indexOf(value) >= 0) {
 		ret[value] = sanitized[value];
 	    }
+	    return null;
 	});
 	return ret;
     }

@@ -23,7 +23,7 @@ class QuarkNav extends Component {
 
 		// NOTE: removeDeletedQuark is required, because this is located in navbar.
 		this.props.removeDeletedQuark()
-		if (nextProps.deleted_quark.status == 1) {
+		if (nextProps.deleted_quark.status === 1) {
 		    this.props.history.push('/subjects');
 		}
 	    }
@@ -32,7 +32,7 @@ class QuarkNav extends Component {
 
     onDeleteClick = () => {
 	let r = window.confirm(`Are you sure you want to delete ${this.props.current_quark.name}?`);
-	if (r == true) {
+	if (r === true) {
 	    this.props.deleteQuark(this.props.current_quark.id);
 	}
     }
@@ -40,7 +40,7 @@ class QuarkNav extends Component {
     render () {
         const { current_quark, logged_in_user } = this.props;
 
-	var re = new RegExp("^\/subjects\/relations\/");
+	var re = new RegExp("^/subjects/relations/");
 	if (!re.test(this.props.location.pathname) || !current_quark) {
 	    return '';
 	}

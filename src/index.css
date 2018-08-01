@@ -22,3 +22,19 @@ button.dropdown-toggle {
     margin: 5px 15px 5px 15px;
     color: #777;
 }
+
+.nav>li>button {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+.nav-pills>li>button {
+    border-radius: 4px;
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.nav-pills>li.active>button, .nav-pills>li.active>button:focus, .nav-pills>li.active>button:hover {
+    color: #fff;
+    background-color: #337ab7;
+}

@@ -22,6 +22,10 @@ class Login extends Component {
 	password: []
     };
 
+    componentDidMount() {
+	document.title = "Login -\nグルーオンズ"
+    }
+
     handleUsernameChange = (event) => {
 	this.setState({username: event.target.value});
     }

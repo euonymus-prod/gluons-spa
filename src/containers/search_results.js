@@ -15,6 +15,7 @@ class SearchResults extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+	document.title = nextProps.match.params.keywords +  "の検索結果 -\nグルーオンズ"
 	if (nextProps.match.params.keywords !== this.props.match.params.keywords) {
 	    this.props.searchQuarks(nextProps.qtype_properties, nextProps.match.params.keywords, nextProps.privacy);
 	}

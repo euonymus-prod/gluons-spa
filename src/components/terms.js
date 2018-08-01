@@ -2,6 +2,10 @@ import React from 'react';
 import Navbar from '../containers/navbar';
 
 export default class Terms extends React.Component {
+    componentDidMount() {
+	document.title = "Terms of Service -\nグルーオンズ"
+    }
+    
  render () {
    return (
       <div>

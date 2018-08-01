@@ -75,6 +75,11 @@ const renderSelect = ({ input, label, type, meta: { touched, error } }) => (
     )
 
 class Contacts extends Component {
+    componentDidMount() {
+	document.title = "お問い合わせ -\nグルーオンズ"
+    }
+
+
     componentWillReceiveProps(nextProps) {
 	// after editing post
 	if (nextProps.submit_count > this.props.submit_count) {

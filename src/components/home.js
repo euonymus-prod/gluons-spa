@@ -7,6 +7,10 @@ import TopPickups from '../containers/top_pickups';
 
 
 class Home extends Component {
+    componentDidMount() {
+	document.title = "気になる人、物、会社の隠れた関係を見つけよう -\nグルーオンズ"
+    }
+
     render () {
 	return (
       <div>

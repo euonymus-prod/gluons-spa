@@ -41,13 +41,12 @@ class Detail extends Component {
     };
 
     componentDidMount() {
-	document.title = this.props.match.params.quark_name +  " -\nグルーオンズ"
-
 	const page = this.props.location.pathname;
 	this.trackPage(page);
     }
 
     componentWillReceiveProps(nextProps) {
+	document.title = nextProps.match.params.quark_name +  " -\nグルーオンズ"
 
 	const currentPage = this.props.location.pathname;
 	const nextPage = nextProps.location.pathname;

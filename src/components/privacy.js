@@ -2,6 +2,10 @@ import React from 'react';
 import Navbar from '../containers/navbar';
 
 export default class Privacy extends React.Component {
+    componentDidMount() {
+	document.title = "Privacy Policy -\nグルーオンズ"
+    }
+    
  render () {
    return (
       <div>

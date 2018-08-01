@@ -22,6 +22,10 @@ class Signup extends Component {
 	password: []
     };
 
+    componentDidMount() {
+	document.title = "Sign up -\nグルーオンズ"
+    }
+
     handleUsernameChange = (event) => {
 	this.setState({username: event.target.value});
     }

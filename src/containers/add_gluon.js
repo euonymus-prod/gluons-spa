@@ -21,6 +21,8 @@ import { fetchEditingQuark, readEditingQuark, searchQuarks } from '../actions/qu
 import { addGluon } from '../actions/gluon';
 // common util
 import LoginUtil from '../utils/login';
+// css
+import '../autosuggest.css';
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the

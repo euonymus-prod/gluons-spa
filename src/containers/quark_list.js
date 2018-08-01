@@ -13,6 +13,9 @@ class QuarkList extends Component {
 	// const { qtype_properties, privacy } = this.props;
 	// this.props.fetchQuarks(qtype_properties, privacy);
     }
+    componentDidMount() {
+	document.title = "Quarks -\nグルーオンズ"
+    }
 
     componentWillReceiveProps(nextProps) {
 	// if ( next page ) {

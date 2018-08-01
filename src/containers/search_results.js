@@ -12,6 +12,7 @@ class SearchResults extends Component {
     componentWillMount() {
 	// const { qtype_properties, privacy } = this.props;
 	// this.props.searchQuarks(qtype_properties, this.props.match.params.keywords, privacy);
+	document.title = this.props.match.params.keywords +  "の検索結果 -\nグルーオンズ"
     }
 
     componentWillReceiveProps(nextProps) {

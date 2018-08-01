@@ -10,10 +10,6 @@ import Navbar from '../containers/navbar';
 import QuarkInList from './quark_in_list';
 
 class Quarks extends Component {
-    componentDidMount() {
-	document.title = "Quarks -\nグルーオンズ"
-    }
-
     renderQuarks() {
 	const { current_quarks } = this.props;
 	if (current_quarks.results.length === 0) {

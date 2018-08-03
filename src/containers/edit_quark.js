@@ -63,6 +63,7 @@ class EditQuark extends Component {
             this.props.fetchQuarkTypes();
         }
         // initialize
+        // MEMO: fetchEditingQuark might need to be called in componentWillReceiveProps as well.
         this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
     }
 

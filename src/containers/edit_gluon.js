@@ -56,6 +56,7 @@ class EditGluon extends Component {
             this.props.fetchGluonTypes();
         }
         // initialize
+        // MEMO: fetchEditingGluon might need to be called in componentWillReceiveProps as well.
         this.props.fetchEditingGluon(this.props.match.params.id);
     }
 

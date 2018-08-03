@@ -134,7 +134,10 @@ class AddGluon extends Component {
     componentWillReceiveProps(nextProps) {
         // initialize
 	const login_util = new LoginUtil();
-	if (!nextProps.editing_quark ||
+
+	if (!nextProps.quarks.list[nextProps.match.params.quark_id]) {
+            this.props.fetchEditingQuark(nextProps.match.params.quark_id, nextProps.qtype_properties);
+	} else if (!nextProps.editing_quark ||
 	    (nextProps.match.params.quark_id !== nextProps.editing_quark.id)) {
 	    this.props.readEditingQuark(nextProps.match.params.quark_id, nextProps.quarks);
 	} else if (!login_util.isLoggedIn(nextProps.logged_in_user)) {

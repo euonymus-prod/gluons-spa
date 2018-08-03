@@ -1,4 +1,4 @@
-import { FETCH_QUARKS, FETCH_QUARKS_FAILURE, SEARCH_QUARKS } from '../types/quark';
+import { FETCH_QUARKS, FETCH_QUARKS_FAILURE, SEARCH_QUARKS, INIT_QUARKS } from '../types/quark';
 import { CHANGE_PRIVACY } from '../types/privacy';
 
 const initState = {results:[], pagination:{current_page:0, has_next:true, has_prev:false}};
@@ -16,6 +16,7 @@ export default (state = initState, action) => {
     case FETCH_QUARKS_FAILURE:
 	return [{'error': 'failed to fetch'}]
 
+    case INIT_QUARKS:
     case CHANGE_PRIVACY:
 	return initState
 

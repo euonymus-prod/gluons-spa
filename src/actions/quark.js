@@ -18,6 +18,8 @@ import {
          // deleting
          DELETE_QUARK, DELETE_QUARK_FAILURE,
          REMOVE_DELETED_QUARK,
+         // reset current_quarks
+         INIT_QUARKS,
 } from '../types/quark';
 import { API_URI } from '../statics';
 import LoginUtil from '../utils/login';
@@ -299,6 +301,13 @@ export const deleteQuark = (quark_id) => {
 export const removeDeletedQuark = () => {
     return {
        type: REMOVE_DELETED_QUARK,
+       payload: null
+    };
+}
+
+export const initQuarks = () => {
+    return {
+       type: INIT_QUARKS,
        payload: null
     };
 }

@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 // component
 import Quarks from '../components/quarks';
 // action
-import { fetchQuarks } from '../actions/quark';
+import { initQuarks, fetchQuarks } from '../actions/quark';
 
 
 class QuarkList extends Component {
     componentWillMount() {
 	// const { qtype_properties, privacy } = this.props;
 	// this.props.fetchQuarks(qtype_properties, privacy);
-    }
-    componentDidMount() {
+	this.props.initQuarks()
 	document.title = "Quarks -\nグルーオンズ"
     }
 
@@ -40,5 +39,5 @@ class QuarkList extends Component {
     }
 }
 
-export default connect(state => state, { fetchQuarks })(QuarkList);
+export default connect(state => state, { initQuarks, fetchQuarks })(QuarkList);
 

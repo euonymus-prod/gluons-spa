@@ -112,7 +112,7 @@ export const fetchPickups = (qtype_properties) => {
 	    .then((response) => {
 		dispatch({
 		    type: FETCH_PICKUPS,
-		    payload: {qtype_properties, response: response.data.results}
+		    payload: {qtype_properties, response: response.data}
 		});
 	    }).catch((response) => dispatch({
 		type: FETCH_PICKUPS_FAILURE,

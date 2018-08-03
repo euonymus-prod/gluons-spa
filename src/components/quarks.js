@@ -56,7 +56,7 @@ class Quarks extends Component {
                           pageStart={0}
                           loadMore={this.loadMore}
                           hasMore={current_quarks.pagination.has_next}
-                          threshold={1500}
+                          threshold={250}
                           loader={<div className="loader" key={0}>Loading ...</div>} >
                           {this.renderQuarks()}
                       </InfiniteScroll>

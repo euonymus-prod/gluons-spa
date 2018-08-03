@@ -70,22 +70,8 @@ export default (state = initState, action) => {
 
     case FETCH_QUARKS:
     case SEARCH_QUARKS:
-	action.payload.response.results.map(quark => {
-	    quark = quark_util.addExtendedInfo(quark, action.payload.qtype_properties);
-
-	    newQuarks[quark.id] = quark;
-	    newQuarkName2Id[quark.name] = quark.id;
-	    return null
-	});
-	copiedState = {
-	    list:          {...copiedState.list, ...newQuarks },
-	    quark_name2id: {...state.quark_name2id, ...newQuarkName2Id }
-	};
-
-	return copiedState;
-
     case FETCH_PICKUPS:
-	action.payload.response.map(quark => {
+	action.payload.response.results.map(quark => {
 	    quark = quark_util.addExtendedInfo(quark, action.payload.qtype_properties);
 
 	    newQuarks[quark.id] = quark;

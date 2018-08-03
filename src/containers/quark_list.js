@@ -26,6 +26,7 @@ class QuarkList extends Component {
     quarkFetcher = (page) => {
 	const { qtype_properties, privacy } = this.props;
 	this.props.fetchQuarks(qtype_properties, privacy, 100, page);
+	return false
     }
 
     render () {

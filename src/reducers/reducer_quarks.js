@@ -8,7 +8,6 @@ import GluonUtil from '../utils/gluon';
 
 const initState = {list: {}, quark_name2id: {}};
 export default (state = initState, action) => {
-    let copiedState = JSON.parse(JSON.stringify(state));
     let quark_util = new QuarkUtil();
     
     let newQuarks = {};
@@ -17,31 +16,24 @@ export default (state = initState, action) => {
 
     switch(action.type) {
     case FETCH_ONE_QUARK:
-	quark = quark_util.addExtendedInfo(action.payload.response, action.payload.qtype_properties);
-	newQuarks = {
-	    list:          { ...state.list, [quark.id]: quark },
-	    quark_name2id: {...state.quark_name2id, [quark.name]: quark.id }
+    case FETCH_EDITING_QUARK:
+	return {
+	    list:{ ...state.list,
+		  [action.payload.response.id]: quark_util.addExtendedInfo(action.payload.response, action.payload.qtype_properties)
+		 },
+	    quark_name2id: {...state.quark_name2id, [action.payload.response.name]: action.payload.response.id }
 	};
-	return newQuarks;
+
     case FETCH_ONE_QUARK_FAILURE:
-	newQuarks = {
+	return {
 	    list:          state.list,
 	    quark_name2id: state.quark_name2id,
 	    error_message: 'failed to fetch'
 	};
-	return newQuarks;
 
-    case FETCH_EDITING_QUARK:
-	quark = quark_util.addExtendedInfo(action.payload.response, action.payload.qtype_properties);
-	newQuarks = {
-	    list:          { ...state.list, [quark.id]: quark },
-	    quark_name2id: {...state.quark_name2id, [quark.name]: quark.id }
-	};
-	return newQuarks;
     case FETCH_GLUONS:
 	// add gluons on current quark 
-	let current_quark = JSON.parse(JSON.stringify(quark_util.addExtendedInfo(copiedState.list[action.payload.quark.id], action.payload.qtype_properties)));
-	copiedState.list[action.payload.quark.id] = quark_util.addGluons(current_quark, action.payload.response);
+	let current_quark = quark_util.addExtendedInfo(state.list[action.payload.quark.id],action.payload.qtype_properties);
 
 	// add quarks on gluons
 	Object.keys(action.payload.response).map((value, index) => {
@@ -63,8 +55,11 @@ export default (state = initState, action) => {
 	    return null
 	});
 	return {
-	    list:          {...copiedState.list, ...newQuarks },
-	    quark_name2id: {...state.quark_name2id, ...newQuarkName2Id }
+	    list:{...state.list,
+		  ...newQuarks,
+		  [action.payload.quark.id]: quark_util.addGluons(current_quark, action.payload.response)
+		 },
+	    quark_name2id: {...state.quark_name2id, ...newQuarkName2Id}
 	};
 
     case FETCH_QUARKS:

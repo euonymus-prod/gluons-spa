@@ -1,21 +1,24 @@
+import _ from 'lodash';
 import Util from '../utils/common';
 class QuarkUtil {
     addExtendedInfo(quark, qtype_properties, is_gluon_fetched = false) {
+	//let copiedQuark = JSON.parse(JSON.stringify(quark));
+	let copiedQuark = _.cloneDeep(quark);
 	// Additional initial info on this quark
 
 	let util = new Util();
-	quark.period_str = util.period2str(quark);
+	copiedQuark.period_str = util.period2str(copiedQuark);
 	
 	let quark_properties = null;
-	if (qtype_properties && quark.quark_type_id in qtype_properties){
-	    quark_properties = qtype_properties[quark.quark_type_id];
+	if (qtype_properties && copiedQuark.quark_type_id in qtype_properties){
+	    quark_properties = qtype_properties[copiedQuark.quark_type_id];
 	    if (!quark_properties) {
 		quark_properties = null;
 	    }
 	}
-	quark.quark_properties = quark_properties;
-	quark.is_gluon_fetched = is_gluon_fetched;
-	return quark;
+	copiedQuark.quark_properties = quark_properties;
+	copiedQuark.is_gluon_fetched = is_gluon_fetched;
+	return copiedQuark;
     }
 
     addGluons(quark, response) {

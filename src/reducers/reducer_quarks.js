@@ -62,11 +62,10 @@ export default (state = initState, action) => {
 	    });
 	    return null
 	});
-	copiedState = {
+	return {
 	    list:          {...copiedState.list, ...newQuarks },
 	    quark_name2id: {...state.quark_name2id, ...newQuarkName2Id }
 	};
-	return copiedState;
 
     case FETCH_QUARKS:
     case SEARCH_QUARKS:
@@ -78,11 +77,10 @@ export default (state = initState, action) => {
 	    newQuarkName2Id[quark.name] = quark.id;
 	    return null
 	});
-	copiedState = {
-	    list:          {...copiedState.list, ...newQuarks },
+	return {
+	    list:          {...state.list, ...newQuarks },
 	    quark_name2id: {...state.quark_name2id, ...newQuarkName2Id }
 	};
-	return copiedState;
 
     case ADD_QUARK:
 	if (action.payload.status === 1) {

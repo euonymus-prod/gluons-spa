@@ -1,5 +1,6 @@
 // react
 import React, { Component } from 'react';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -9,11 +10,20 @@ import { initQuarks, fetchQuarks } from '../actions/quark';
 
 
 class QuarkList extends Component {
+    static propTypes = {
+	intl: intlShape.isRequired
+    }
+
     componentWillMount() {
 	// const { qtype_properties, privacy } = this.props;
 	// this.props.fetchQuarks(qtype_properties, privacy);
 	this.props.initQuarks()
-	document.title = "Quarks -\nグルーオンズ"
+	document.title = "Quarks -\n" +  this.props.intl.formatMessage(
+	    {
+		id: 'noun_gluons',
+		defaultMessage: "gluons"
+	    }
+	)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -39,5 +49,5 @@ class QuarkList extends Component {
     }
 }
 
-export default connect(state => state, { initQuarks, fetchQuarks })(QuarkList);
+export default connect(state => state, { initQuarks, fetchQuarks })(injectIntl(QuarkList));
 

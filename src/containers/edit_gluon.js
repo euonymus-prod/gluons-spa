@@ -5,6 +5,7 @@ Thanks to redux-form
 // react
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
+import { FormattedMessage } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -125,26 +126,47 @@ class EditGluon extends Component {
 	 return ''
      }
 
+const name = 'hoge'
   const { handleSubmit } = this.props;
   return (
       <div>
          <Navbar />
       <div className="container">
         <div className="">
-           <h2>"{editing_gluon.active.name}" と "{editing_gluon.passive.name}" の関係</h2>
+           <h2>
+              <FormattedMessage
+                 id="title_edit_gluon"
+                 defaultMessage={`Relation between { active_quark } and { passive_quark }`}
+                 values={{ active_quark: <span>{editing_gluon.active.name}</span>,
+			   passive_quark: <span>{editing_gluon.passive.name}</span>
+		 }} />
+           </h2>
         </div>
 
         <div>
            <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8">
               <fieldset>
-                 <legend>Add New Gluon</legend>
+                 <legend>Edit Gluon</legend>
                  <div className="form-group">
 
                     <Field name="gluon_type_id" component={this.renderSelect}
                            type="select" id="gluon-type-id" label="Gluon Type" />
                     <br />
-                    {editing_gluon.active.name} は {editing_gluon.passive.name} ...
+                    <FormattedMessage
+                       id="message_edit_gluon_part1"
+                       defaultMessage={`{ active_quark }`}
+                       values={{ active_quark: <span>{editing_gluon.active.name}</span>,
+		                 passive_quark: <span>{editing_gluon.passive.name}</span>
+                    }} />
+
+
                     <Field name="relation" component={renderField} type="text" id="relation" label="Relation" />
+
+                    <FormattedMessage
+                       id="message_edit_gluon_part2"
+                       defaultMessage={`{ passive_quark }`}
+                       values={{passive_quark: <span>{editing_gluon.passive.name}</span>}} />
+
                     <Field name="suffix" component={renderField} type="text" id="suffix" label="Suffix" />
                     <hr />
 

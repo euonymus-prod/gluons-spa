@@ -2,6 +2,7 @@
 import _ from 'lodash';
 // react
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -54,7 +55,12 @@ class SubGluonList extends Component {
 	return (
           <div className="subject-relation-sub">
               <div className="well ">
-                 <h4>{this.props.sub_quark.name}とは</h4>
+                 <h4>
+              <FormattedMessage
+                 id="title_sub_gluon_list"
+                 defaultMessage={`What is { quark }?`}
+                 values={{ quark: <span>{this.props.sub_quark.name}</span> }} />
+                 </h4>
                  {this.props.sub_quark.description}
                  <ul className="subject-list-relation">
                     {this.renderSubGluon()}

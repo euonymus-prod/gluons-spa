@@ -29,9 +29,16 @@ class GluonList extends Component {
 	if (!this.props.quark_property.gluons || this.props.quark_property.gluons.length === 0) {
 	    return '';
 	}
+
+	let paragraph_title = this.props.quark_property.caption
+	let locale = JSON.parse(localStorage.getItem('locale'));
+	if (locale && locale === 'ja') {
+	    paragraph_title = this.props.quark_property.caption_ja
+	}
+
 	return (
            <div>
-               <h2>{this.props.quark_property.caption_ja}</h2>
+               <h2>{paragraph_title}</h2>
                <div className="related" >
                    <div className="well subject-relation white">
                        {this.renderGluons()}

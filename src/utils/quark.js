@@ -42,11 +42,15 @@ class QuarkUtil {
 	}
 
 	let active_prop = {id: 'active', quark_type_id: 2, quark_property_id: 'active', is_required: false};
-	active_prop['quark_property'] = {id: 'active', caption_ja: quark.name + 'とは',
+	active_prop['quark_property'] = {id: 'active',
+					 caption: "What is " + quark.name + "?",
+					 caption_ja: quark.name + 'とは',
 					 gluons: response.active}
 	quark_properties.push(active_prop);
 	let passive_prop = {id: 'passive', quark_type_id: 2, quark_property_id: 'passive', is_required: false};
-	passive_prop['quark_property'] = {id: 'passive', caption_ja: quark.name + 'に関する事項',
+	passive_prop['quark_property'] = {id: 'passive',
+					  caption: "Quarks Related to " + quark.name,
+					  caption_ja: quark.name + 'に関する事項',
 					  gluons: response.passive}
 	quark_properties.push(passive_prop);
 

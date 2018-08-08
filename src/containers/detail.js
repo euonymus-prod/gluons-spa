@@ -1,6 +1,7 @@
 // react
 import React, { Component } from 'react';
 import ReactGa from 'react-ga';
+import { injectIntl, intlShape } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -14,6 +15,10 @@ import { changeCurrentQuark } from '../actions/quark';
 
 
 class Detail extends Component {
+    static propTypes = {
+	intl: intlShape.isRequired
+    }
+
     constructor(props) {
         super(props);
 
@@ -46,7 +51,12 @@ class Detail extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-	document.title = nextProps.match.params.quark_name +  " -\nグルーオンズ"
+	document.title = nextProps.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
+	    {
+		id: 'noun_gluons',
+		defaultMessage: "gluons"
+	    }
+	)
 
 	const currentPage = this.props.location.pathname;
 	const nextPage = nextProps.location.pathname;
@@ -166,4 +176,4 @@ class Detail extends Component {
 function mapStateToProps(state) {
     return state;
 }
-export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(Detail);
+export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(injectIntl(Detail));

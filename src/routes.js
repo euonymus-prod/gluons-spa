@@ -7,9 +7,10 @@ import { LastLocationProvider } from 'react-router-last-location';
 import ScrollMemory from 'react-router-scroll-memory';
 
 // component
-import GlobalFooter from './components/global_footer';
-
+import GlobalFooter  from './components/global_footer';
 import Home          from './components/home';
+import Terms         from './components/terms';
+import Privacy       from './components/privacy';
 import Detail        from './containers/detail';
 import SearchResults from './containers/search_results';
 import QuarkList     from './containers/quark_list';
@@ -20,9 +21,6 @@ import EditQuarkForm from './containers/edit_quark';
 import AddGluon      from './containers/add_gluon';
 import EditGluonForm from './containers/edit_gluon';
 import Contacts      from './containers/contacts';
-
-import Terms         from './components/terms';
-import Privacy       from './components/privacy';
 // action
 import { initLogin } from './actions/login';
 import { initPrivacy } from './actions/privacy';

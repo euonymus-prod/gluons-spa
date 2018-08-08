@@ -3,10 +3,10 @@ const ja_JP = {
     title_home: "気になる人、物、会社の隠れた関係を見つけよう -\nグルーオンズ",
     title_edit_gluon: "{ active_quark } と { passive_quark } の関係",
     title_sub_gluon_list: "{ quark } とは",
+    menu_navbar_list: '一覧',
+    placeholder_home_searchbar: "人名、組織名、商品名、ブランド名などで検索",
     message_home_main: "気になる人、物、会社の隠れた関係を見つけよう",
     message_edit_gluon_part1: "{ active_quark } は { passive_quark } ...",
     message_edit_gluon_part2: " ",
-    placeholder_home_searchbar: "人名、組織名、商品名、ブランド名などで検索",
-    menu_navbar_list: '一覧',
 }
 export default ja_JP;

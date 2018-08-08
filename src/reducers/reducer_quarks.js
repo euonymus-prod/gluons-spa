@@ -12,7 +12,6 @@ export default (state = initState, action) => {
     
     let newQuarks = {};
     let newQuarkName2Id = {};
-    let quark = {};
 
     switch(action.type) {
     case FETCH_ONE_QUARK:
@@ -39,17 +38,15 @@ export default (state = initState, action) => {
 	Object.keys(action.payload.response).map((value, index) => {
 	    action.payload.response[value].map(x => {
 		let gluon_util = new GluonUtil();
-		quark = gluon_util.gluedQuark(action.payload.quark, x);
-		if (!quark) {
+		let glued_quark = gluon_util.gluedQuark(action.payload.quark, x);
+		if (!glued_quark) {
 		    return false;
 		}
-		if (state.list[quark.id] && state.list[quark.id].is_gluon_fetched) {
+		if (state.list[glued_quark.id] && state.list[glued_quark.id].is_gluon_fetched) {
 		    return false;
 		}
-		quark = quark_util.addExtendedInfo(quark, action.payload.qtype_properties);
-
-		newQuarks[quark.id] = quark;
-		newQuarkName2Id[quark.name] = quark.id;
+		newQuarks[glued_quark.id] = quark_util.addExtendedInfo(glued_quark, action.payload.qtype_properties);
+		newQuarkName2Id[glued_quark.name] = glued_quark.id;
 		return null
 	    });
 	    return null
@@ -78,13 +75,13 @@ export default (state = initState, action) => {
 	};
 
     case ADD_QUARK:
+	let quark = {};
 	if (action.payload.status === 1) {
 	    quark = quark_util.addExtendedInfo(action.payload.result, null);
-	    let newState = {
+	    return {
 		list:          { ...state.list, [quark.id]: quark },
 		quark_name2id: {...state.quark_name2id, [quark.name]: quark.id }
 	    };
-	    return newState;
 	} else {
 	    return state
 	}

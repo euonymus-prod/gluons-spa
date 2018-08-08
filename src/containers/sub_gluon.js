@@ -31,8 +31,6 @@ class SubGluon extends Component {
     }
 
     relationText() {
-	this.gluedQuark();
-
 	let glue_sentence_before_link = ''
 	let glue_sentence_after_link = ' '
 	if (this.props.sub_quark_id === this.props.gluon.active_id) {

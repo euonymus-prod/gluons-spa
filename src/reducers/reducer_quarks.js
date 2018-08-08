@@ -31,10 +31,10 @@ export default (state = initState, action) => {
 	};
 
     case FETCH_GLUONS:
-	// add gluons on current quark 
+	// add quark_properties on current quark 
 	let current_quark = quark_util.addExtendedInfo(state.list[action.payload.quark.id],action.payload.qtype_properties);
 
-	// add quarks on gluons
+	// add glued quarks
 	Object.keys(action.payload.response).map((value, index) => {
 	    action.payload.response[value].map(x => {
 		let gluon_util = new GluonUtil();
@@ -51,6 +51,8 @@ export default (state = initState, action) => {
 	    });
 	    return null
 	});
+
+	// add gluons on current quark
 	return {
 	    list:{...state.list,
 		  ...newQuarks,

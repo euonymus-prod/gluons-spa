@@ -4,14 +4,15 @@ class QuarkUtil {
     addExtendedInfo(quark, qtype_properties, is_gluon_fetched = false) {
 	//let copiedQuark = JSON.parse(JSON.stringify(quark));
 	let copiedQuark = _.cloneDeep(quark);
+	let copiedQtypeProperties = _.cloneDeep(qtype_properties);
+	
 	// Additional initial info on this quark
-
 	let util = new Util();
 	copiedQuark.period_str = util.period2str(copiedQuark);
 	
 	let quark_properties = null;
-	if (qtype_properties && copiedQuark.quark_type_id in qtype_properties){
-	    quark_properties = qtype_properties[copiedQuark.quark_type_id];
+	if (copiedQtypeProperties && copiedQuark.quark_type_id in copiedQtypeProperties){
+	    quark_properties = copiedQtypeProperties[copiedQuark.quark_type_id];
 	    if (!quark_properties) {
 		quark_properties = null;
 	    }
@@ -23,7 +24,7 @@ class QuarkUtil {
 
     addGluons(quark, response) {
 	if (quark.is_gluon_fetched) {
-		return quark;
+	    return quark;
 	}
 
 	let quark_properties = [];

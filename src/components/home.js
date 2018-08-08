@@ -1,5 +1,6 @@
 // react
 import React, { Component } from 'react';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 // component
 import Navbar from '../containers/navbar';
 import SearchBar from './search_bar';
@@ -7,8 +8,17 @@ import TopPickups from '../containers/top_pickups';
 
 
 class Home extends Component {
+    static propTypes = {
+	intl: intlShape.isRequired
+    }
+
     componentDidMount() {
-	document.title = "気になる人、物、会社の隠れた関係を見つけよう -\nグルーオンズ"
+	document.title = this.props.intl.formatMessage(
+	    {
+		id: 'title_home',
+		defaultMessage: "Search hidden relations on your favorite things, people, company... -\ngluons"
+	    }
+	)
     }
 
     render () {
@@ -21,7 +31,12 @@ class Home extends Component {
          </div>
 
          <div className="home">
-            <p className="text-center">気になる人、物、会社の隠れた関係を見つけよう</p>
+            <p className="text-center">
+               <FormattedMessage
+                  id="message_home_main"
+                  defaultMessage={`Search hidden relations on your favorite things, people, company...`} />
+            </p>
+
             <SearchBar type="home" />
             <TopPickups />
          </div>
@@ -31,4 +46,4 @@ class Home extends Component {
 	)
     }
 }
-export default Home;
+export default injectIntl(Home);

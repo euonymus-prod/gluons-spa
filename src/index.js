@@ -21,6 +21,8 @@ if (domainFirstPart === 'ja') {
     addLocaleData([...ja]);
     locale = 'ja'
     locale_messages = ja_JP
+    // This is required to manually differ the behavior depends on locale.
+    localStorage.setItem('locale', JSON.stringify(locale));
 }
 
 ReactDOM.render(

@@ -1,8 +1,13 @@
 // react
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
+import { injectIntl, intlShape } from 'react-intl';
 
 class SearchBar extends Component {
+    static propTypes = {
+	intl: intlShape.isRequired
+    }
+
     constructor(props) {
 	super(props);
 
@@ -29,7 +34,12 @@ class SearchBar extends Component {
 	    formClass = 'search_top text-center'
 	    formRole = ''
 	    divClass = 'form-group center-block input-container-top'
-	    inputPlaceHolder = '人名、組織名、商品名、ブランド名などで検索'
+	    inputPlaceHolder = this.props.intl.formatMessage(
+		{
+		    id: 'placeholder_home_searchbar',
+		    defaultMessage: "Type people, organization, product and so on"
+		}
+	    )
 	}
 
 	return (
@@ -60,4 +70,4 @@ class SearchBar extends Component {
 	);
     }
 }
-export default withRouter(SearchBar);
+export default withRouter(injectIntl(SearchBar));

@@ -2,6 +2,7 @@
 // react
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 // component
@@ -64,7 +65,13 @@ class Navbar extends Component {
 
     <div id="navbar" className="navbar-collapse collapse">
       <ul className="nav navbar-nav">
-        <li><Link to="/subjects">一覧</Link></li>
+        <li>
+          <Link to="/subjects">
+            <FormattedMessage
+                  id="menu_navbar_list"
+                  defaultMessage={`List`} />
+          </Link>
+        </li>
       </ul>
 
       {(() => { if (login_util.isLoggedIn(logged_in_user)) { return (

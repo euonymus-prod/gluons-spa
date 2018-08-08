@@ -126,7 +126,6 @@ class EditGluon extends Component {
 	 return ''
      }
 
-const name = 'hoge'
   const { handleSubmit } = this.props;
   return (
       <div>

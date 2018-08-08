@@ -1,6 +1,6 @@
 // react
 import React, { Component } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
 // component

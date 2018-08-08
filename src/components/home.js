@@ -1,5 +1,6 @@
 // react
 import React, { Component } from 'react';
+import ReactGa from 'react-ga';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 // component
 import Navbar from '../containers/navbar';
@@ -12,7 +13,23 @@ class Home extends Component {
 	intl: intlShape.isRequired
     }
 
+    constructor(props) {
+        super(props);
+
+	ReactGa.initialize('UA-15649807-18');
+    }
+
+    trackPage = page => {
+	ReactGa.set({
+	    page,
+		// ...options,
+	});
+	ReactGa.pageview(page);
+    };
+
     componentDidMount() {
+	this.trackPage(this.props.location.pathname);
+
 	document.title = this.props.intl.formatMessage(
 	    {
 		id: 'title_home',

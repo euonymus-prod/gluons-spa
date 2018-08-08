@@ -46,8 +46,7 @@ class Detail extends Component {
     };
 
     componentDidMount() {
-	const page = this.props.location.pathname;
-	this.trackPage(page);
+	this.trackPage(this.props.location.pathname);
     }
 
     componentWillReceiveProps(nextProps) {

@@ -39,9 +39,9 @@ const renderSuggestion = suggestion => (
 
 const validate = values => {
   const errors = {}
-  if (!values.gluon_type_id) {
-    errors.gluon_type_id = 'Must choose Gluon Type'
-  }
+  // if (!values.gluon_type_id) {
+  //   errors.gluon_type_id = 'Must choose Gluon Type'
+  // }
   // Autosuggested value cannot be validated here
   // if (!values.passive) {
   //   errors.passive = 'Required'
@@ -203,9 +203,11 @@ class AddGluon extends Component {
 	if (!gluon_types) {
 	    return '';
 	}
-	return Object.keys(gluon_types).map((value, index) => {
+
+	let select_options = {0: '-- Select one --', ...gluon_types}
+	return Object.keys(select_options).map((value, index) => {
 	    return (
-               <option value={value} key={value}>{gluon_types[value]}</option>
+               <option value={value} key={value}>{select_options[value]}</option>
 	    );
 	});
     }
@@ -301,6 +303,6 @@ class AddGluon extends Component {
 }
 export default  reduxForm({
   form: 'add_gluon', // a unique name for this form
-　initialValues: {'gluon_type_id':'1', 'is_exclusive': true},
+　initialValues: {'gluon_type_id':'0', 'is_exclusive': true},
   validate,
 })(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, fetchEditingQuark, readEditingQuark, searchQuarks })(AddGluon)));

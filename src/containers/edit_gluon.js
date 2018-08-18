@@ -21,9 +21,9 @@ import LoginUtil from '../utils/login';
 
 const validate = values => {
   const errors = {}
-  if (!values.gluon_type_id) {
-    errors.gluon_type_id = 'Must choose Gluon Type'
-  }
+  // if (!values.gluon_type_id) {
+  //   errors.gluon_type_id = 'Must choose Gluon Type'
+  // }
   if (!values.relation) {
     errors.relation = 'Required'
   } else if (values.relation.length > 255) {
@@ -111,9 +111,11 @@ class EditGluon extends Component {
 	if (!gluon_types) {
 	    return '';
 	}
-	return Object.keys(gluon_types).map((value, index) => {
+
+	let select_options = {0: '-- Select one --', ...gluon_types}
+	return Object.keys(select_options).map((value, index) => {
 	    return (
-               <option value={value} key={value}>{gluon_types[value]}</option>
+               <option value={value} key={value}>{select_options[value]}</option>
 	    );
 	});
     }

@@ -39,7 +39,7 @@ class AppRoutes extends Component {
 	return (
    <BrowserRouter>
      <LastLocationProvider>
-      <div>
+      <div className="main-content">
 
          <ScrollMemory />
          <Switch>
@@ -67,9 +67,9 @@ class AppRoutes extends Component {
             <Route path='/privacy' component={Privacy}/>
          </Switch>
 
-         <GlobalFooter />
-
       </div>
+      <GlobalFooter />
+
      </LastLocationProvider>
    </BrowserRouter>
 	)

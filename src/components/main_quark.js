@@ -18,7 +18,13 @@ class MainQuark extends Component {
                </div>
 
                <div className="card-block">
-                   <h1 className="card-title">{quark.name}</h1>
+                   <h1 className="card-title">{quark.name}
+            {(() => { if (quark.url) return (
+                      <sub>
+                         <a href={quark.url} target="_blank" className="glyphicon glyphicon-globe"></a>
+                      </sub>
+	    );})()}
+                   </h1>
                    <p>{quark.period_str}</p>
                    <p>{quark.description}</p>
 

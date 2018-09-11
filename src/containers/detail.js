@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 import Navbar from './navbar';
 import MainQuark from '../components/main_quark';
 import QuarkPropertyList from './quark_property_list';
+import StructuredData from './structured_data';
 // action
 import { initDetail } from '../actions/detail';
 import { fetchCurrentQuark } from '../actions/quark';
 import { changeCurrentQuark } from '../actions/quark';
-
 
 class Detail extends Component {
     static propTypes = {
@@ -139,6 +139,7 @@ class Detail extends Component {
      }
   return (
       <div>
+         <StructuredData />
          <Navbar />
       <div className="container">
          <div className="row">

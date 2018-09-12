@@ -21,7 +21,7 @@ class MainQuark extends Component {
                    <h1 className="card-title">{quark.name}
             {(() => { if (quark.url) return (
                       <sub>
-                         <a href={quark.url} target="_blank" className="glyphicon glyphicon-globe"></a>
+                         <a href={quark.url} target="_blank" className="glyphicon glyphicon-globe"> </a>
                       </sub>
 	    );})()}
                    </h1>

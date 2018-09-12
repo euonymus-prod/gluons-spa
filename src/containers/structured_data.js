@@ -1,3 +1,5 @@
+// general
+import _ from 'lodash';
 // react
 import React, { Component } from 'react';
 // redux
@@ -6,10 +8,12 @@ import { connect } from 'react-redux';
 import { fetchQuarkTypes } from '../actions/quark_types';
 // common
 import Util from '../utils/common';
+import GluonUtil from '../utils/gluon';
 
 // react-structured-data
-// import { JSONLD, Generic, AggregateRating, GenericCollection, Review, Author, Location, Rating } from 'react-structured-data';
-import { JSONLD, Generic } from 'react-structured-data';
+import { JSONLD, Generic, GenericCollection } from 'react-structured-data';
+
+let gluon_util = new GluonUtil();
 
 class StructuredData extends Component {
     componentWillMount() {
@@ -110,6 +114,23 @@ class StructuredData extends Component {
 	return {item, date}
     }
 
+    buildSchemaForJsonLd = (quark) => {
+	let schema = {name:quark.name,
+		      description:quark.description,
+		      image:quark.image_path,
+		      url:quark.url}
+	let startItem = this.convertStartItem(quark)
+	let endItem = this.convertEndItem(quark)
+	schema[startItem.item] = startItem.date
+	schema[endItem.item] = endItem.date
+
+	// if Article
+	if (quark.quark_type_id === 7) {
+	    schema['headline'] = quark.name
+	}
+	return schema
+    }
+
     render () {
 	const { current_quark, quark_types } = this.props;
 	if (!quark_types || !current_quark || !current_quark.quark_type_id || (current_quark.quark_type_id === 1) ||
@@ -117,41 +138,45 @@ class StructuredData extends Component {
             return ''
 	}
 
-	let schema = {name:current_quark.name,
-		      description:current_quark.description,
-		      image:current_quark.image_path,
-		      url:current_quark.url}
-	let startItem = this.convertStartItem(current_quark)
-	let endItem = this.convertEndItem(current_quark)
-	schema[startItem.item] = startItem.date
-	schema[endItem.item] = endItem.date
+	// Generate GenericCollection List
+	let generic_collections = _.without(current_quark.quark_properties.map(quark_property_condition => {
+	    if (!quark_property_condition ||
+		(quark_property_condition.id === 'active') || (quark_property_condition.id === 'passive')) {
+		return null
+	    }
+	    
+	    let generic = quark_property_condition.quark_property.gluons.map(gluon => {
 
-	// if Article
-	if (current_quark.quark_type_id === 7) {
-	    schema['headline'] = current_quark.name
-	}
+		let glued_quark = gluon_util.gluedQuark(current_quark, gluon);
+		let sub_schema = this.buildSchemaForJsonLd(glued_quark)
+	    
+		return (
+		    <Generic
+                       key={gluon.id}
+                       jsonldtype={quark_types[glued_quark.quark_type_id]}
+                       schema={sub_schema} >
+                    </Generic>
+		)
+	    })
+	    
+	    return (
+	       <GenericCollection key={quark_property_condition.quark_property.id}
+                                  type={quark_property_condition.quark_property.caption}>
+                  {generic}
+               </GenericCollection>
+	    )
+	}), null)
+
+	// Generate for Quark
+	let schema = this.buildSchemaForJsonLd(current_quark)
 
 	return (
 <JSONLD>
     <Generic
-        type={quark_types[current_quark.quark_type_id]}
-        jsonldtype={quark_types[current_quark.quark_type_id]}
-        schema={schema} >
-{/*
-      <AggregateRating ratingValue={4.3} reviewCount={197}/>
-      <GenericCollection type="review">
-        <Review name="It's awesome" reviewBody="This is Great! My family loves it" datePublished="11/22/1963">
-          <Author name="Jerry"/>
-          <Location name="Chicago, IL"/>
-          <Rating ratingValue={5} />
-        </Review>
-        <Review name="Very cool" reviewBody="I like this a lot. Very cool product" datePublished="11/22/1963">
-          <Author name="Cool Carl"/>
-          <Location name="Chicago, IL"/>
-          <Rating ratingValue={4} />
-        </Review>
-      </GenericCollection>
-*/}
+          type={quark_types[current_quark.quark_type_id]}
+          jsonldtype={quark_types[current_quark.quark_type_id]}
+          schema={schema} >
+      {generic_collections}
     </Generic>
   </JSONLD>
   )

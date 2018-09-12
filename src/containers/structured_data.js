@@ -73,6 +73,7 @@ class StructuredData extends Component {
 	case 52:
 	    item = 'releaseDate'
 	    break
+	default:
 	}
 
 	return {item, date}
@@ -103,6 +104,7 @@ class StructuredData extends Component {
 	case 10:
 	    item = 'expires'
 	    break
+	default:
 	}
 
 	return {item, date}
@@ -110,7 +112,8 @@ class StructuredData extends Component {
 
     render () {
 	const { current_quark, quark_types } = this.props;
-	if (!quark_types || !current_quark || !current_quark.quark_type_id || current_quark.quark_type_id === 1) {
+	if (!quark_types || !current_quark || !current_quark.quark_type_id || (current_quark.quark_type_id === 1) ||
+	    !current_quark.is_gluon_fetched ) {
             return ''
 	}
 

@@ -167,6 +167,10 @@ class StructuredData extends Component {
 	    )
 	}), null)
 
+	if (generic_collections.length === 0 ) {
+	    generic_collections = ''
+	}
+
 	// Generate for Quark
 	let schema = this.buildSchemaForJsonLd(current_quark)
 

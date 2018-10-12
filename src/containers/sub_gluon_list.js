@@ -18,12 +18,6 @@ class SubGluonList extends Component {
 	}
     }
 
-    // componentWillReceiveProps(nextProps) {
-    // 	if (nextProps.privacy !== this.props.privacy) {
-    //         this.props.fetchGluons(nextProps.sub_quark, nextProps.qtype_properties, nextProps.privacy);
-    // 	}
-    // }
-
     renderSubGluon() {
 	const { quarks, sub_quark } = this.props;
 

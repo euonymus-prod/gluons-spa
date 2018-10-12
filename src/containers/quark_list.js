@@ -26,12 +26,6 @@ class QuarkList extends Component {
 	)
     }
 
-    componentWillReceiveProps(nextProps) {
-	// if ( next page ) {
-	//     this.props.fetchQuarks(nextProps.qtype_properties, nextProps.privacy);
-	// }
-    }
-
     quarkFetcher = (page) => {
 	const { qtype_properties, privacy } = this.props;
 	this.props.fetchQuarks(qtype_properties, privacy, 100, page);

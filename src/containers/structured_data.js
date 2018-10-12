@@ -23,9 +23,6 @@ class StructuredData extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-    }
-
     convertStartItem = (quark) => {
 	let util = new Util();
 	let date = util.date2str(quark.start, quark.start_accuracy);

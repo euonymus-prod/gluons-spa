@@ -12,7 +12,7 @@ import { fetchPickups } from '../actions/quark';
 
 
 class TopPickups extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	const { pickups, qtype_properties } = this.props;
 	if (pickups.length === 0) {
 	    this.props.fetchPickups(qtype_properties);

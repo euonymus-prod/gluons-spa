@@ -16,7 +16,7 @@ import { JSONLD, Generic, GenericCollection } from 'react-structured-data';
 let gluon_util = new GluonUtil();
 
 class StructuredData extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	const { quark_types } = this.props;
         if (!quark_types) {
             this.props.fetchQuarkTypes();

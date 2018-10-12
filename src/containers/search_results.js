@@ -9,7 +9,7 @@ import { initQuarks, searchQuarks } from '../actions/quark';
 
 
 class SearchResults extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	this.props.initQuarks()
 
 	// const { qtype_properties, privacy } = this.props;

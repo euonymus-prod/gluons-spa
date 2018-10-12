@@ -10,7 +10,7 @@ import Navbar from '../containers/navbar';
 import QuarkInList from './quark_in_list';
 
 class Quarks extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	this.loadMore(1)
     }
 

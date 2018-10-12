@@ -120,7 +120,7 @@ class AddGluon extends Component {
 	});
     };
 
-    componentWillMount() {
+    componentDidMount() {
 	const { qtype_properties, quarks, gluon_types } = this.props;
         if (!gluon_types) {
             this.props.fetchGluonTypes();

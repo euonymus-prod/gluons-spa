@@ -14,7 +14,7 @@ class QuarkList extends Component {
 	intl: intlShape.isRequired
     }
 
-    componentWillMount() {
+    componentDidMount() {
 	// const { qtype_properties, privacy } = this.props;
 	// this.props.fetchQuarks(qtype_properties, privacy);
 	this.props.initQuarks()

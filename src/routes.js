@@ -28,7 +28,7 @@ import { initQtypeProperties } from './actions/qtype_properties';
 
 
 class AppRoutes extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	this.props.initLogin();
         this.props.initPrivacy();
 	this.props.initQtypeProperties();

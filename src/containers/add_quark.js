@@ -66,7 +66,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 )
 
 class AddQuark extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	const { quark_types } = this.props;
         if (!quark_types) {
             this.props.fetchQuarkTypes();

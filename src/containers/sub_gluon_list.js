@@ -11,7 +11,7 @@ import SubGluon from './sub_gluon';
 import { fetchGluons } from '../actions/gluon';
 
 class SubGluonList extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	const { qtype_properties, sub_quark, sub_gluon_side } = this.props;
 	if (['active'].includes(sub_gluon_side)) {
 	    this.props.fetchGluons(sub_quark, qtype_properties, this.props.privacy);

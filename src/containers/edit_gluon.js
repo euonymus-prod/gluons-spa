@@ -51,7 +51,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 )
 
 class EditGluon extends Component {
-    componentWillMount() {
+    componentDidMount() {
 	const { gluon_types } = this.props;
         if (!gluon_types) {
             this.props.fetchGluonTypes();

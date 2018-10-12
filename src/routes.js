@@ -35,6 +35,9 @@ class AppRoutes extends Component {
     }
 
     render () {
+	if (!this.props.qtype_properties) {
+	    return ''
+	}
 
 	return (
    <BrowserRouter>

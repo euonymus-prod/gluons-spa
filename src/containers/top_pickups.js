@@ -15,9 +15,8 @@ class TopPickups extends Component {
     }
 
     componentDidMount() {
-	const { pickups, qtype_properties } = this.props;
-	if (pickups.length === 0) {
-	    this.props.fetchPickups(qtype_properties);
+	if (this.props.pickups.length === 0) {
+	    this.props.fetchPickups(this.props.qtype_properties);
 	}
     }
 

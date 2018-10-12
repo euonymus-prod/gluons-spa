@@ -11,23 +11,31 @@ import LoginUtil from '../utils/login';
 
 
 class QuarkNav extends Component {
-    componentWillReceiveProps(nextProps) {
-	if (nextProps.submit_count > this.props.submit_count) {
-	    if (nextProps.deleted_quark) {
-		if (!nextProps.deleted_quark.message) {
-		    alert('Please login again');
-		    this.props.execLogout();
-		} else {
-		    alert(nextProps.deleted_quark.message);
-		}
+    state = {
+	submit_count: this.props.submit_count
+    }
 
-		// NOTE: removeDeletedQuark is required, because this is located in navbar.
-		this.props.removeDeletedQuark()
-		if (nextProps.deleted_quark.status === 1) {
-		    this.props.history.push('/subjects');
-		}
+    static getDerivedStateFromProps(props, state) {
+	if (props.submit_count !== state.submit_count) {
+	    if (props.deleted_quark) {
+    		if (!props.deleted_quark.message) {
+    		    alert('Please login again');
+    		    props.execLogout();
+    		} else {
+    		    alert(props.deleted_quark.message);
+    		}
+
+    		// NOTE: removeDeletedQuark is required, because this is located in navbar.
+    		props.removeDeletedQuark()
+    		if (props.deleted_quark.status === 1) {
+    		    props.history.push('/subjects');
+    		}
+	    }
+	    return {
+		submit_count: props.submit_count
 	    }
 	}
+	return null
     }
 
     onDeleteClick = () => {

@@ -15,27 +15,14 @@ import { fetchCurrentQuark } from '../actions/quark';
 import { changeCurrentQuark } from '../actions/quark';
 
 class Detail extends Component {
+    state = {
+        activeActiveness:  'active',
+        noneActiveness:    '',
+    };
+
     static propTypes = {
 	intl: intlShape.isRequired
     }
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeActiveness:  'active',
-            noneActiveness:    '',
-        };
-
-	ReactGa.initialize('UA-15649807-18');
-
-        let sub_gluon_side = 'active';
-        if ('sub_gluon_side' in props.match.params) {
-            sub_gluon_side = props.match.params.sub_gluon_side;
-        }
-        props.initDetail(sub_gluon_side);
-    }
-
 
     trackPage = page => {
 	ReactGa.set({
@@ -46,6 +33,14 @@ class Detail extends Component {
     };
 
     componentDidMount() {
+	ReactGa.initialize('UA-15649807-18');
+
+        let sub_gluon_side = 'active';
+        if ('sub_gluon_side' in this.props.match.params) {
+            sub_gluon_side = this.props.match.params.sub_gluon_side;
+        }
+        this.props.initDetail(sub_gluon_side);
+
 	this.trackPage(this.props.location.pathname);
     }
 

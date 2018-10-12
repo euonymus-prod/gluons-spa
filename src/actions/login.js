@@ -38,11 +38,11 @@ export const execLogin = (username, password) => {
 }
 
 export const execLogout = () => {
-    localStorage.setItem('logged_in_user', null);
-    localStorage.setItem('qtype_properties', null);
-    localStorage.setItem('privacy_mode', null);
-    localStorage.setItem('quark_types', null);
-    localStorage.setItem('gluon_types', null);
+    localStorage.removeItem('logged_in_user');
+    localStorage.removeItem('qtype_properties');
+    localStorage.removeItem('privacy_mode');
+    localStorage.removeItem('quark_types');
+    localStorage.removeItem('gluon_types');
     return {
 	type: EXEC_LOGOUT,
 	payload: null

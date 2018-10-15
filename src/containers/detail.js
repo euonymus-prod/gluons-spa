@@ -1,3 +1,5 @@
+// general
+import _ from 'lodash';
 // react
 import React, { Component } from 'react';
 import ReactGa from 'react-ga';
@@ -16,9 +18,13 @@ import { changeCurrentQuark } from '../actions/quark';
 
 class Detail extends Component {
     state = {
-        activeActiveness:  'active',
-        noneActiveness:    '',
+        sub_gluon_side: 'active',
     };
+
+    activenessPattern = {
+	active: { activeActiveness: 'active', noneActiveness: ''},
+	none:   { activeActiveness: '', noneActiveness: 'active'}
+    }
 
     static propTypes = {
 	intl: intlShape.isRequired
@@ -32,20 +38,33 @@ class Detail extends Component {
 	ReactGa.pageview(page);
     };
 
+    static getDerivedStateFromProps(props, state) {
+	let ret = null
+	if (_.isEqual(props.sub_gluon_side, state.sub_gluon_side) === false) {
+	    let sub_gluon_side = 'active'
+	    if (props.sub_gluon_side === 'none') {
+		sub_gluon_side = 'none'
+	    }
+	    ret = {
+		sub_gluon_side: sub_gluon_side
+	    }
+	}
+	return ret
+    }
+
     componentDidMount() {
 	ReactGa.initialize('UA-15649807-18');
+	this.trackPage(this.props.location.pathname);
 
         let sub_gluon_side = 'active';
         if ('sub_gluon_side' in this.props.match.params) {
             sub_gluon_side = this.props.match.params.sub_gluon_side;
         }
         this.props.initDetail(sub_gluon_side);
-
-	this.trackPage(this.props.location.pathname);
     }
 
-    componentWillReceiveProps(nextProps) {
-	document.title = nextProps.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
+    componentDidUpdate(prevProps){
+	document.title = this.props.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
 	    {
 		id: 'noun_gluons',
 		defaultMessage: "gluons"
@@ -53,67 +72,38 @@ class Detail extends Component {
 	)
 
 	const currentPage = this.props.location.pathname;
-	const nextPage = nextProps.location.pathname;
-
-	if (currentPage !== nextPage) {
-            this.trackPage(nextPage);
+	const prevPage = prevProps.location.pathname;
+	if (currentPage !== prevPage) {
+            this.trackPage(currentPage);
 	}
 
-        // --------------------------------------------------------
-        const { current_quark } = this.props;
+
+        const { current_quark, qtype_properties, quarks, privacy } = this.props;
         // initialize
 
-	if (nextProps.current_quark && nextProps.current_quark.hasOwnProperty('status') && nextProps.current_quark.status === 0) {
-	    if (!current_quark) {
-		alert(nextProps.current_quark.message);
+	if (current_quark && current_quark.hasOwnProperty('status') && current_quark.status === 0) {
+	    if (!prevProps.current_quark) {
+		alert(current_quark.message);
 	    }
 	    return false;
 	}
 	
-	// Note: 以下ちょっと様子見。Object.keys(quarks.list).length === 0 のチェックがなぜ必要だったのか。
-        // if (qtype_properties && (Object.keys(nextProps.quarks.list).length === 0) && (Object.keys(quarks.list).length === 0)) {
-        if (nextProps.qtype_properties && (Object.keys(nextProps.quarks.list).length === 0)) {
-	    if (nextProps.quarks.error_message) {
-		alert(nextProps.quarks.error_message)
+        if (Object.keys(quarks.list).length === 0) {
+	    if (quarks.error_message) {
+		alert(quarks.error_message)
 	    } else {
-		this.props.fetchCurrentQuark(this.props.match.params.quark_name, nextProps.qtype_properties, nextProps.privacy);
-	    }
-        } else if (!nextProps.current_quark) {
-	    let newQuark = nextProps.quarks.list[nextProps.quarks.quark_name2id[this.props.match.params.quark_name]]
-	    if (newQuark) {
-		this.props.changeCurrentQuark(newQuark);
+		this.props.fetchCurrentQuark(this.props.match.params.quark_name, qtype_properties, privacy);
 	    }
 	} else if (
-	    (nextProps.match.params.quark_name !== this.props.match.params.quark_name) ||
-            (nextProps.match.params.quark_name !== nextProps.current_quark.name)
+	    !current_quark ||
+	    (prevProps.match.params.quark_name !== this.props.match.params.quark_name) ||
+            (this.props.match.params.quark_name !== current_quark.name)
 	) {
-	    let newQuark = nextProps.quarks.list[nextProps.quarks.quark_name2id[nextProps.match.params.quark_name]]
+	    let newQuark = quarks.list[quarks.quark_name2id[this.props.match.params.quark_name]]
 	    if (newQuark) {
 	    	this.props.changeCurrentQuark(newQuark);
 	    }
 	}
-	// --------------------------------------------------------
-	
-	if (nextProps.sub_gluon_side) {
-	    if (!this.props.sub_gluon_side || nextProps.sub_gluon_side !== this.props.sub_gluon_side) {
-		if (nextProps.sub_gluon_side === 'active') {
-		    this.setState({
-			'activeActiveness':  'active',
-			'noneActiveness':    '',
-		    })
-		} else if (nextProps.sub_gluon_side === 'none') {
-		    this.setState({
-			'activeActiveness':  '',
-			'noneActiveness':    'active',
-		    })
-		} else {
-		    this.setState({
-			'activeActiveness':  'active',
-			'noneActiveness':    '',
-		    })
-		}
-	    }
-        }
     }
 
     onLinkClick = (event) => {
@@ -143,13 +133,13 @@ class Detail extends Component {
 
             <div className="col-md-9 subject-relation-list">
                <ul className="nav nav-pills">
-                  <li role="presentation" className={this.state.activeActiveness}>
+                  <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].activeActiveness}>
 {/*
                      <a href="javascript:void(0)" name="active" onClick={this.onLinkClick} >Active</a>
 */}
                      <button type="submit" name="active" className="" onClick={this.onLinkClick}>Active</button>
                   </li>
-                  <li role="presentation" className={this.state.noneActiveness}>
+                  <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].noneActiveness}>
 {/*
                      <a href="javascript:void(0)" name="none" onClick={this.onLinkClick} >None</a>
 */}

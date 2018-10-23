@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
+import FollowButton from './follow_button'
+
 class MainQuark extends Component {
 
     render () {
@@ -34,7 +36,8 @@ class MainQuark extends Component {
    		    </a></p>
 	    );})()}
 
-                   <p><Link to={`/relations/add/${quark.id}`} className="btn btn-primary">Add relation</Link></p>
+                    <p><Link to={`/relations/add/${quark.id}`} className="btn btn-primary">Add relation</Link></p>
+                    <FollowButton />
                </div>
            </div>
 	);

@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 // component
 import SearchBar from '../components/search_bar';
 import QuarkNav from './quark_nav';
-import FollowButton from '../components/follow_button'
 // action
 import {execLogout} from '../actions/login';
 import { changePrivacyTo } from '../actions/privacy';
@@ -72,9 +71,6 @@ class Navbar extends Component {
                   id="menu_navbar_list"
                   defaultMessage={`List`} />
           </Link>
-        </li>
-        <li style={{margin:'15px auto auto 15px'}}>
-           <FollowButton />
         </li>
       </ul>
 

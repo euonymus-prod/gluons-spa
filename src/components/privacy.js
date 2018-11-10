@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import Navbar from '../containers/navbar';
 
 export default class Privacy extends React.Component {
@@ -24,7 +25,7 @@ export default class Privacy extends React.Component {
 <h2>Children Under Thirteen</h2>
 <p>gluons does not knowingly collect personally identifiable information from children under the age of thirteen. If you are under the age of thirteen, you must ask your parent or guardian for permission to use this website.</p>
 <h2>Contact Information</h2>
-<p>If you have any questions or comments about this Policy or the practices relating to this Site, or you wish to verify, correct or delete any personal information we have collected, please contact us at info@gluons.link, and we will endeavor to respond to your inquiry or to correct, update or remove the personal information you have provided us as you indicate to the extent possible. You can correct certain information by logging into your account and changing the information, and you may also delete certain information by changing your account information contained therein. However, please note that in certain circumstances, we may not, or may not be able to, remove or change certain information, even in the event an account is closed. For example, we may retain certain information, such as credit card information, for a certain period of time, and we also may retain and continue to display any information you provided in public area.</p>
+<p>If you have any questions or comments about this Policy or the practices relating to this Site, or you wish to verify, correct or delete any personal information we have collected, please contact us at the contact form <Link to="/contacts">here</Link>, and we will endeavor to respond to your inquiry or to correct, update or remove the personal information you have provided us as you indicate to the extent possible. You can correct certain information by logging into your account and changing the information, and you may also delete certain information by changing your account information contained therein. However, please note that in certain circumstances, we may not, or may not be able to, remove or change certain information, even in the event an account is closed. For example, we may retain certain information, such as credit card information, for a certain period of time, and we also may retain and continue to display any information you provided in public area.</p>
 </div>
             </div>
             </div>

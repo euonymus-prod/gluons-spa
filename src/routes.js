@@ -25,6 +25,8 @@ import Contacts      from './containers/contacts';
 import { initLogin } from './actions/login';
 import { initPrivacy } from './actions/privacy';
 import { initQtypeProperties } from './actions/qtype_properties';
+// style
+import './assets/styles/main.css'
 
 
 class AppRoutes extends Component {

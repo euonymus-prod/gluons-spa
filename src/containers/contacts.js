@@ -46,90 +46,90 @@ const validate = values => {
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div className="input text">
-     <label htmlFor={input.id}>{label}</label>
-     {/*  required="required" maxLength="255" id="name" */ }
-     <input {...input} placeholder={label} type={type} className="form-control" />
-     {touched && (error && <span className="validation-error">{error}</span>)}
+    <label htmlFor={input.id}>{label}</label>
+    {/*  required="required" maxLength="255" id="name" */ }
+    <input {...input} placeholder={label} type={type} className="form-control" />
+    {touched && (error && <span className="validation-error">{error}</span>)}
   </div>
 )
 const renderTextarea = ({ input, label, type, meta: { touched, error } }) => (
   <div className="input text">
-     <label htmlFor={input.id}>{label}</label>
-     {/*  required="required" maxLength="255" id="name" */ }
-     <textarea {...input} placeholder={label} type={type} className="form-control" />
-     {touched && (error && <span className="validation-error">{error}</span>)}
+    <label htmlFor={input.id}>{label}</label>
+    {/*  required="required" maxLength="255" id="name" */ }
+    <textarea {...input} placeholder={label} type={type} className="form-control" />
+    {touched && (error && <span className="validation-error">{error}</span>)}
   </div>
 )
 const renderSelect = ({ input, label, type, meta: { touched, error } }) => (
   <div className="input select">
-     <label htmlFor={input.id}>{label}</label>
-     <Field name="topic" id="topic" component="select">
-        <option value="">(Select one topic)</option>
-        <option value="About Service">About Service</option>
-        <option value="Business relationship">Business relationship</option>
-        <option value="Media coverage">Media coverage</option>
-        <option value="Other">Other</option>
-     </Field>
-     {touched && (error && <span className="validation-error"><br />{error}</span>)}
+    <label htmlFor={input.id}>{label}</label>
+    <Field name="topic" id="topic" component="select">
+      <option value="">(Select one topic)</option>
+      <option value="About Service">About Service</option>
+      <option value="Business relationship">Business relationship</option>
+      <option value="Media coverage">Media coverage</option>
+      <option value="Other">Other</option>
+    </Field>
+    {touched && (error && <span className="validation-error"><br />{error}</span>)}
   </div>
-    )
+)
 
 class Contacts extends Component {
-    componentDidMount() {
-	document.title = "お問い合わせ -\nグルーオンズ"
-    }
+  componentDidMount() {
+	  document.title = "お問い合わせ -\nグルーオンズ"
+  }
 
 
-    componentWillReceiveProps(nextProps) {
-	// after editing post
-	if (nextProps.submit_count > this.props.submit_count) {
+  componentWillReceiveProps(nextProps) {
+	  // after editing post
+	  if (nextProps.submit_count > this.props.submit_count) {
 	    if (nextProps.contact_form) {
-		if (nextProps.contact_form.message) {
-		    alert(nextProps.contact_form.message);
-		}
+		    if (nextProps.contact_form.message) {
+		      alert(nextProps.contact_form.message);
+		    }
 	    }
-	}
-    }
+	  }
+  }
 
 
-    onSubmit = (values) => {
-	this.props.sendContactForm(values);
-    }
+  onSubmit = (values) => {
+	  this.props.sendContactForm(values);
+  }
 
- render () {
-  const { handleSubmit } = this.props;
-  return (
+  render () {
+    const { handleSubmit } = this.props;
+    return (
       <div>
-         <Navbar />
-      <div className="container">
-         <h1>contact us</h1>
-         <div className="jumbotron contact-us">
+        <Navbar />
+        <div className="container">
+          <h1>contact us</h1>
+          <div className="jumbotron contact-us">
             <img src="/img/logo.gif" alt="gluons" />
             <p>Leverage your knowledge by seeking relations among things, people, ETC. If you’d like to know more about how we can help you, put down anything here.</p>
 
             <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8" className="search_top">
-               <div className="form-group center-block input-container-top">
-                  <Field name="name" component={renderField} type="text" id="name" label="Name" />
+              <div className="form-group center-block input-container-top">
+                <Field name="name" component={renderField} type="text" id="name" label="Name" />
 
-                  <Field name="organization" component={renderField} type="text" id="organization" label="Organization" />
+                <Field name="organization" component={renderField} type="text" id="organization" label="Organization" />
 
-                  <Field name="department" component={renderField} type="text" id="department" label="Department" />
-      
-                  <Field name="email" component={renderField} type="email" id="email" label="Email" />
-      
-                  <br />
-                  <Field name="topic" component={renderSelect} type="select" id="topic" label="Topic" />
+                <Field name="department" component={renderField} type="text" id="department" label="Department" />
+                
+                <Field name="email" component={renderField} type="email" id="email" label="Email" />
+                
+                <br />
+                <Field name="topic" component={renderSelect} type="select" id="topic" label="Topic" />
 
-                  <Field name="body" component={renderTextarea} type="textarea" id="body" rows="5" label="Body" />
-               </div>
-               <button className="btn btn-primary" type="submit">Contact us</button>
+                <Field name="body" component={renderTextarea} type="textarea" id="body" rows="5" label="Body" />
+              </div>
+              <button className="btn btn-primary" type="submit">Contact us</button>
             </form>
-         </div>
-         <p>'gluons' is a database of relations among anything in the universe.</p>
+          </div>
+          <p>'gluons' is a database of relations among anything in the universe.</p>
+        </div>
       </div>
-      </div>
-  )
- }
+    )
+  }
 }
 export default  reduxForm({
   form: 'contact_form',

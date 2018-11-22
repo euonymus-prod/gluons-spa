@@ -3,20 +3,20 @@ import Util from '../utils/common';
 
 const initState = null;
 export default (state = initState, action) => {
-    let util = new Util();
-    switch(action.type) {
+  let util = new Util();
+  switch(action.type) {
 
     case READ_EDITING_QUARK:
-	action.payload['status'] = -1;
-	action.payload['start'] = util.date2str(action.payload['start'], 'day');
-	action.payload['end'] = util.date2str(action.payload['end'], 'day');
-	return action.payload;
+	    action.payload['status'] = -1;
+	    action.payload['start'] = util.date2str(action.payload['start'], 'day');
+	    action.payload['end'] = util.date2str(action.payload['end'], 'day');
+	    return action.payload;
 
     case EDIT_QUARK:
-	return action.payload;
+	    return action.payload;
 
     default :
-	return state
-    }
+	    return state
+  }
 }
 

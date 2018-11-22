@@ -10,44 +10,44 @@ import TopPickupDetail from '../components/top_pickup_detail';
 import { fetchPickups } from '../actions/quark';
 
 class TopPickups extends Component {
-    state = {
-	pickups: []
-    }
+  state = {
+	  pickups: []
+  }
 
-    componentDidMount() {
-	if (this.props.pickups.length === 0) {
+  componentDidMount() {
+	  if (this.props.pickups.length === 0) {
 	    this.props.fetchPickups(this.props.qtype_properties);
-	}
-    }
+	  }
+  }
 
-    static getDerivedStateFromProps(props, state) {
-	if (_.isEqual(props.pickups, state.pickups) === false) {
+  static getDerivedStateFromProps(props, state) {
+	  if (_.isEqual(props.pickups, state.pickups) === false) {
 	    return {
-		pickups: props.pickups
+		    pickups: props.pickups
 	    }
-	}
-	return null
-    }
+	  }
+	  return null
+  }
 
-    renderPickups() {
-	const { pickups } = this.state;
-	return _.map(pickups, pickup => {
+  renderPickups() {
+	  const { pickups } = this.state;
+	  return _.map(pickups, pickup => {
 	    return (
-               <div key={pickup.id} className="col-md-3">
-                  <TopPickupDetail pickup={pickup}/>
-               </div>
+        <div key={pickup.id} className="col-md-3">
+          <TopPickupDetail pickup={pickup}/>
+        </div>
 	    );
-	});
-    }
+	  });
+  }
 
-    render () {
-	return (
-           <div className="top-pickup-links center-block">
-                <div className="row">
-                   {this.renderPickups()}
-		</div>
-           </div>
-	)
-    }
+  render () {
+	  return (
+      <div className="top-pickup-links center-block">
+        <div className="row">
+          {this.renderPickups()}
+		    </div>
+      </div>
+	  )
+  }
 }
 export default connect(state => state, { fetchPickups })(TopPickups);

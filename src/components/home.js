@@ -9,58 +9,58 @@ import TopPickups from '../containers/top_pickups';
 
 
 class Home extends Component {
-    static propTypes = {
-	intl: intlShape.isRequired
-    }
+  static propTypes = {
+	  intl: intlShape.isRequired
+  }
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-	ReactGa.initialize('UA-15649807-18');
-    }
+	  ReactGa.initialize('UA-15649807-18');
+  }
 
-    trackPage = page => {
-	ReactGa.set({
+  trackPage = page => {
+	  ReactGa.set({
 	    page,
-		// ...options,
-	});
-	ReactGa.pageview(page);
-    };
+		  // ...options,
+	  });
+	  ReactGa.pageview(page);
+  };
 
-    componentDidMount() {
-	this.trackPage(this.props.location.pathname);
+  componentDidMount() {
+	  this.trackPage(this.props.location.pathname);
 
-	document.title = this.props.intl.formatMessage(
+	  document.title = this.props.intl.formatMessage(
 	    {
-		id: 'title_home',
-		defaultMessage: "Search hidden relations on your favorite things, people, company... -\ngluons"
+		    id: 'title_home',
+		    defaultMessage: "Search hidden relations on your favorite things, people, company... -\ngluons"
 	    }
-	)
-    }
+	  )
+  }
 
-    render () {
-	return (
+  render () {
+	  return (
       <div>
-         <Navbar />
-      <div className="container">
-         <div className="logo-top">
-             <img src="/img/logo.gif" alt="gluons" />
-         </div>
+        <Navbar />
+        <div className="container">
+          <div className="logo-top">
+            <img src="/img/logo.gif" alt="gluons" />
+          </div>
 
-         <div className="home">
+          <div className="home">
             <p className="text-center">
-               <FormattedMessage
-                  id="message_home_main"
-                  defaultMessage={`Search hidden relations on your favorite things, people, company...`} />
+              <FormattedMessage
+                id="message_home_main"
+                defaultMessage={`Search hidden relations on your favorite things, people, company...`} />
             </p>
 
             <SearchBar type="home" />
             <TopPickups />
-         </div>
+          </div>
 
+        </div>
       </div>
-      </div>
-	)
-    }
+	  )
+  }
 }
 export default injectIntl(Home);

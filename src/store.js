@@ -23,29 +23,29 @@ import submitCountReducer from './reducers/reducer_submit_count'
 
 import thunk from 'redux-thunk'
 const reducer = combineReducers({
-    form:             formReducer,
-    logged_in_user:   loginReducer,
-    sub_gluon_side:   detailReducer,
-    qtype_properties: qtypePropertiesReducer,
-    quarks:           quarksReducer,
-    current_quark:    currentQuarkReducer,
-    current_quarks:   currentQuarksReducer,
-    pickups:          pickupsReducer,
-    // gluons:           gluonsReducer,
-    quark_types:      quarkTypesReducer,
-    gluon_types:      gluonTypesReducer,
-    added_quark:      addedQuarkReducer,
-    added_gluon:      addedGluonReducer,
-    deleted_quark:    deletedQuarkReducer,
-    deleted_gluon:    deletedGluonReducer,
-    editing_quark:    editingQuarkReducer,
-    editing_gluon:    editingGluonReducer,
-    contact_form:     contactFormReducer,
-    privacy:          privacyReducer,
-    submit_count:     submitCountReducer,
+  form:             formReducer,
+  logged_in_user:   loginReducer,
+  sub_gluon_side:   detailReducer,
+  qtype_properties: qtypePropertiesReducer,
+  quarks:           quarksReducer,
+  current_quark:    currentQuarkReducer,
+  current_quarks:   currentQuarksReducer,
+  pickups:          pickupsReducer,
+  // gluons:           gluonsReducer,
+  quark_types:      quarkTypesReducer,
+  gluon_types:      gluonTypesReducer,
+  added_quark:      addedQuarkReducer,
+  added_gluon:      addedGluonReducer,
+  deleted_quark:    deletedQuarkReducer,
+  deleted_gluon:    deletedGluonReducer,
+  editing_quark:    editingQuarkReducer,
+  editing_gluon:    editingGluonReducer,
+  contact_form:     contactFormReducer,
+  privacy:          privacyReducer,
+  submit_count:     submitCountReducer,
 })
 const store = createStore(
-    reducer,
-    applyMiddleware(thunk)
+  reducer,
+  applyMiddleware(thunk)
 )
 export default store;

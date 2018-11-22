@@ -30,57 +30,57 @@ import './assets/styles/main.css'
 
 
 class AppRoutes extends Component {
-    componentDidMount() {
-	this.props.initLogin();
-        this.props.initPrivacy();
-	this.props.initQtypeProperties();
-    }
+  componentDidMount() {
+	  this.props.initLogin();
+    this.props.initPrivacy();
+	  this.props.initQtypeProperties();
+  }
 
-    render () {
-	if (!this.props.qtype_properties) {
+  render () {
+	  if (!this.props.qtype_properties) {
 	    return ''
-	}
+	  }
 
-	return (
-   <BrowserRouter>
-     <LastLocationProvider>
-      <div className="main-content">
+	  return (
+      <BrowserRouter>
+        <LastLocationProvider>
+          <div className="main-content">
 
-         <ScrollMemory />
-         <Switch>
-            {/* containers  */}
-            <Route exact path='/' component={Home}/>
-            <Route path='/subjects/relations/:quark_name/:sub_gluon_side' component={Detail}/>
-            <Route path='/subjects/relations/:quark_name' component={Detail}/>
+            <ScrollMemory />
+            <Switch>
+              {/* containers  */}
+              <Route exact path='/' component={Home}/>
+              <Route path='/subjects/relations/:quark_name/:sub_gluon_side' component={Detail}/>
+              <Route path='/subjects/relations/:quark_name' component={Detail}/>
 
-            <Route path='/subjects/search/:keywords' component={SearchResults}/>
-            <Route exact path='/subjects' component={QuarkList}/>
+              <Route path='/subjects/search/:keywords' component={SearchResults}/>
+              <Route exact path='/subjects' component={QuarkList}/>
 
-            <Route path='/login' component={Login}/>
-            <Route path='/signup' component={Signup}/>
+              <Route path='/login' component={Login}/>
+              <Route path='/signup' component={Signup}/>
 
-            <Route path='/subjects/add' component={AddQuark}/>
-            <Route path='/subjects/edit/:id' component={EditQuarkForm}/>
+              <Route path='/subjects/add' component={AddQuark}/>
+              <Route path='/subjects/edit/:id' component={EditQuarkForm}/>
 
-            <Route path='/relations/add/:quark_id' component={AddGluon}/>
-            <Route path='/relations/edit/:id' component={EditGluonForm}/>
+              <Route path='/relations/add/:quark_id' component={AddGluon}/>
+              <Route path='/relations/edit/:id' component={EditGluonForm}/>
 
-            <Route path='/contacts' component={Contacts}/>
+              <Route path='/contacts' component={Contacts}/>
 
-            {/* conponents  */}
-            <Route path='/terms' component={Terms}/>
-            <Route path='/privacy' component={Privacy}/>
-         </Switch>
+              {/* conponents  */}
+              <Route path='/terms' component={Terms}/>
+              <Route path='/privacy' component={Privacy}/>
+            </Switch>
 
-      </div>
-      <GlobalFooter />
+          </div>
+          <GlobalFooter />
 
-     </LastLocationProvider>
-   </BrowserRouter>
-	)
-    }
+        </LastLocationProvider>
+      </BrowserRouter>
+	  )
+  }
 }
 
 export default connect(state => state, { initLogin, initPrivacy, initQtypeProperties })(AppRoutes);
 
-    
+

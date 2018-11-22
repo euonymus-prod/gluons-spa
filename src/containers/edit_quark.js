@@ -1,7 +1,7 @@
 /*
-Thanks to redux-form
+   Thanks to redux-form
    https://redux-form.com/6.0.5/docs/gettingstarted.md/
-*/
+ */
 // react
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
@@ -49,166 +49,166 @@ const validate = values => {
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div className="input text">
-     <label htmlFor={input.id}>{label}</label>
-     {/*  required="required" maxLength="255" id="name" */ }
-     <input {...input} placeholder={label} type={type} className="form-control" />
-     {touched && (error && <span className="validation-error">{error}</span>) }
+    <label htmlFor={input.id}>{label}</label>
+    {/*  required="required" maxLength="255" id="name" */ }
+    <input {...input} placeholder={label} type={type} className="form-control" />
+    {touched && (error && <span className="validation-error">{error}</span>) }
   </div>
 )
 
 class EditQuark extends Component {
-    componentDidMount() {
-	const { qtype_properties, quark_types } = this.props;
-        if (!quark_types) {
-            this.props.fetchQuarkTypes();
-        }
-        // initialize
-        // MEMO: fetchEditingQuark might need to be called in componentWillReceiveProps as well.
-        this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
+  componentDidMount() {
+	  const { qtype_properties, quark_types } = this.props;
+    if (!quark_types) {
+      this.props.fetchQuarkTypes();
     }
+    // initialize
+    // MEMO: fetchEditingQuark might need to be called in componentWillReceiveProps as well.
+    this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
+  }
 
-    componentWillReceiveProps(nextProps) {
-        // initialize
-	const login_util = new LoginUtil();
-	if (!nextProps.editing_quark ||
-	    (nextProps.match.params.id !== nextProps.editing_quark.id)) {
+  componentWillReceiveProps(nextProps) {
+    // initialize
+	  const login_util = new LoginUtil();
+	  if (!nextProps.editing_quark ||
+	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
 	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
-	} else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
-            // !Important: Authorization check. This has to be after initialization of editing_quark
+	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
+      // !Important: Authorization check. This has to be after initialization of editing_quark
 	    this.props.history.push('/');
-	}
+	  }
 
-	// after editing post
-	if (nextProps.submit_count > this.props.submit_count) {
+	  // after editing post
+	  if (nextProps.submit_count > this.props.submit_count) {
 
 	    if (nextProps.editing_quark) {
-		if (!nextProps.editing_quark.message) {
-		    alert('Please login again');
-		    this.props.execLogout();
-		} else {
-		    alert(nextProps.editing_quark.message);
-		}
+		    if (!nextProps.editing_quark.message) {
+		      alert('Please login again');
+		      this.props.execLogout();
+		    } else {
+		      alert(nextProps.editing_quark.message);
+		    }
 
-		if (nextProps.editing_quark.status === 1) {
-		    this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
-		}
+		    if (nextProps.editing_quark.status === 1) {
+		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
+		    }
 	    }
-	}
-    }
+	  }
+  }
 
-    onSubmit = (values) => {
-	if (!values.image_path && values.auto_fill) {
+  onSubmit = (values) => {
+	  if (!values.image_path && values.auto_fill) {
 	    let util = new Util();
 	    let default_image_name = util.fPascalToSnake(this.props.quark_types[values.quark_type_id]) + '.png';
 	    values.image_path = '/img/' + default_image_name
-	}
-	if (!values.is_momentary) {
+	  }
+	  if (!values.is_momentary) {
 	    values.is_momentary = 0;
-	}
-	if (!values.is_private) {
+	  }
+	  if (!values.is_private) {
 	    values.is_private = 0;
-	}
-	if (!values.is_exclusive) {
+	  }
+	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
-	}
-	this.props.editQuark(values);
-    }
+	  }
+	  this.props.editQuark(values);
+  }
 
-    renderSelect = ({ input, label, type, meta: { touched, error } }) => (
-  <div className="input select">
-     <label htmlFor={input.id}>{label}</label>
-     <Field name="quark_type_id" id="quark-type-id" component="select">
+  renderSelect = ({ input, label, type, meta: { touched, error } }) => (
+    <div className="input select">
+      <label htmlFor={input.id}>{label}</label>
+      <Field name="quark_type_id" id="quark-type-id" component="select">
         {this.renderQuarkTypes()}
-     </Field>
-     {touched && (error && <span className="validation-error"><br />{error}</span>)}
-  </div>
-    )
+      </Field>
+      {touched && (error && <span className="validation-error"><br />{error}</span>)}
+    </div>
+  )
 
-    renderQuarkTypes() {
-	const { quark_types } = this.props;
-	return Object.keys(quark_types).map((value, index) => {
+  renderQuarkTypes() {
+	  const { quark_types } = this.props;
+	  return Object.keys(quark_types).map((value, index) => {
 	    return (
-               <option value={value} key={value}>{quark_types[value]}</option>
+        <option value={value} key={value}>{quark_types[value]}</option>
 	    );
-	});
+	  });
+  }
+
+  render () {
+    const { quark_types } = this.props;
+    if (!quark_types) {
+	    return ''
     }
 
- render () {
-     const { quark_types } = this.props;
-     if (!quark_types) {
-	 return ''
-     }
-
-  const { handleSubmit } = this.props;
-  return (
+    const { handleSubmit } = this.props;
+    return (
       <div>
-         <Navbar />
-      <div className="container">
+        <Navbar />
+        <div className="container">
 
-        <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8">
+          <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8">
 
-           <fieldset>
+            <fieldset>
               <legend>Edit New Quark</legend>
               <div className="form-group">
-                 <Field name="name" component={renderField} type="text" id="name" label="Name" />
-                 <Field name="image_path" component={renderField} type="text" id="image_path" label="Image Path" />
-                 <div className="input checkbox">
-                    <label htmlFor="auto-fill">
-                       {/*  value="1" checked="checked" onChange={event => {}} */}
-                       <Field name="auto_fill" id="auto-fill" component="input" type="checkbox" />
-                       Auto Fill
-                    </label>
-                 </div>
+                <Field name="name" component={renderField} type="text" id="name" label="Name" />
+                <Field name="image_path" component={renderField} type="text" id="image_path" label="Image Path" />
+                <div className="input checkbox">
+                  <label htmlFor="auto-fill">
+                    {/*  value="1" checked="checked" onChange={event => {}} */}
+                    <Field name="auto_fill" id="auto-fill" component="input" type="checkbox" />
+                    Auto Fill
+                  </label>
+                </div>
               </div>
               <div className="form-group">
-                 <h4>optional</h4>
-                 <Field name="description" component={renderField} type="text" id="description" label="Description" />
-                 <div className="input text">
-                    <label htmlFor="url">Start</label>
-                    <Field type='date' component="input" className="form-control date" name="start" />
-                    <label htmlFor="url">End</label>
-                    <Field type='date' component="input" className="form-control date" name="end" />
-                 </div>
+                <h4>optional</h4>
+                <Field name="description" component={renderField} type="text" id="description" label="Description" />
+                <div className="input text">
+                  <label htmlFor="url">Start</label>
+                  <Field type='date' component="input" className="form-control date" name="start" />
+                  <label htmlFor="url">End</label>
+                  <Field type='date' component="input" className="form-control date" name="end" />
+                </div>
 
-                 <Field name="start_accuracy" component={renderField} type="text" id="start-accuracy" label="Start Accuracy" />
-                 <Field name="end_accuracy" component={renderField} type="text" id="end-accuracy" label="End Accuracy" />
+                <Field name="start_accuracy" component={renderField} type="text" id="start-accuracy" label="Start Accuracy" />
+                <Field name="end_accuracy" component={renderField} type="text" id="end-accuracy" label="End Accuracy" />
 
-                 <div className="input checkbox">
-                    <label htmlFor="is-momentary">
-                       <Field name="is_momentary" id="is-momentary" component="input" type="checkbox" />
-                       Is Momentary
-                    </label>
-                 </div>
-                 <Field name="url" component={renderField} type="text" id="url" label="URL" />
-                 <Field name="affiliate" component={renderField} type="text" id="affiliate" label="Affiliate" />
-                 <br />
+                <div className="input checkbox">
+                  <label htmlFor="is-momentary">
+                    <Field name="is_momentary" id="is-momentary" component="input" type="checkbox" />
+                    Is Momentary
+                  </label>
+                </div>
+                <Field name="url" component={renderField} type="text" id="url" label="URL" />
+                <Field name="affiliate" component={renderField} type="text" id="affiliate" label="Affiliate" />
+                <br />
 
-                 <Field name="quark_type_id" component={this.renderSelect} type="select" id="quark-type-id" label="Quark Type" />
+                <Field name="quark_type_id" component={this.renderSelect} type="select" id="quark-type-id" label="Quark Type" />
 
-                 <div className="input checkbox">
-                    <input type="hidden" name="is_private" value="0"/>
-                    <label htmlFor="is-private">
-                       <Field name="is_private" id="is-private" component="input" type="checkbox" />
-                       Is Private
-                    </label>
-                 </div>
-                 <div className="input checkbox">
-                    <input type="hidden" name="is_exclusive" value="0"/>
-                    <label htmlFor="is-exclusive">
-                       <Field name="is_exclusive" id="is-exclusive" component="input" type="checkbox" />
-                       Is Exclusive
-                    </label>
-                 </div>
+                <div className="input checkbox">
+                  <input type="hidden" name="is_private" value="0"/>
+                  <label htmlFor="is-private">
+                    <Field name="is_private" id="is-private" component="input" type="checkbox" />
+                    Is Private
+                  </label>
+                </div>
+                <div className="input checkbox">
+                  <input type="hidden" name="is_exclusive" value="0"/>
+                  <label htmlFor="is-exclusive">
+                    <Field name="is_exclusive" id="is-exclusive" component="input" type="checkbox" />
+                    Is Exclusive
+                  </label>
+                </div>
 
               </div>
-           </fieldset>
-           <button className="btn btn-primary" type="submit">Submit</button>
-        </form>
+            </fieldset>
+            <button className="btn btn-primary" type="submit">Submit</button>
+          </form>
 
+        </div>
       </div>
-      </div>
-  )
- }
+    )
+  }
 }
 // export default  reduxForm({
 //   form: 'edit_quark', // a unique name for this form
@@ -224,12 +224,12 @@ const EditQuarkForm = reduxForm({
 export default connect(
   ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
     let ret = { 
-	initialValues: editing_quark,
-	validate,
-	qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
+	    initialValues: editing_quark,
+	    validate,
+	    qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
     };
     if (ret.initialValues) {
-	ret.initialValues['auto_fill'] = true
+	    ret.initialValues['auto_fill'] = true
     }
     return ret
   },

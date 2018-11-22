@@ -21,19 +21,19 @@ const domainFirstPart = domainString.split('.')[0]
 let locale = 'en'
 let locale_messages = en_US
 if (domainFirstPart === 'ja') {
-    addLocaleData([...ja]);
-    locale = 'ja'
-    locale_messages = ja_JP
-    // This is required to manually differ the behavior depends on locale.
-    localStorage.setItem('locale', JSON.stringify(locale));
+  addLocaleData([...ja]);
+  locale = 'ja'
+  locale_messages = ja_JP
+  // This is required to manually differ the behavior depends on locale.
+  localStorage.setItem('locale', JSON.stringify(locale));
 }
 
 ReactDOM.render(
- <Provider store={store}>
-   <IntlProvider locale={locale} messages={locale_messages}>
-     <AppRoutes />
-   </IntlProvider>
- </Provider>,
- document.getElementById('root')
+  <Provider store={store}>
+    <IntlProvider locale={locale} messages={locale_messages}>
+      <AppRoutes />
+    </IntlProvider>
+  </Provider>,
+  document.getElementById('root')
 )
 

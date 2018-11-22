@@ -3,26 +3,26 @@ import { CHANGE_PRIVACY } from '../types/privacy';
 
 const initState = {results:[], pagination:{current_page:0, has_next:true, has_prev:false}};
 export default (state = initState, action) => {
-    
-    switch(action.type) {
+  
+  switch(action.type) {
 
     case FETCH_QUARKS:
     case SEARCH_QUARKS:
-	//return action.payload.response;
-	//console.log([...state, ...action.payload.response]);
-	// return [...state, ...action.payload.response];
-	return {results:[...state.results, ...action.payload.response.results], pagination:action.payload.response.pagination};
+	    //return action.payload.response;
+	    //console.log([...state, ...action.payload.response]);
+	    // return [...state, ...action.payload.response];
+	    return {results:[...state.results, ...action.payload.response.results], pagination:action.payload.response.pagination};
 
     case FETCH_QUARKS_FAILURE:
     case SEARCH_QUARKS_FAILURE:
-	//return [{'error': 'failed to fetch'}]
-	return {results:[], pagination:{current_page:0, has_next:false, has_prev:false}, error: 'failed to fetch'};
+	    //return [{'error': 'failed to fetch'}]
+	    return {results:[], pagination:{current_page:0, has_next:false, has_prev:false}, error: 'failed to fetch'};
 
     case INIT_QUARKS:
     case CHANGE_PRIVACY:
-	return initState
+	    return initState
 
     default :
-	return state
-    }
+	    return state
+  }
 }

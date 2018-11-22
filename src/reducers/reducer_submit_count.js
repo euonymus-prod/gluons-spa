@@ -1,5 +1,5 @@
 import { // adding
-         ADD_QUARK, ADD_QUARK_FAILURE,
+  ADD_QUARK, ADD_QUARK_FAILURE,
          // editing
          EDIT_QUARK, EDIT_QUARK_FAILURE,
          // deleting
@@ -10,7 +10,7 @@ import { // adding
          SEARCH_QUARKS, SEARCH_QUARKS_FAILURE,
 } from '../types/quark';
 import { // adding
-         ADD_GLUON, ADD_GLUON_FAILURE,
+  ADD_GLUON, ADD_GLUON_FAILURE,
          // editing
          EDIT_GLUON, EDIT_GLUON_FAILURE,
          // deleting
@@ -20,7 +20,7 @@ import { SEND_CONTACT_FORM, SEND_CONTACT_FORM_FAILURE } from '../types/contact';
 
 const initState = 0;
 export default (state = initState, action) => {
-    switch(action.type) {
+  switch(action.type) {
     case ADD_QUARK:
     case ADD_QUARK_FAILURE:
     case EDIT_QUARK:
@@ -39,8 +39,8 @@ export default (state = initState, action) => {
     case DELETE_GLUON_FAILURE:
     case SEND_CONTACT_FORM:
     case SEND_CONTACT_FORM_FAILURE:
-	return state + 1
+	    return state + 1
     default :
-	return state
-    }
+	    return state
+  }
 }

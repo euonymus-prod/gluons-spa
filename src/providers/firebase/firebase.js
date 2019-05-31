@@ -15,6 +15,10 @@ class Firebase extends FirebaseCore {
     return this.onAuthStateChanged(this.mergeUser, next, fallback)
   }
 
+  // *** User Log API ***
+  user_logs = () => this.db.collection('user_logs')
+  user_log = uid => this.user_logs().doc(uid)
+
   // Tools
   // date must be Date type
   generateTimestampType = date => app.firestore.Timestamp.fromDate(date)

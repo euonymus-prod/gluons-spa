@@ -60,3 +60,21 @@ class Util {
   }
 }
 export default Util;
+
+// DateInString format: yyyy-mm-dd
+export function strDateToJSTDate(dateInString) {
+  return new Date(`${dateInString}T00:00:00+0900`)
+}
+
+// date is Date type
+export function toDateString(date) {
+  if (!date || isNaN(date)) {
+    return ''
+  }
+  let month = (date.getMonth() + 1).toString();
+  let day = date.getDate().toString();
+  (day.length === 1) && (day = '0' + day);
+  (month.length === 1) && (month = '0' + month);
+  
+  return `${date.getFullYear()}-${month}-${day}`
+}

@@ -41,16 +41,23 @@ class Detail extends Component {
 	  ReactGa.pageview(page);
     this.logUser(page)
   };
+
+  // User behavior test ==================================
   logUser = page => {
+    const now = new Date()
+    const timestamp = this.props.firebase.generateTimestampType(now)
     const log = {
       uuid: this.props.authUser.uid,
       is_session_start: this.props.is_session_start,
-      page: page.slice(20)
+      page: page.slice(20),
+      timestamp
     }
 
-    console.log(log)
+    // this.props.firebase.user_log('hoge').set(log)
+    this.props.firebase.user_logs().add(log)
     this.props.sessionStarted()
   }
+  // =====================================================
 
   static getDerivedStateFromProps(props, state) {
 	  let ret = null

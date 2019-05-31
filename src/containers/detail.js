@@ -6,6 +6,8 @@ import ReactGa from 'react-ga';
 import { injectIntl, intlShape } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
+// provider
+import { withAnonymous } from '../providers/session';
 // component
 import Navbar from './navbar';
 import MainQuark from '../components/main_quark';
@@ -161,4 +163,4 @@ class Detail extends Component {
 function mapStateToProps(state) {
   return state;
 }
-export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(injectIntl(Detail));
+export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(withAnonymous(injectIntl(Detail)));

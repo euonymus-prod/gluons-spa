@@ -17,6 +17,7 @@ import StructuredData from './structured_data';
 import { initDetail } from '../actions/detail';
 import { fetchCurrentQuark } from '../actions/quark';
 import { changeCurrentQuark } from '../actions/quark';
+import { sessionStarted } from '../actions/session';
 
 class Detail extends Component {
   state = {
@@ -38,7 +39,18 @@ class Detail extends Component {
 		  // ...options,
 	  });
 	  ReactGa.pageview(page);
+    this.logUser(page)
   };
+  logUser = page => {
+    const log = {
+      uuid: this.props.authUser.uid,
+      is_session_start: this.props.is_session_start,
+      page: page.slice(20)
+    }
+
+    console.log(log)
+    this.props.sessionStarted()
+  }
 
   static getDerivedStateFromProps(props, state) {
 	  let ret = null
@@ -163,4 +175,4 @@ class Detail extends Component {
 function mapStateToProps(state) {
   return state;
 }
-export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(withAnonymous(injectIntl(Detail)));
+export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark, sessionStarted })(withAnonymous(injectIntl(Detail)));

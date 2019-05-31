@@ -20,6 +20,7 @@ import editingGluonReducer from '../reducers/reducer_editing_gluon'
 import contactFormReducer from '../reducers/reducer_contact_form'
 import privacyReducer from '../reducers/reducer_privacy'
 import submitCountReducer from '../reducers/reducer_submit_count'
+import isSessionStartReducer from '../reducers/reducer_is_session_start'
 
 import thunk from 'redux-thunk'
 const reducer = combineReducers({
@@ -43,6 +44,8 @@ const reducer = combineReducers({
   contact_form:     contactFormReducer,
   privacy:          privacyReducer,
   submit_count:     submitCountReducer,
+  // UUID test
+  is_session_start: isSessionStartReducer,
 })
 const store = createStore(
   reducer,

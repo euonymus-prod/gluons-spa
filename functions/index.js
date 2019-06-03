@@ -17,26 +17,17 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   fb_user_logs().get().then(snapshot => {
     const res = []
     snapshot.forEach(user_log => {
-      generateCsvRecord(user_log.data())
-      res.push(user_log.data())
+      res.push(generateCsvRecord(user_log.data()))
     })
-    // console.log(res)
     response.send(res)
   })
 })
 
 function generateCsvRecord(data) {
-  
-  console.log(data.timestamp._seconds)
-  console.log(data.uuid)
-  console.log(data.locale)
-  console.log(data.is_session_start)
-  console.log(data.quark_id)
-  console.log(data.quark_name)
+  return `${data.timestamp._seconds},${convertCsvStr(data.uuid)},${convertCsvStr(data.locale)},${data.is_session_start},${convertCsvStr(data.quark_id)},${convertCsvStr(data.quark_name)}`
 }
 
-// function convertCsvStr(data) {
-//   const escMsg = msg.replaceAll("\"", "\\\\\"")
-//   console.log(escMsg)
-//   // escMsg.replaceAll("'", "\\\\'")
-// }
+function convertCsvStr(data) {
+  let ret = data.replace('\\', '\\\\')
+  return `"${ret.replace('"', '\\"')}"`
+}

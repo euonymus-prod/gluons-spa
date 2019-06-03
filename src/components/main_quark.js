@@ -21,7 +21,10 @@ class MainQuark extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!_.isEqual(nextProps.quark, prevState.quark) && (nextProps.quark.status !== 0)) {
+    // NOTE: You always have to compare id, not full quark. because quark condition might be changed.
+    if (nextProps.quark.id
+      && ((prevState.quark === null) || !_.isEqual(nextProps.quark.id, prevState.quark.id))
+    ) {
       return { quark: nextProps.quark, logSent: false }
     }
     return null

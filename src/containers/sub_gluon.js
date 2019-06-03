@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // common util
 import Util from '../utils/common';
+// constants
+import * as LOCALSTORAGE from '../constants/localstorage'
 
 
 class SubGluon extends Component {
   constructor(props) {
 	  super(props);
 
-	  let locale = JSON.parse(localStorage.getItem('locale'));
+	  let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
 	  if (!locale) {
 	    locale = 'en'
 	  }

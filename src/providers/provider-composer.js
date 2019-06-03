@@ -9,6 +9,8 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import ja from 'react-intl/locale-data/ja';
 import ja_JP from '../locales/ja_JP';
 import en_US from '../locales/en_US';
+// constants
+import * as LOCALSTORAGE from '../constants/localstorage'
 
 const domainString = document.domain;
 const domainFirstPart = domainString.split('.')[0]
@@ -20,7 +22,7 @@ if (domainFirstPart === 'ja') {
   locale = 'ja'
   locale_messages = ja_JP
   // This is required to manually differ the behavior depends on locale.
-  localStorage.setItem('locale', JSON.stringify(locale));
+  localStorage.setItem(LOCALSTORAGE.LOCALE, JSON.stringify(locale));
 }
 
 class ProviderComposer extends Component {

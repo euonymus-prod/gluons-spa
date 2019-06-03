@@ -11,6 +11,8 @@ import { execLogout } from '../actions/login';
 // common util
 import Util from '../utils/common';
 import GluonUtil from '../utils/gluon';
+// constants
+import * as LOCALSTORAGE from '../constants/localstorage'
 
 let gluon_util = new GluonUtil();
 
@@ -18,7 +20,7 @@ class Gluon extends Component {
   constructor(props) {
 	  super(props);
 
-	  let locale = JSON.parse(localStorage.getItem('locale'));
+	  let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
 	  if (!locale) {
 	    locale = 'en'
 	  }

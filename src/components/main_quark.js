@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { withAnonymous } from '../providers/session';
 // action
 import { sessionStarted } from '../actions/session';
+// constants
+import * as LOCALSTORAGE from '../constants/localstorage'
 
 
 class MainQuark extends Component {
@@ -19,7 +21,7 @@ class MainQuark extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!_.isEqual(nextProps.quark, prevState.quark)) {
+    if (!_.isEqual(nextProps.quark, prevState.quark) && (nextProps.quark.status !== 0)) {
       return { quark: nextProps.quark, logSent: false }
     }
     return null
@@ -32,17 +34,23 @@ class MainQuark extends Component {
   }
 
   logUser = quark => {
-    console.log(quark)
     this.setState({ logSent: true })
 
     const now = new Date()
     const timestamp = this.props.firebase.generateTimestampType(now)
+
+    let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
+    if (!locale || locale !== 'ja') {
+      locale = 'en'
+    }
+
 
     const log = {
       uuid: this.props.authUser.uid,
       is_session_start: this.props.is_session_start,
       quark_name: this.props.quark.name,
       quark_id: this.props.quark.id,
+      locale,
       timestamp
     }
 

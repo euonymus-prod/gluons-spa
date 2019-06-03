@@ -4,7 +4,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 // component
 import Gluon from '../containers/gluon';
-
+// constants
+import * as LOCALSTORAGE from '../constants/localstorage'
 
 class GluonList extends Component {
   renderGluons() {
@@ -31,7 +32,7 @@ class GluonList extends Component {
 	  }
 
 	  let paragraph_title = this.props.quark_property.caption
-	  let locale = JSON.parse(localStorage.getItem('locale'));
+	  let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
 	  if (locale && locale === 'ja') {
 	    paragraph_title = this.props.quark_property.caption_ja
 	  }

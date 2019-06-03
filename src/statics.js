@@ -1,3 +1,5 @@
+import * as LOCALSTORAGE from './constants/localstorage'
+
 let api_host       = 'api.gluons.link';
 let api_scheme     = 'https'
 let api_key        = 'euonymus';
@@ -7,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
   api_key        = 'euonymus';
 }
 
-let locale = JSON.parse(localStorage.getItem('locale'));
+let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
 if (!locale) {
   // NOTE: subdomain check must be done domesticaly here. statics.js cannot rely on othere sources.
   const domainString = document.domain;
@@ -15,7 +17,7 @@ if (!locale) {
   if (domainFirstPart === 'ja') {
 	  locale = 'ja'
 	  // This is required to manually differ the behavior depends on locale.
-	  localStorage.setItem('locale', JSON.stringify(locale));
+	  localStorage.setItem(LOCALSTORAGE.LOCALE, JSON.stringify(locale));
   }
 }
 if (locale) {

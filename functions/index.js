@@ -8,18 +8,13 @@ admin.initializeApp()
 const fb_user_logs = () => admin.firestore().collection('user_logs')
 const fb_user_log = user_log_id => fb_user_logs().doc(user_log_id)
 
-// NOTE: HTTP request trigger sample
 exports.helloWorld = functions.https.onRequest((request, response) => {
-
-  const fields = ['timestamp', 'uuid', 'locale', 'is_session_start', 'quark_id', 'quark_name']
-
-  
-  fb_user_logs().get().then(snapshot => {
-    const res = []
+  return fb_user_logs().get().then(snapshot => {
+    let res = '"timestamp", "uuid", "locale", "is_session_start", "quark_id", "quark_name"' + "\n"
     snapshot.forEach(user_log => {
-      res.push(generateCsvRecord(user_log.data()))
+      res += generateCsvRecord(user_log.data()) + "\n"
     })
-    response.send(res)
+    return response.send(res)
   })
 })
 

@@ -4,7 +4,7 @@ service cloud.firestore {
       return request.auth != null;
     }
     //match /{document=**} {
-    match /consumers/{document=**} {
+    match /user_logs/{document=**} {
       allow create: if isAuthenticated();
     }
   }

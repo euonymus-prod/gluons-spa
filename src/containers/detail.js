@@ -6,8 +6,6 @@ import ReactGa from 'react-ga';
 import { injectIntl, intlShape } from 'react-intl';
 // redux
 import { connect } from 'react-redux';
-// provider
-import { withAnonymous } from '../providers/session';
 // component
 import Navbar from './navbar';
 import MainQuark from '../components/main_quark';
@@ -17,7 +15,6 @@ import StructuredData from './structured_data';
 import { initDetail } from '../actions/detail';
 import { fetchCurrentQuark } from '../actions/quark';
 import { changeCurrentQuark } from '../actions/quark';
-import { sessionStarted } from '../actions/session';
 
 class Detail extends Component {
   state = {
@@ -39,25 +36,7 @@ class Detail extends Component {
 		  // ...options,
 	  });
 	  ReactGa.pageview(page);
-    this.logUser(page)
   };
-
-  // User behavior test ==================================
-  logUser = page => {
-    const now = new Date()
-    const timestamp = this.props.firebase.generateTimestampType(now)
-    const log = {
-      uuid: this.props.authUser.uid,
-      is_session_start: this.props.is_session_start,
-      page: page.slice(20),
-      timestamp
-    }
-
-    // this.props.firebase.user_log('hoge').set(log)
-    this.props.firebase.user_logs().add(log)
-    this.props.sessionStarted()
-  }
-  // =====================================================
 
   static getDerivedStateFromProps(props, state) {
 	  let ret = null
@@ -182,4 +161,4 @@ class Detail extends Component {
 function mapStateToProps(state) {
   return state;
 }
-export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark, sessionStarted })(withAnonymous(injectIntl(Detail)));
+export default connect(mapStateToProps, { initDetail, fetchCurrentQuark, changeCurrentQuark })(injectIntl(Detail));

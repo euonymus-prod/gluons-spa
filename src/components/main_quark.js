@@ -1,9 +1,56 @@
+import _ from 'lodash'
 // react
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+// redux
+import { connect } from 'react-redux';
+// provider
+import { withAnonymous } from '../providers/session';
+// action
+import { sessionStarted } from '../actions/session';
+
 
 class MainQuark extends Component {
+  // User behavior test ==================================
+  state = {
+    quark: null,
+    logSent: true
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!_.isEqual(nextProps.quark, prevState.quark)) {
+      return { quark: nextProps.quark, logSent: false }
+    }
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (!this.state.logSent) {
+      this.logUser(this.state.quark)
+    }
+  }
+
+  logUser = quark => {
+    console.log(quark)
+    this.setState({ logSent: true })
+
+    const now = new Date()
+    const timestamp = this.props.firebase.generateTimestampType(now)
+
+    const log = {
+      uuid: this.props.authUser.uid,
+      is_session_start: this.props.is_session_start,
+      quark_name: this.props.quark.name,
+      quark_id: this.props.quark.id,
+      timestamp
+    }
+
+    // this.props.firebase.user_log('hoge').set(log)
+    this.props.firebase.user_logs().add(log)
+    this.props.sessionStarted()
+  }
+  // =====================================================
 
   render () {
     const { quark } = this.props;
@@ -41,4 +88,4 @@ class MainQuark extends Component {
   }
 }
 
-export default MainQuark;
+export default connect(state => state, { sessionStarted })(withAnonymous(MainQuark))

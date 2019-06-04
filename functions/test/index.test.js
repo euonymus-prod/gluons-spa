@@ -15,7 +15,7 @@ const onlineTest = require('firebase-functions-test')({
   databaseURL: 'https://gluons-dev.firebaseio.com',
   storageBucket: 'gluons-dev.appspot.com',
   projectId: 'gluons-dev',
-}, './gluons-dev-firebase-adminsdk-08zkl-c789b9d386.json')
+}, '')
 
 // If index.js calls admin.initializeApp at the top of the file,
 // we need to stub it out before requiring index.js. This is because the

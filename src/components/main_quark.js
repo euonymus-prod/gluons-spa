@@ -11,6 +11,8 @@ import { withAnonymous } from '../providers/session';
 import { sessionStarted } from '../actions/session';
 // constants
 import * as LOCALSTORAGE from '../constants/localstorage'
+// utils
+import UserAgent from '../utils/user-agent';
 
 
 class MainQuark extends Component {
@@ -47,6 +49,10 @@ class MainQuark extends Component {
       locale = 'en'
     }
 
+    let referrer = document.referrer
+    if ((referrer.indexOf('gluons.link') > -1) || (referrer.indexOf('localhost') > -1)) {
+      referrer = 'Internal'
+    }
 
     const log = {
       uuid: this.props.authUser.uid,
@@ -54,6 +60,10 @@ class MainQuark extends Component {
       quark_name: this.props.quark.name,
       quark_id: this.props.quark.id,
       locale,
+      os_type: UserAgent.getInstance().getOsType(),
+      browser: UserAgent.getInstance().getBrowserType(),
+      is_mobile: UserAgent.getInstance().getIsMobile(),
+      referrer,
       timestamp
     }
 

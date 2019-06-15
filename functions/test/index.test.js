@@ -53,7 +53,7 @@ getUserLogStub.returns(Promise.resolve({
 // Import source after generate stub
 const myFunctions = require('../index')
 
-// Test delete auths =======================================================
+// Test csv report =========================================================
 describe("sample job test", () => {
 // A fake request object, with req.query.text set to 'input'
 const req = { query: {text: 'input'} };

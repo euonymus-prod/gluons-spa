@@ -10,7 +10,6 @@ const fb_user_log = user_log_id => fb_user_logs().doc(user_log_id)
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
   return fb_user_logs().get().then(snapshot => {
-console.log('snapshot: ', snapshot)
     let res = '"timestamp", "uuid", "locale", "is_session_start", "quark_id", "quark_name"' + "\n"
     snapshot.forEach(user_log => {
       res += generateCsvRecord(user_log.data()) + "\n"

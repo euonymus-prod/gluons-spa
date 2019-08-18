@@ -31,18 +31,18 @@ class Quarks extends Component {
 	  }
 
 	  var first = current_quarks.results[0];
-	  if (!first.id) {
+	  if (!first.values.id) {
 	    return 'failed to fetch';
 	  }
 
 	  return _.map(current_quarks.results, quark => {
 	    return (
-		    <div key={quark.id}>
+		    <div key={quark.values.id}>
           {(() => {
-             if (quark.id !== first.id)
+             if (quark.values.id !== first.values.id)
                return <hr />;
           })()}
-          <QuarkInList quark_in_list={quark} />
+          <QuarkInList quark_in_list={quark.values} />
 		    </div>
 	    );
 	  });

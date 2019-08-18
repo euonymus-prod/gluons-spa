@@ -8,17 +8,17 @@ class QuarkUtil {
 	  
 	  // Additional initial info on this quark
 	  let util = new Util();
-	  copiedQuark.period_str = util.period2str(copiedQuark);
+	  copiedQuark.values.period_str = util.period2str(copiedQuark.values);
 	  
 	  let quark_properties = null;
-	  if (copiedQtypeProperties && copiedQuark.quark_type_id in copiedQtypeProperties){
-	    quark_properties = copiedQtypeProperties[copiedQuark.quark_type_id];
+	  if (copiedQtypeProperties && copiedQuark.values.quark_type_id in copiedQtypeProperties){
+	    quark_properties = copiedQtypeProperties[copiedQuark.values.quark_type_id];
 	    if (!quark_properties) {
 		    quark_properties = null;
 	    }
 	  }
-	  copiedQuark.quark_properties = quark_properties;
-	  copiedQuark.is_gluon_fetched = is_gluon_fetched;
+	  copiedQuark.values.quark_properties = quark_properties;
+	  copiedQuark.values.is_gluon_fetched = is_gluon_fetched;
 	  return copiedQuark;
   }
 

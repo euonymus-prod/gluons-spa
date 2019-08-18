@@ -9,34 +9,34 @@ import * as LOCALSTORAGE from '../constants/localstorage'
 
 class GluonList extends Component {
   renderGluons() {
-	  var first = this.props.quark_property.gluons[0];
-	  return _.map(this.props.quark_property.gluons, gluon => {
-	    if (!gluon) {
-		    return '';
-	    }
-	    return (
-		    <div key={gluon.id}>
+    const first = this.props.gluons_by_property.gluons_related[0]
+ 	  // var first = this.props.quark_property.gluons[0];
+
+    // return _.map(this.props.quark_property.gluons, gluon => {
+  	return _.map(this.props.gluons_by_property.gluons_related, gluon => {
+      if (!gluon) {
+  		  return '';
+  	  }
+      return (
+        <div key={gluon.relation.identity}>
           {(() => {
-             if (gluon.id !== first.id)
+             if (gluon.relation.identity !== first.relation.identity)
                return <hr />;
           })()}
-          <Gluon gluon={gluon} />
-		    </div>
-	    );
-	  });
+          <Gluon gluon={gluon} subject={this.props.subject} />
+        </div>
+      )
+    });
   }
-
+  
   render () {
-	  if (!this.props.quark_property.gluons || this.props.quark_property.gluons.length === 0) {
-	    return '';
-	  }
 
-	  let paragraph_title = this.props.quark_property.caption
-	  let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
-	  if (locale && locale === 'ja') {
-	    paragraph_title = this.props.quark_property.caption_ja
-	  }
-
+    let paragraph_title = this.props.gluons_by_property.quark_property.caption
+ 	  let locale = JSON.parse(localStorage.getItem(LOCALSTORAGE.LOCALE));
+  	if (locale && locale === 'ja') {
+      paragraph_title = this.props.gluons_by_property.quark_property.caption_ja
+  	}
+    
 	  return (
       <div>
         <h2>{paragraph_title}</h2>

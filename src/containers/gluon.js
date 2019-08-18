@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 // redux
 import { connect } from 'react-redux';
 // component
-import SubGluonList from './sub_gluon_list';
+// import SubGluonList from './sub_gluon_list';
 // action
 import { deleteGluon } from '../actions/gluon';
 import { execLogout } from '../actions/login';
@@ -53,12 +53,12 @@ class Gluon extends Component {
   }
 
   gluedQuark() {
-	  let res = gluon_util.gluedQuark(this.props.current_quark, this.props.gluon);
-	  if (!res) {
-	    return '';
-	  }
-	  return res;
-  }
+	  let res = gluon_util.gluedQuark(this.props.subject, this.props.gluon);
+    if (!res) {
+ 	    return '';
+ 	  }
+    return res
+}
 
   onDeleteClick = (event) => {
 	  if (window.confirm('Are you sure you want to delete?')) {
@@ -85,36 +85,35 @@ class Gluon extends Component {
 	  )
   }
   relationText() {
-	  let glue_sentence_before_link = ''
+    let glue_sentence_before_link = ''
 	  let glue_sentence_after_link = ' '
-	  if (this.props.current_quark.id === this.props.gluon.active_id) {
-      glue_sentence_before_link = this.props.gluon.active.name
+	  // if (this.props.current_quark.id === this.props.gluon.active_id) {
+	  if (this.props.subject.identity === this.props.gluon.relation.start_node) {
+      glue_sentence_before_link = this.props.gluon.active.values.name
 	    if (this.state.locale === 'ja') {
 		    glue_sentence_before_link += 'は'
-		    glue_sentence_after_link += this.props.gluon.relation
+		    glue_sentence_after_link += this.props.gluon.relation.values.relation
 	    } else {
-		    glue_sentence_before_link += ' ' + this.props.gluon.relation
+		    glue_sentence_before_link += ' ' + this.props.gluon.relation.values.relation
 	    }
 	    glue_sentence_before_link += ' '
-	    glue_sentence_after_link += this.props.gluon.suffix
-
-	  } else if (this.props.current_quark.id === this.props.gluon.passive_id) {
+	    glue_sentence_after_link += this.props.gluon.relation.values.suffix
+	  } else if (this.props.subject.identity === this.props.gluon.relation.end_node) {
       glue_sentence_before_link = ''
 	    if (this.state.locale === 'ja') {
-		    glue_sentence_after_link += 'は' + this.props.gluon.passive.name + this.props.gluon.relation
+		    glue_sentence_after_link += 'は' + this.props.gluon.passive.values.name + this.props.gluon.relation.values.relation
 	    } else {
-		    glue_sentence_after_link += this.props.gluon.relation + ' ' + this.props.gluon.passive.name + ' '
+		    glue_sentence_after_link += this.props.gluon.relation.values.relation + ' ' + this.props.gluon.passive.values.name + ' '
 	    }
 	    glue_sentence_before_link += ' '
-	    glue_sentence_after_link += this.props.gluon.suffix
-
+	    glue_sentence_after_link += this.props.gluon.relation.values.suffix
 	  } else {
 	    return '';
 	  }
 	  return (
       <h4 className="media-heading">
         {glue_sentence_before_link}
-        <Link to={`/subjects/relations/${this.gluedQuark().name}`}>{this.gluedQuark().name}</Link>
+        <Link to={`/subjects/relations/${this.gluedQuark().values.name}`}>{this.gluedQuark().values.name}</Link>
         {glue_sentence_after_link}&nbsp;
 		    {this.renderGluonEdits(this.props.gluon)}
       </h4>
@@ -128,15 +127,17 @@ class Gluon extends Component {
         <div className="subject-relation-main">
           <div className="media">
             <div className="media-left subject-image">
-              <Link to={`/subjects/relations/${this.gluedQuark().name}`}><img src={this.gluedQuark().image_path} width="100px" height="100px" alt=""/></Link>
+              <Link to={`/subjects/relations/${this.gluedQuark().values.name}`}><img src={this.gluedQuark().values.image_path} width="100px" height="100px" alt=""/></Link>
             </div>
             <div className="media-body">
 		          {this.relationText()}
-              <p>{util.period2str(this.props.gluon)}</p>
+              <p>{util.period2str(this.props.gluon.relation.values)}</p>
             </div>
           </div>
         </div>
+        {/*
         <SubGluonList sub_quark={this.gluedQuark()} />
+        */}
       </div>
 	  )
   }

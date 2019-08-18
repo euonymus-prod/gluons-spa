@@ -73,18 +73,7 @@ class Detail extends Component {
   setGraph = async () => {
 	  const result = await this.callAxios(`graph/${this.props.match.params.quark_name}`)
 
-    const quark_type_id = result.data.subject.values.quark_type_id
-    const gluon_types = this.props.qtype_properties[quark_type_id]
-    console.log(quark_type_id)
-    console.log(gluon_types)
-
-
     const graph = result.data
-
-
-    console.log(this.props.qtype_properties)
-    //this.props.qtype_properties
-
     this.setState({graph})
   }
   callAxios = (action, params) => {
@@ -142,60 +131,55 @@ class Detail extends Component {
   }
 
   render() {
+    // const { current_quark, qtype_properties } = this.props;
     const { graph } = this.state
+    // if (!current_quark) {
     if (!graph) {
-      return null
+      return (
+        <div className="container">
+          <div className="row">
+            <div>Loading...</div>
+          </div>
+        </div>
+    	);
     }
+
+    // console.log(graph)
     return (
-      <div>hoge</div>
+      <div>
+        <StructuredData />
+        <Navbar />
+        <div className="container">
+          <div className="row">
+            
+            <MainQuark quark={graph.subject.values} quark_name={this.props.match.params.quark_name}/>
+            
+            <div className="col-md-9 subject-relation-list">
+
+
+              <QuarkPropertyList gluons_by_properties={graph.relations} subject={graph.subject} />
+              
+            </div>
+          </div>
+        </div>
+      </div>
     )
+    //   <ul className="nav nav-pills">
+    //     <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].activeActiveness}>
+    //       {/*
+    //           <a href="javascript:void(0)" name="active" onClick={this.onLinkClick} >Active</a>
+    //         */}
+    //       <button type="submit" name="active" className="" onClick={this.onLinkClick}>Active</button>
+    //     </li>
+    //     <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].noneActiveness}>
+    //       {/*
+    //           <a href="javascript:void(0)" name="none" onClick={this.onLinkClick} >None</a>
+    //         */}
+    //       <button type="submit" name="none" className="" onClick={this.onLinkClick}>None</button>
+    //     </li>
+    //   </ul>
+
   }
-  // render () {
-  //   const { current_quark, qtype_properties } = this.props;
-  //   if (!current_quark) {
-  //     return (
-  //       <div className="container">
-  //         <div className="row">
-  //           <div>Loading...</div>
-  //         </div>
-  //       </div>
-  //    	);
-  //   }
-  //   return (
-  //     <div>
-  //       <StructuredData />
-  //       <Navbar />
-  //       <div className="container">
-  //         <div className="row">
-  // 
-  //           <MainQuark quark={current_quark} quark_name={this.props.match.params.quark_name}/>
-  // 
-  //           <div className="col-md-9 subject-relation-list">
-  //             <ul className="nav nav-pills">
-  //               <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].activeActiveness}>
-  //                 {/*
-  //                     <a href="javascript:void(0)" name="active" onClick={this.onLinkClick} >Active</a>
-  //                   */}
-  //                 <button type="submit" name="active" className="" onClick={this.onLinkClick}>Active</button>
-  //               </li>
-  //               <li role="presentation" className={this.activenessPattern[this.state.sub_gluon_side].noneActiveness}>
-  //                 {/*
-  //                     <a href="javascript:void(0)" name="none" onClick={this.onLinkClick} >None</a>
-  //                   */}
-  //                 <button type="submit" name="none" className="" onClick={this.onLinkClick}>None</button>
-  //               </li>
-  //             </ul>
-  // 
-  //             <QuarkPropertyList
-  //               qtype_properties = {qtype_properties}
-  //               current_quark = {current_quark} />
-  //           </div>
-  // 
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 }
 function mapStateToProps(state) {
   return state;

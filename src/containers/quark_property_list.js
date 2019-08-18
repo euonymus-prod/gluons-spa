@@ -11,48 +11,54 @@ import { fetchGluons } from '../actions/gluon';
 
 class QuarkPropertyList extends Component {
   componentDidMount() {
-	  const { qtype_properties, current_quark, privacy } = this.props;
-    if (!current_quark.is_gluon_fetched) {
-      this.props.fetchGluons(current_quark, qtype_properties, privacy);
-    }
+	  // const { qtype_properties, current_quark, privacy } = this.props;
+    // if (!current_quark.is_gluon_fetched) {
+    //   this.props.fetchGluons(current_quark, qtype_properties, privacy);
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((nextProps.privacy !== this.props.privacy) || !nextProps.current_quark.is_gluon_fetched) {
-      this.props.fetchGluons(nextProps.current_quark, nextProps.qtype_properties, nextProps.privacy);
-    }
+    // if ((nextProps.privacy !== this.props.privacy) || !nextProps.current_quark.is_gluon_fetched) {
+    //   this.props.fetchGluons(nextProps.current_quark, nextProps.qtype_properties, nextProps.privacy);
+    // }
   }
 
   renderQuarkProperties() {
-	  const { current_quark } = this.props;
-	  if (!current_quark.quark_properties) {
-	    return '';
-	  }
-    return _.map(current_quark.quark_properties, quark_property => {
-	    if (!quark_property) {
+	  // const { current_quark } = this.props;
+    // 	  if (!current_quark.quark_properties) {
+    // 	    return '';
+    // 	  }
+    console.log()
+
+
+    // return _.map(current_quark.quark_properties, quark_property => {
+    return _.map(this.props.gluons_by_properties, gluons_by_property => {
+	    // if (!quark_property) {
+      if (gluons_by_property.gluons_related.length === 0) {
 		    return '';
-	    }
+      }
       return (
-        <div key={quark_property.quark_property.id}>
+        <div key={gluons_by_property.quark_property.id}>
           <GluonList
-            quark_property={quark_property.quark_property}
-		      />
+            gluons_by_property={gluons_by_property}
+            subject={this.props.subject}
+ 		      />
         </div>
       );
     });
   }
 
   render () {
-	  const { current_quark } = this.props;
-	  if (!current_quark.is_gluon_fetched) {
-	    return <div></div>;
-	  }
+	  // const { current_quark } = this.props;
+    // 	  if (!current_quark.is_gluon_fetched) {
+    // 	    return <div></div>;
+    // 	  }
 
-	  return (
+    return (
       <div>
-		    {this.renderQuarkProperties()}
-	    </div>
-	  )
+ 		    {this.renderQuarkProperties()}
+ 	    </div>
+ 	  )
   }
 }
 

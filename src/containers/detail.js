@@ -43,7 +43,7 @@ class Detail extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-	  let ret = null
+    let ret = null
 	  if (_.isEqual(props.sub_gluon_side, state.sub_gluon_side) === false) {
 	    let sub_gluon_side = 'active'
 	    if (props.sub_gluon_side === 'none') {
@@ -66,7 +66,6 @@ class Detail extends Component {
     }
     this.props.initDetail(sub_gluon_side);
 
-
     this.setGraph()
   }
 
@@ -83,6 +82,10 @@ class Detail extends Component {
   }
 
   componentDidUpdate(prevProps){
+    if (prevProps.match.params.quark_name !== this.props.match.params.quark_name) {
+      this.setGraph()
+    }
+
 	  // document.title = this.props.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
     // 	    {
     // 		    id: 'noun_gluons',

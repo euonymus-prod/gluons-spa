@@ -28,8 +28,6 @@ class QuarkPropertyList extends Component {
     // 	  if (!current_quark.quark_properties) {
     // 	    return '';
     // 	  }
-    console.log()
-
 
     // return _.map(current_quark.quark_properties, quark_property => {
     return _.map(this.props.gluons_by_properties, gluons_by_property => {
@@ -38,7 +36,7 @@ class QuarkPropertyList extends Component {
 		    return '';
       }
       return (
-        <div key={gluons_by_property.quark_property.id}>
+        <div key={gluons_by_property.quark_property.name}>
           <GluonList
             gluons_by_property={gluons_by_property}
             subject={this.props.subject}

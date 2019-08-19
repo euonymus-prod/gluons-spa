@@ -18,6 +18,7 @@ import { changeCurrentQuark } from '../actions/quark';
 
 import AxiosAgent from 'axios-agent'
 import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
+import LoginUtil from '../utils/login'
 
 class Detail extends Component {
   state = {
@@ -70,19 +71,31 @@ class Detail extends Component {
   }
 
   setGraph = async () => {
-	  const result = await this.callAxios(`graph/${this.props.match.params.quark_name}`)
+	  const result = await this.callAxios(`graph/${this.props.match.params.quark_name}/${this.props.privacy}`)
 
     const graph = result.data
     this.setState({graph})
   }
   callAxios = (action, params) => {
-    const axios = new AxiosAgent({ baseURL: API_URI }, RETRY_LIMIT, NO_RETRY_CODE)
+    const authconfig = {}
+    const login_util = new LoginUtil()
+    let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'))
+    if (login_util.isLoggedIn(logged_in_user)) {
+      action = 'private_' + action
+	    authconfig.auth = {
+		    username: logged_in_user.username,
+		    password: logged_in_user.api_key_plain
+      }
+    }
+    const axios = new AxiosAgent({ baseURL: API_URI, ...authconfig }, RETRY_LIMIT, NO_RETRY_CODE)
     const method = 'get'
     return axios[method](action, params)
   }
 
   componentDidUpdate(prevProps){
-    if (prevProps.match.params.quark_name !== this.props.match.params.quark_name) {
+    if ((prevProps.match.params.quark_name !== this.props.match.params.quark_name)
+        || (prevProps.privacy !== this.props.privacy)
+    ){
       this.setGraph()
     }
 
@@ -147,7 +160,6 @@ class Detail extends Component {
     	);
     }
 
-    // console.log(graph)
     return (
       <div>
         <StructuredData />
@@ -155,13 +167,14 @@ class Detail extends Component {
         <div className="container">
           <div className="row">
             
+            { graph.subject ? (
             <MainQuark quark={graph.subject.values} quark_name={this.props.match.params.quark_name}/>
+            ) : (
+            <div>Quark Not Found</div>
+            )}
             
             <div className="col-md-9 subject-relation-list">
-
-
               <QuarkPropertyList gluons_by_properties={graph.relations} subject={graph.subject} />
-              
             </div>
           </div>
         </div>

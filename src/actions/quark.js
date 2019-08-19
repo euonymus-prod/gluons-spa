@@ -240,7 +240,7 @@ export const editQuark = (form) => {
   const login_util = new LoginUtil();
   return dispatch => {
 	  let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'));
-	  if (!login_util.isLoggedIn(logged_in_user) || !form.id ) {
+	  if (!login_util.isLoggedIn(logged_in_user) || !form.identity ) {
 	    return {
 		    type: EDIT_QUARK_FAILURE,
 		    payload: false
@@ -249,7 +249,7 @@ export const editQuark = (form) => {
 
 	  let sendingForm = quark_util.sanitizeFormData(form);
 	  let params = new URLSearchParams(sendingForm);
-	  axios.patch(`${API_URI}/quarks/${form.id}`, params, {
+	  axios.patch(`${API_URI}/quarks/${form.identity}`, params, {
 	    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	    auth: {
 		    username: logged_in_user.username,

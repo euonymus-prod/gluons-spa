@@ -13,7 +13,8 @@ import Navbar from './navbar';
 // action
 import { execLogout } from '../actions/login';
 import { fetchQuarkTypes } from '../actions/quark_types';
-import { fetchEditingQuark, readEditingQuark, editQuark } from '../actions/quark';
+// import { fetchEditingQuark, readEditingQuark, editQuark } from '../actions/quark';
+import { editQuark } from '../actions/quark';
 // common util
 import Util from '../utils/common';
 import LoginUtil from '../utils/login';
@@ -64,40 +65,41 @@ class EditQuark extends Component {
     }
     // initialize
     // MEMO: fetchEditingQuark might need to be called in componentWillReceiveProps as well.
-    this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
+    // this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // initialize
-	  const login_util = new LoginUtil();
-	  if (!nextProps.editing_quark ||
-	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
-	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
-	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
-      // !Important: Authorization check. This has to be after initialization of editing_quark
-	    this.props.history.push('/');
-	  }
-
-	  // after editing post
-	  if (nextProps.submit_count > this.props.submit_count) {
-
-	    if (nextProps.editing_quark) {
-		    if (!nextProps.editing_quark.message) {
-		      alert('Please login again');
-		      this.props.execLogout();
-		    } else {
-		      alert(nextProps.editing_quark.message);
-		    }
-
-		    if (nextProps.editing_quark.status === 1) {
-		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
-		    }
-	    }
-	  }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   // initialize
+  // 	  const login_util = new LoginUtil();
+  // 	  if (!nextProps.editing_quark ||
+  // 	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
+  // 	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
+  // 	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
+  //     // !Important: Authorization check. This has to be after initialization of editing_quark
+  // 	    this.props.history.push('/');
+  // 	  }
+  // 
+  // 	  // after editing post
+  // 	  if (nextProps.submit_count > this.props.submit_count) {
+  // 
+  // 	    if (nextProps.editing_quark) {
+  // 		    if (!nextProps.editing_quark.message) {
+  // 		      alert('Please login again');
+  // 		      this.props.execLogout();
+  // 		    } else {
+  // 		      alert(nextProps.editing_quark.message);
+  // 		    }
+  // 
+  // 		    if (nextProps.editing_quark.status === 1) {
+  // 		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
+  // 		    }
+  // 	    }
+  // 	  }
+  // }
 
   onSubmit = (values) => {
-	  if (!values.image_path && values.auto_fill) {
+	  // if (!values.image_path && values.auto_fill) {
+	  if (!values.image_path) {
 	    let util = new Util();
 	    let default_image_name = util.fPascalToSnake(this.props.quark_types[values.quark_type_id]) + '.png';
 	    values.image_path = '/img/' + default_image_name
@@ -111,6 +113,7 @@ class EditQuark extends Component {
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
+    // this.props.match.params.id
 	  this.props.editQuark(values);
   }
 
@@ -148,17 +151,10 @@ class EditQuark extends Component {
           <form onSubmit={handleSubmit(this.onSubmit)} acceptCharset="utf-8">
 
             <fieldset>
-              <legend>Edit New Quark</legend>
+              <legend>Edit Quark</legend>
               <div className="form-group">
                 <Field name="name" component={renderField} type="text" id="name" label="Name" />
                 <Field name="image_path" component={renderField} type="text" id="image_path" label="Image Path" />
-                <div className="input checkbox">
-                  <label htmlFor="auto-fill">
-                    {/*  value="1" checked="checked" onChange={event => {}} */}
-                    <Field name="auto_fill" id="auto-fill" component="input" type="checkbox" />
-                    Auto Fill
-                  </label>
-                </div>
               </div>
               <div className="form-group">
                 <h4>optional</h4>
@@ -224,14 +220,14 @@ const EditQuarkForm = reduxForm({
 export default connect(
   ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
     let ret = { 
-	    initialValues: editing_quark,
+	    // initialValues: editing_quark,
 	    validate,
 	    qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
     };
-    if (ret.initialValues) {
-	    ret.initialValues['auto_fill'] = true
-    }
+    // if (ret.initialValues) {
+    // 	    ret.initialValues['auto_fill'] = true
+    // }
     return ret
   },
-  { fetchQuarkTypes, fetchEditingQuark, readEditingQuark, editQuark, execLogout }
+  { fetchQuarkTypes, editQuark, execLogout }
 )(withRouter(EditQuarkForm))

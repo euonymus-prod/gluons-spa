@@ -69,34 +69,34 @@ class EditQuark extends Component {
     // this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   // initialize
-  // 	  const login_util = new LoginUtil();
-  // 	  if (!nextProps.editing_quark ||
-  // 	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
-  // 	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
-  // 	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
-  //     // !Important: Authorization check. This has to be after initialization of editing_quark
-  // 	    this.props.history.push('/');
-  // 	  }
-  // 
-  // 	  // after editing post
-  // 	  if (nextProps.submit_count > this.props.submit_count) {
-  // 
-  // 	    if (nextProps.editing_quark) {
-  // 		    if (!nextProps.editing_quark.message) {
-  // 		      alert('Please login again');
-  // 		      this.props.execLogout();
-  // 		    } else {
-  // 		      alert(nextProps.editing_quark.message);
-  // 		    }
-  // 
-  // 		    if (nextProps.editing_quark.status === 1) {
-  // 		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.name);
-  // 		    }
-  // 	    }
-  // 	  }
-  // }
+  componentWillReceiveProps(nextProps) {
+    // initialize
+ 	  // const login_util = new LoginUtil();
+    //  	  if (!nextProps.editing_quark ||
+    //  	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
+    //  	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
+    //  	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
+    //   // !Important: Authorization check. This has to be after initialization of editing_quark
+    //  	    this.props.history.push('/');
+    //  	  }
+    
+ 	  // after editing post
+ 	  if (nextProps.submit_count > this.props.submit_count) {
+      
+ 	    if (nextProps.editing_quark) {
+ 		    if (!nextProps.editing_quark.message) {
+ 		      alert('Please login again');
+ 		      this.props.execLogout();
+ 		    } else {
+ 		      alert(nextProps.editing_quark.message);
+ 		    }
+        
+ 		    if (nextProps.editing_quark.status === 1) {
+ 		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.values.name);
+ 		    }
+ 	    }
+ 	  }
+  }
 
   onSubmit = (values) => {
 	  // if (!values.image_path && values.auto_fill) {
@@ -220,12 +220,12 @@ const EditQuarkForm = reduxForm({
 
 export default connect(
   // ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
-  ({ logged_in_user, quark_types, submit_count }, ownProps) => {
+  ({ logged_in_user, quark_types, editing_quark, submit_count }, ownProps) => {
     let ret = { 
 	    // initialValues: editing_quark,
 	    validate,
 	    // qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
-	    logged_in_user, quark_types, submit_count
+	    logged_in_user, quark_types, editing_quark, submit_count
     };
     // if (ret.initialValues) {
     // 	    ret.initialValues['auto_fill'] = true

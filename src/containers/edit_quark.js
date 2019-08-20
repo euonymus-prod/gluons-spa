@@ -17,7 +17,7 @@ import { fetchQuarkTypes } from '../actions/quark_types';
 import { editQuark } from '../actions/quark';
 // common util
 import Util from '../utils/common';
-import LoginUtil from '../utils/login';
+// import LoginUtil from '../utils/login';
 
 
 const validate = values => {
@@ -59,7 +59,8 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 class EditQuark extends Component {
   componentDidMount() {
-	  const { qtype_properties, quark_types } = this.props;
+	  // const { qtype_properties, quark_types } = this.props;
+	  const { quark_types } = this.props;
     if (!quark_types) {
       this.props.fetchQuarkTypes();
     }
@@ -218,11 +219,13 @@ const EditQuarkForm = reduxForm({
 })(EditQuark)
 
 export default connect(
-  ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
+  // ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
+  ({ logged_in_user, quark_types, submit_count }, ownProps) => {
     let ret = { 
 	    // initialValues: editing_quark,
 	    validate,
-	    qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
+	    // qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
+	    logged_in_user, quark_types, submit_count
     };
     // if (ret.initialValues) {
     // 	    ret.initialValues['auto_fill'] = true

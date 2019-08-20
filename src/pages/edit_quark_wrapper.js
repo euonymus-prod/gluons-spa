@@ -4,7 +4,6 @@
  */
 // react
 import React, { Component } from 'react'
-import { withRouter } from "react-router-dom"
 // redux
 import { connect } from 'react-redux'
 import EditQuark     from '../containers/edit_quark'

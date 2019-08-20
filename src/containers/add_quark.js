@@ -92,7 +92,7 @@ class AddQuark extends Component {
 		    }
 
 		    if (nextProps.added_quark.status === 1) {
-		      this.props.history.push('/subjects/relations/' + nextProps.added_quark.result.name);
+		      this.props.history.push('/subjects/relations/' + nextProps.added_quark.result.values.name);
 		    }
 	    }
 	  }

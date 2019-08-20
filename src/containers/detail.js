@@ -75,8 +75,10 @@ class Detail extends Component {
 
     const graph = result.data
     this.setState({graph})
-    // Navbarなどで利用するためReduxに回す。
- 	  this.props.changeCurrentQuark(graph.subject);
+    if(result.data.subject) {
+      // Navbarなどで利用するためReduxに回す。
+      this.props.changeCurrentQuark(graph.subject)
+    }
   }
   callAxios = (action, params) => {
     const authconfig = {}

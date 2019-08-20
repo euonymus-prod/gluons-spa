@@ -41,7 +41,7 @@ class QuarkNav extends Component {
   onDeleteClick = () => {
 	  let r = window.confirm(`Are you sure you want to delete ${this.props.current_quark.name}?`);
 	  if (r === true) {
-	    this.props.deleteQuark(this.props.current_quark.id);
+	    this.props.deleteQuark(this.props.current_quark.identity);
 	  }
   }
 

@@ -18,7 +18,7 @@ import Login         from './containers/login';
 import Signup        from './containers/signup';
 import AddQuark      from './containers/add_quark';
 import EditQuark     from './pages/edit_quark_wrapper';
-import AddGluon      from './containers/add_gluon';
+import AddGluon      from './pages/add_gluon_wrapper';
 import EditGluonForm from './containers/edit_gluon';
 import Contacts      from './containers/contacts';
 // action

@@ -17,10 +17,11 @@ import Navbar from './navbar';
 // action
 import { execLogout } from '../actions/login';
 import { fetchGluonTypes } from '../actions/gluon_types';
-import { fetchEditingQuark, readEditingQuark, searchQuarks } from '../actions/quark';
+// import { fetchEditingQuark, readEditingQuark, searchQuarks } from '../actions/quark';
+import { searchQuarks } from '../actions/quark';
 import { addGluon } from '../actions/gluon';
 // common util
-import LoginUtil from '../utils/login';
+// import LoginUtil from '../utils/login';
 // css
 import '../assets/styles/autosuggest.css';
 
@@ -121,29 +122,30 @@ class AddGluon extends Component {
   };
 
   componentDidMount() {
-	  const { qtype_properties, quarks, gluon_types } = this.props;
+	  // const { qtype_properties, quarks, gluon_types } = this.props;
+	  const { gluon_types } = this.props;
     if (!gluon_types) {
       this.props.fetchGluonTypes();
     }
     // initialize
-    if (qtype_properties && (Object.keys(quarks.list).length === 0)) {
-      this.props.fetchEditingQuark(this.props.match.params.quark_id, qtype_properties);
-	  }
+    // if (qtype_properties && (Object.keys(quarks.list).length === 0)) {
+    //   this.props.fetchEditingQuark(this.props.match.params.quark_id, qtype_properties);
+    // 	  }
   }
 
   componentWillReceiveProps(nextProps) {
     // initialize
-	  const login_util = new LoginUtil();
-
-	  if (!nextProps.quarks.list[nextProps.match.params.quark_id]) {
-      this.props.fetchEditingQuark(nextProps.match.params.quark_id, nextProps.qtype_properties);
-	  } else if (!nextProps.editing_quark ||
-	             (nextProps.match.params.quark_id !== nextProps.editing_quark.id)) {
-	    this.props.readEditingQuark(nextProps.match.params.quark_id, nextProps.quarks);
-	  } else if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
-	    // !Important: Authorization check. This has to be after initialization of editing_quark
-	    this.props.history.push('/');
-	  }
+	  // const login_util = new LoginUtil();
+    // 
+    // 	  if (!nextProps.quarks.list[nextProps.match.params.quark_id]) {
+    //   this.props.fetchEditingQuark(nextProps.match.params.quark_id, nextProps.qtype_properties);
+    // 	  } else if (!nextProps.editing_quark ||
+    // 	             (nextProps.match.params.quark_id !== nextProps.editing_quark.id)) {
+    // 	    this.props.readEditingQuark(nextProps.match.params.quark_id, nextProps.quarks);
+    // 	  } else if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
+    // 	    // !Important: Authorization check. This has to be after initialization of editing_quark
+    // 	    this.props.history.push('/');
+    // 	  }
 
 	  if (nextProps.current_quarks) {
 	    this.setState({
@@ -163,7 +165,7 @@ class AddGluon extends Component {
 		    }
 
 		    if (nextProps.added_gluon.status === 1) {
-		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.name);
+		      this.props.history.push('/subjects/relations/' + nextProps.subject_quark.name);
 		    }
 	    }
 	  }
@@ -185,7 +187,7 @@ class AddGluon extends Component {
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
-	  this.props.addGluon(this.props.editing_quark.id, values);
+	  this.props.addGluon(this.props.subject_quark.identity, values);
   }
 
   renderSelect = ({ input, label, type, meta: { touched, error } }) => (
@@ -216,8 +218,8 @@ class AddGluon extends Component {
 
   render () {
     const { value, suggestions } = this.state;
-    const { editing_quark, gluon_types } = this.props;
-    if (!editing_quark || !gluon_types) {
+    const { subject_quark, gluon_types } = this.props;
+    if (!subject_quark || !gluon_types) {
 	    return ''
     }
 
@@ -237,7 +239,7 @@ class AddGluon extends Component {
         <Navbar />
         <div className="container">
           <div className="">
-            <h2>Adding new gluon on {editing_quark.name}</h2>
+            <h2>Adding new gluon on {subject_quark.name}</h2>
           </div>
 
           <div>
@@ -305,4 +307,5 @@ export default  reduxForm({
   form: 'add_gluon', // a unique name for this form
   　initialValues: {'gluon_type_id':'0', 'is_exclusive': true},
   validate,
-})(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, fetchEditingQuark, readEditingQuark, searchQuarks })(AddGluon)));
+  // })(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, fetchEditingQuark, readEditingQuark, searchQuarks })(AddGluon)));
+})(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, searchQuarks })(AddGluon)));

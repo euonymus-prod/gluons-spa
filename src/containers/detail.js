@@ -170,7 +170,9 @@ class Detail extends Component {
           <div className="row">
             
             { graph.subject ? (
-            <MainQuark quark={graph.subject.values} quark_name={this.props.match.params.quark_name}/>
+                <MainQuark quark={graph.subject.values}
+                           quark_id={graph.subject.identity}
+                           quark_name={this.props.match.params.quark_name}/>
             ) : (
             <div>Quark Not Found</div>
             )}

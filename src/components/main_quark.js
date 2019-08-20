@@ -102,7 +102,7 @@ class MainQuark extends Component {
    		       </a></p>
 	        );})()}
 
-          <p><Link to={`/relations/add/${quark.id}`} className="btn btn-primary">Add relation</Link></p>
+          <p><Link to={`/relations/add/${this.props.quark_id}`} className="btn btn-primary">Add relation</Link></p>
         </div>
       </div>
 	  );

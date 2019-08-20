@@ -1,13 +1,12 @@
 // react
 import React, { Component } from 'react'
 // redux
-import { connect } from 'react-redux'
-import EditQuark     from '../containers/edit_quark'
+import AddGluon     from '../containers/add_gluon'
 import LoginUtil from '../utils/login'
 import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
 import AxiosAgent from 'axios-agent'
 
-class EditQuarkWrapper extends Component {
+class AddGluonWrapper extends Component {
   state = {
     quark: null
   }
@@ -17,7 +16,7 @@ class EditQuarkWrapper extends Component {
   }
 
   setQuark = async () => {
-   	const result = await this.callAxios(`quarks/${this.props.match.params.id}`)
+   	const result = await this.callAxios(`quarks/${this.props.match.params.quark_id}`)
     const quark = result.data
     this.setState({quark})
   }
@@ -47,9 +46,9 @@ class EditQuarkWrapper extends Component {
       )
     }
     return (
-      <EditQuark initialValues={{...quark.values, identity:this.props.match.params.id}} />
+      <AddGluon subject_quark={{...quark.values, identity:this.props.match.params.id}} />
     )
   }
 }
 
-export default connect(state => state, {})(EditQuarkWrapper)
+export default AddGluonWrapper

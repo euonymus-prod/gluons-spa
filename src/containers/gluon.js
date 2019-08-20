@@ -64,7 +64,7 @@ class Gluon extends Component {
 	  if (window.confirm('Are you sure you want to delete?')) {
 	    // let doc_name = 'post_delete_gluon_' + gluon_id;
 	    // document.doc_name.submit();
-	    this.props.deleteGluon(this.props.gluon.id)
+	    this.props.deleteGluon(this.props.gluon.relation.identity)
 	  }
 	  return false;
   }

@@ -97,7 +97,9 @@ class Gluon extends Component {
 		    glue_sentence_before_link += ' ' + this.props.gluon.relation.values.relation
 	    }
 	    glue_sentence_before_link += ' '
-	    glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      if (this.props.gluon.relation.values.suffix) {
+	      glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      }
 	  } else if (this.props.subject.identity === this.props.gluon.relation.end_node) {
       glue_sentence_before_link = ''
 	    if (this.state.locale === 'ja') {
@@ -106,7 +108,9 @@ class Gluon extends Component {
 		    glue_sentence_after_link += this.props.gluon.relation.values.relation + ' ' + this.props.gluon.passive.values.name + ' '
 	    }
 	    glue_sentence_before_link += ' '
-	    glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      if (this.props.gluon.relation.values.suffix) {
+	      glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      }
 	  } else {
 	    return '';
 	  }

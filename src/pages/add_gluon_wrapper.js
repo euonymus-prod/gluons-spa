@@ -46,7 +46,7 @@ class AddGluonWrapper extends Component {
       )
     }
     return (
-      <AddGluon subject_quark={{...quark.values, identity:this.props.match.params.id}} />
+      <AddGluon subject_quark={{...quark.values, identity:this.props.match.params.quark_id}} />
     )
   }
 }

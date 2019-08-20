@@ -28,13 +28,13 @@ import '../assets/styles/autosuggest.css';
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion.values.name;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div className="autocomplete-item">
-    <img src={suggestion.image_path} alt={suggestion.name} />
-    {suggestion.name}
+    <img src={suggestion.values.image_path} alt={suggestion.values.name} />
+    {suggestion.values.name}
   </div>
 );
 

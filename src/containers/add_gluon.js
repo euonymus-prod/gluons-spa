@@ -22,7 +22,7 @@ import { searchQuarks } from '../actions/quark';
 // import { addGluon } from '../actions/gluon';
 // common util
 // import LoginUtil from '../utils/login';
-import GluonUtil from '../utils/quark';
+import GluonUtil from '../utils/gluon';
 import Api from '../utils/api'
 // css
 import '../assets/styles/autosuggest.css';

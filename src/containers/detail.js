@@ -86,46 +86,46 @@ class Detail extends Component {
       this.setGraph()
     }
 
-	  // document.title = this.props.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
-    // 	    {
-    // 		    id: 'noun_gluons',
-    // 		    defaultMessage: "gluons"
-    // 	    }
-    // 	  )
-    // 
-    // 	  const currentPage = this.props.location.pathname;
-    // 	  const prevPage = prevProps.location.pathname;
-    // 	  if (currentPage !== prevPage) {
-    //   this.trackPage(currentPage);
-    // 	  }
-    // 
-    // 
+	  document.title = this.props.match.params.quark_name +  " -\n" +  this.props.intl.formatMessage(
+ 	    {
+ 		    id: 'noun_gluons',
+ 		    defaultMessage: "gluons"
+ 	    }
+ 	  )
+    
+ 	  const currentPage = this.props.location.pathname;
+ 	  const prevPage = prevProps.location.pathname;
+ 	  if (currentPage !== prevPage) {
+      this.trackPage(currentPage);
+ 	  }
+    
+    
     // const { current_quark, qtype_properties, quarks, privacy } = this.props;
     // // initialize
     // 
-    // 	  if (current_quark && current_quark.hasOwnProperty('status') && current_quark.status === 0) {
-    // 	    if (!prevProps.current_quark) {
-    // 		    alert(current_quark.message);
-    // 	    }
-    // 	    return false;
-    // 	  }
-    // 	  
+    //  	  if (current_quark && current_quark.hasOwnProperty('status') && current_quark.status === 0) {
+    //  	    if (!prevProps.current_quark) {
+    //  		    alert(current_quark.message);
+    //  	    }
+    //  	    return false;
+    //  	  }
+    //  	  
     // if (Object.keys(quarks.list).length === 0) {
-    // 	    if (quarks.error_message) {
-    // 		    alert(quarks.error_message)
-    // 	    } else {
-    // 		    this.props.fetchCurrentQuark(this.props.match.params.quark_name, qtype_properties, privacy);
-    // 	    }
-    // 	  } else if (
-    // 	    !current_quark ||
-    // 	    (prevProps.match.params.quark_name !== this.props.match.params.quark_name) ||
+    //  	    if (quarks.error_message) {
+    //  		    alert(quarks.error_message)
+    //  	    } else {
+    //  		    this.props.fetchCurrentQuark(this.props.match.params.quark_name, qtype_properties, privacy);
+    //  	    }
+    //  	  } else if (
+    //  	    !current_quark ||
+    //  	    (prevProps.match.params.quark_name !== this.props.match.params.quark_name) ||
     //   (this.props.match.params.quark_name !== current_quark.name)
-    // 	  ) {
-    // 	    let newQuark = quarks.list[quarks.quark_name2id[this.props.match.params.quark_name]]
-    // 	    if (newQuark) {
-    // 	    	this.props.changeCurrentQuark(newQuark);
-    // 	    }
-    // 	  }
+    //  	  ) {
+    //  	    let newQuark = quarks.list[quarks.quark_name2id[this.props.match.params.quark_name]]
+    //  	    if (newQuark) {
+    //  	    	this.props.changeCurrentQuark(newQuark);
+    //  	    }
+    //  	  }
   }
 
   onLinkClick = (event) => {

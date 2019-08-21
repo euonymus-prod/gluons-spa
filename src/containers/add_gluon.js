@@ -19,9 +19,11 @@ import { execLogout } from '../actions/login';
 import { fetchGluonTypes } from '../actions/gluon_types';
 // import { fetchEditingQuark, readEditingQuark, searchQuarks } from '../actions/quark';
 import { searchQuarks } from '../actions/quark';
-import { addGluon } from '../actions/gluon';
+// import { addGluon } from '../actions/gluon';
 // common util
 // import LoginUtil from '../utils/login';
+import GluonUtil from '../utils/quark';
+import Api from '../utils/api'
 // css
 import '../assets/styles/autosuggest.css';
 
@@ -85,6 +87,7 @@ class AddGluon extends Component {
 	  // Suggestions also need to be provided to the Autosuggest,
 	  // and they are initially empty because the Autosuggest is closed.
 	  this.state = {
+      added_gluon: false,
 	    value: '',
 	    suggestions: []
 	  };
@@ -154,24 +157,40 @@ class AddGluon extends Component {
 	  }
 
 	  // after editing post
-	  if (nextProps.submit_count > this.props.submit_count) {
-
-	    if (nextProps.added_gluon) {
-		    if (!nextProps.added_gluon.message) {
-		      alert('Please login again');
-		      this.props.execLogout();
-		    } else {
-		      alert(nextProps.added_gluon.message);
-		    }
-
-		    if (nextProps.added_gluon.status === 1) {
-		      this.props.history.push('/subjects/relations/' + nextProps.subject_quark.name);
-		    }
-	    }
-	  }
+	  // if (nextProps.submit_count > this.props.submit_count) {
+    // 
+    // 	    if (nextProps.added_gluon) {
+    // 		    if (!nextProps.added_gluon.message) {
+    // 		      alert('Please login again');
+    // 		      this.props.execLogout();
+    // 		    } else {
+    // 		      alert(nextProps.added_gluon.message);
+    // 		    }
+    // 
+    // 		    if (nextProps.added_gluon.status === 1) {
+    // 		      this.props.history.push('/subjects/relations/' + nextProps.subject_quark.name);
+    // 		    }
+    // 	    }
+    // 	  }
   }
 
-  onSubmit = (values) => {
+  componentDidUpdate(prevProps, prevState){
+    const { added_gluon } = this.state;
+ 	  if (added_gluon) {
+ 		  if (added_gluon.message) {
+ 		    alert(added_gluon.message);
+ 		  } else {
+ 		    alert('Please login again');
+ 		    this.props.execLogout();
+ 		  }
+      
+ 		  if (added_gluon.status === 1) {
+ 		    this.props.history.push('/subjects/relations/' + this.props.subject_quark.name)
+ 		  }
+ 	  }
+  }
+
+  onSubmit = async (values) => {
 	  if (!this.state.value) {
 	    alert('Quark to glue is required');
 	    return false;
@@ -187,7 +206,13 @@ class AddGluon extends Component {
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
-	  this.props.addGluon(this.props.subject_quark.identity, values);
+	  // this.props.addGluon(this.props.subject_quark.identity, values);
+    const api = new Api()
+    const gluon_util = new GluonUtil();
+	  const sendingForm = gluon_util.sanitizeFormData(values);
+    const result = await api.call(`gluons/${this.props.subject_quark.identity}`, 'post', sendingForm)
+    const added_gluon = result.data
+    this.setState({added_gluon})
   }
 
   renderSelect = ({ input, label, type, meta: { touched, error } }) => (
@@ -308,4 +333,4 @@ export default  reduxForm({
   　initialValues: {'gluon_type_id':'0', 'is_exclusive': true},
   validate,
   // })(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, fetchEditingQuark, readEditingQuark, searchQuarks })(AddGluon)));
-})(withRouter(connect(state => state, { fetchGluonTypes, addGluon, execLogout, searchQuarks })(AddGluon)));
+})(withRouter(connect(state => state, { fetchGluonTypes, execLogout, searchQuarks })(AddGluon)));

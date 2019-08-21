@@ -8,6 +8,8 @@ import Quarks from '../components/quarks';
 // action
 import { initQuarks, fetchQuarks } from '../actions/quark';
 
+// import Api from '../utils/api'
+
 
 class QuarkList extends Component {
   static propTypes = {
@@ -26,10 +28,27 @@ class QuarkList extends Component {
 	  )
   }
 
-  quarkFetcher = (page) => {
+  quarkFetcher = async (page) => {
 	  const { qtype_properties, privacy } = this.props;
 	  this.props.fetchQuarks(qtype_properties, privacy, 100, page);
 	  return false
+
+
+
+
+    // const api = new Api(true)
+    // let privacy_level = ''
+    // if (parseInt(privacy, 10) !== 1) {
+    // 	    privacy_level = privacy
+    // }
+    // const params = {
+    //   limit: 100,
+    //   page
+    // }
+    // const result = await api.call(`quarks/${privacy_level}`, 'get', params)
+    // console.log(result)
+    // return result.data
+    // 
   }
 
   render () {

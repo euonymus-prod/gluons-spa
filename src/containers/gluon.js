@@ -26,39 +26,38 @@ class Gluon extends Component {
 	  }
 
 	  this.state = {
-	    locale
+	    locale,
+      state: false,
+      deleted: false
 	  };
   }
 
-
-  componentWillReceiveProps(nextProps) {
-	  // after editing post
-	  if (nextProps.submit_count > this.props.submit_count) {
-
-	    if (nextProps.deleted_gluon) {
-		    if (nextProps.gluon.id === nextProps.deleted_gluon.gluon_id) {
-		      if (!nextProps.deleted_gluon.message) {
-			      this.props.execLogout();
-			      alert('Please login again');
-		      } else {
-			      alert(nextProps.deleted_gluon.message);
-		      }
-
-		      if (nextProps.deleted_gluon.status === 1) {
-			      this.props.history.push('/subjects/relations/' + nextProps.current_quark.name);
-		      }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.deleted_gluon && !prevState.deleted) {
+      if (nextProps.deleted_gluon.gluon_id === nextProps.gluon.relation.identity) {
+		    if (nextProps.deleted_gluon.message) {
+			    alert(nextProps.deleted_gluon.message);
+		    } else {
+			    nextProps.execLogout();
+			    alert('Please login again');
 		    }
-	    }
-	  }
+		    if (nextProps.deleted_gluon.status === 1) {
+	        return { deleted: true }
+			    // nextProps.history.push('/subjects/relations/' + nextProps.subject.values.name);
+		    }
+      }
+		}
+	  return null
   }
 
   gluedQuark() {
-	  let res = gluon_util.gluedQuark(this.props.subject, this.props.gluon);
+    const { gluon } = this.props
+	  let res = gluon_util.gluedQuark(this.props.subject, gluon);
     if (!res) {
  	    return '';
  	  }
     return res
-}
+  }
 
   onDeleteClick = (event) => {
 	  if (window.confirm('Are you sure you want to delete?')) {
@@ -85,31 +84,32 @@ class Gluon extends Component {
 	  )
   }
   relationText() {
+    const { gluon } = this.props
     let glue_sentence_before_link = ''
 	  let glue_sentence_after_link = ' '
-	  // if (this.props.current_quark.id === this.props.gluon.active_id) {
-	  if (this.props.subject.identity === this.props.gluon.relation.start_node) {
-      glue_sentence_before_link = this.props.gluon.active.values.name
+	  // if (this.props.current_quark.id === gluon.active_id) {
+	  if (this.props.subject.identity === gluon.relation.start_node) {
+      glue_sentence_before_link = gluon.active.values.name
 	    if (this.state.locale === 'ja') {
 		    glue_sentence_before_link += 'は'
-		    glue_sentence_after_link += this.props.gluon.relation.values.relation
+		    glue_sentence_after_link += gluon.relation.values.relation
 	    } else {
-		    glue_sentence_before_link += ' ' + this.props.gluon.relation.values.relation
+		    glue_sentence_before_link += ' ' + gluon.relation.values.relation
 	    }
 	    glue_sentence_before_link += ' '
-      if (this.props.gluon.relation.values.suffix) {
-	      glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      if (gluon.relation.values.suffix) {
+	      glue_sentence_after_link += gluon.relation.values.suffix
       }
-	  } else if (this.props.subject.identity === this.props.gluon.relation.end_node) {
+	  } else if (this.props.subject.identity === gluon.relation.end_node) {
       glue_sentence_before_link = ''
 	    if (this.state.locale === 'ja') {
-		    glue_sentence_after_link += 'は' + this.props.gluon.passive.values.name + this.props.gluon.relation.values.relation
+		    glue_sentence_after_link += 'は' + gluon.passive.values.name + gluon.relation.values.relation
 	    } else {
-		    glue_sentence_after_link += this.props.gluon.relation.values.relation + ' ' + this.props.gluon.passive.values.name + ' '
+		    glue_sentence_after_link += gluon.relation.values.relation + ' ' + gluon.passive.values.name + ' '
 	    }
 	    glue_sentence_before_link += ' '
-      if (this.props.gluon.relation.values.suffix) {
-	      glue_sentence_after_link += this.props.gluon.relation.values.suffix
+      if (gluon.relation.values.suffix) {
+	      glue_sentence_after_link += gluon.relation.values.suffix
       }
 	  } else {
 	    return '';
@@ -119,12 +119,21 @@ class Gluon extends Component {
         {glue_sentence_before_link}
         <Link to={`/subjects/relations/${this.gluedQuark().values.name}`}>{this.gluedQuark().values.name}</Link>
         {glue_sentence_after_link}&nbsp;
-		    {this.renderGluonEdits(this.props.gluon)}
+		    {this.renderGluonEdits(gluon)}
       </h4>
 	  )
   }
 
   render () {
+    const { deleted } = this.state
+    if (deleted) {
+      return null
+    }
+
+    const { gluon } = this.props
+    if (!gluon) {
+      return null
+    }
 	  let util = new Util();
 	  return (
       <div className="subject-relation white">
@@ -135,7 +144,7 @@ class Gluon extends Component {
             </div>
             <div className="media-body">
 		          {this.relationText()}
-              <p>{util.period2str(this.props.gluon.relation.values)}</p>
+              <p>{util.period2str(gluon.relation.values)}</p>
             </div>
           </div>
         </div>

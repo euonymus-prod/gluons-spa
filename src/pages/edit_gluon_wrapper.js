@@ -15,6 +15,11 @@ class EditGluonWrapper extends Component {
     passive: null
   }
 
+  constructor(props) {
+    super(props);
+    this.api = new Api()
+  }
+
   componentDidMount() {
     this.setGluon()
   }
@@ -30,20 +35,17 @@ class EditGluonWrapper extends Component {
   }
 
   setGluon = async () => {
-    const api = new Api()
-    const result = await api.call(`gluons/${this.props.match.params.id}`, 'get')
+    const result = await this.api.call(`gluons/${this.props.match.params.id}`, 'get')
     const gluon = result.data
     this.setState({gluon})
   }
   setActive = async (identity) => {
-    const api = new Api()
-    const result = await api.call(`quarks/${identity}`, 'get')
+    const result = await this.api.call(`quarks/${identity}`, 'get')
     const active = result.data
     this.setState({active})
   }
   setPassive = async (identity) => {
-    const api = new Api()
-    const result = await api.call(`quarks/${identity}`, 'get')
+    const result = await this.api.call(`quarks/${identity}`, 'get')
     const passive = result.data
     this.setState({passive})
   }

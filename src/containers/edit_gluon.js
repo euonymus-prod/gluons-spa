@@ -14,9 +14,10 @@ import Navbar from './navbar';
 // action
 import { execLogout } from '../actions/login';
 import { fetchGluonTypes } from '../actions/gluon_types';
-import { fetchEditingGluon, editGluon } from '../actions/gluon';
+// import { fetchEditingGluon, editGluon } from '../actions/gluon';
+import { editGluon } from '../actions/gluon';
 // common util
-import LoginUtil from '../utils/login';
+// import LoginUtil from '../utils/login';
 
 
 const validate = values => {
@@ -58,15 +59,15 @@ class EditGluon extends Component {
     }
     // initialize
     // MEMO: fetchEditingGluon might need to be called in componentWillReceiveProps as well.
-    this.props.fetchEditingGluon(this.props.match.params.id);
+    // this.props.fetchEditingGluon(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
     // initialize
-	  const login_util = new LoginUtil();
-	  if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
-	    this.props.history.push('/');
-	  }
+	  // const login_util = new LoginUtil();
+	  // if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
+    // 	    this.props.history.push('/');
+    // 	  }
 
 	  // after editing post
 	  if (nextProps.submit_count > this.props.submit_count) {
@@ -123,8 +124,10 @@ class EditGluon extends Component {
 
 
   render () {
-    const { editing_gluon, gluon_types } = this.props;
-    if (!editing_gluon || (editing_gluon.status !== -1) || !gluon_types) {
+    // const { editing_gluon, gluon_types } = this.props;
+    // if (!editing_gluon || (editing_gluon.status !== -1) || !gluon_types) {
+    const { gluon_types, active, passive } = this.props;
+    if (!gluon_types) {
 	    return ''
     }
 
@@ -138,8 +141,8 @@ class EditGluon extends Component {
               <FormattedMessage
                 id="title_edit_gluon"
                 defaultMessage={`Relation between { active_quark } and { passive_quark }`}
-                values={{ active_quark: <span>{editing_gluon.active.name}</span>,
-			                    passive_quark: <span>{editing_gluon.passive.name}</span>
+                values={{ active_quark: <span>{active.values.name}</span>,
+			                    passive_quark: <span>{passive.values.name}</span>
 		            }} />
             </h2>
           </div>
@@ -156,8 +159,8 @@ class EditGluon extends Component {
                   <FormattedMessage
                     id="message_edit_gluon_part1"
                     defaultMessage={`{ active_quark }`}
-                    values={{ active_quark: <span>{editing_gluon.active.name}</span>,
-		                          passive_quark: <span>{editing_gluon.passive.name}</span>
+                    values={{ active_quark: <span>{active.values.name}</span>,
+		                          passive_quark: <span>{passive.values.name}</span>
                     }} />
 
 
@@ -166,7 +169,7 @@ class EditGluon extends Component {
                   <FormattedMessage
                     id="message_edit_gluon_part2"
                     defaultMessage={`{ passive_quark }`}
-                    values={{passive_quark: <span>{editing_gluon.passive.name}</span>}} />
+                    values={{passive_quark: <span>{passive.values.name}</span>}} />
 
                   <Field name="suffix" component={renderField} type="text" id="suffix" label="Suffix" />
                   <hr />
@@ -212,11 +215,12 @@ const EditGluonForm = reduxForm({
 export default connect(
   ({ logged_in_user, gluon_types, editing_gluon, submit_count }, ownProps) => {
     let ret = { 
-	    initialValues: editing_gluon,
+	    // initialValues: editing_gluon,
 	    validate,
 	    logged_in_user, gluon_types, editing_gluon, submit_count
     };
     return ret
   },
-  { fetchGluonTypes, fetchEditingGluon, editGluon, execLogout }
+  // { fetchGluonTypes, fetchEditingGluon, editGluon, execLogout }
+  { fetchGluonTypes, editGluon, execLogout }
 )(withRouter(EditGluonForm))

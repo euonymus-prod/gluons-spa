@@ -72,7 +72,7 @@ class Gluon extends Component {
   renderGluonEdits(gluon) {
 	  return (
 	    <span>
-        <Link to={`/relations/edit/${gluon.id}`} className="glyphicon glyphicon glyphicon-pencil"></Link>
+        <Link to={`/relations/edit/${gluon.relation.identity}`} className="glyphicon glyphicon glyphicon-pencil"></Link>
         {/*
             <form name={`post_delete_gluon_${gluon.id}`} style={{display:"none"}} method="post" action={`/relations/delete/${gluon.id}`}>
             <input type="hidden" name="_method" value="POST"/>

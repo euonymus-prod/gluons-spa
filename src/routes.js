@@ -19,7 +19,7 @@ import Signup        from './containers/signup';
 import AddQuark      from './containers/add_quark';
 import EditQuark     from './pages/edit_quark_wrapper';
 import AddGluon      from './pages/add_gluon_wrapper';
-import EditGluonForm from './containers/edit_gluon';
+import EditGluon     from './pages/edit_gluon_wrapper';
 import Contacts      from './containers/contacts';
 // action
 import { initLogin } from './actions/login';
@@ -63,7 +63,7 @@ class AppRoutes extends Component {
               <Route path='/subjects/edit/:id' component={EditQuark}/>
 
               <Route path='/relations/add/:quark_id' component={AddGluon}/>
-              <Route path='/relations/edit/:id' component={EditGluonForm}/>
+              <Route path='/relations/edit/:id' component={EditGluon}/>
 
               <Route path='/contacts' component={Contacts}/>
 

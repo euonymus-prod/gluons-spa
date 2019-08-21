@@ -117,7 +117,7 @@ export const editGluon = (form) => {
   const login_util = new LoginUtil();
   return dispatch => {
 	  let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'));
-	  if (!login_util.isLoggedIn(logged_in_user) || !form.id ) {
+	  if (!login_util.isLoggedIn(logged_in_user) || !form.identity ) {
 	    return {
 		    type: EDIT_GLUON_FAILURE,
 		    payload: false
@@ -126,7 +126,7 @@ export const editGluon = (form) => {
 
 	  let sendingForm = gluon_util.sanitizeFormData(form);
 	  let params = new URLSearchParams(sendingForm);
-	  axios.patch(`${API_URI}/gluons/${form.id}`, params, {
+	  axios.patch(`${API_URI}/gluons/${form.identity}`, params, {
 	    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	    auth: {
 		    username: logged_in_user.username,

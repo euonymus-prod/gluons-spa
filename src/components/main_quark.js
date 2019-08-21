@@ -12,6 +12,7 @@ import { sessionStarted } from '../actions/session';
 // constants
 import * as LOCALSTORAGE from '../constants/localstorage'
 // utils
+import Util from '../utils/common';
 import UserAgent from '../utils/user-agent';
 
 
@@ -78,6 +79,8 @@ class MainQuark extends Component {
     if (!quark) {
 	    return <div>Loading...</div>;
     }
+	  let util = new Util();
+	  const period_str = util.period2str(quark);
 
 	  return (
       <div className="col-md-3 card subject-main">
@@ -93,7 +96,7 @@ class MainQuark extends Component {
                </sub>
 	          );})()}
           </h1>
-          <p>{quark.period_str}</p>
+          <p>{period_str}</p>
           <p>{quark.description}</p>
 
           {(() => { if (quark.affiliate) return (

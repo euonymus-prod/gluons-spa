@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LoggedinOnly from '../containers/loggedin_only'
 import EditQuark     from '../containers/edit_quark'
+import Util from '../utils/common';
 import Api from '../utils/api'
 
 class EditQuarkWrapper extends Component {
@@ -29,6 +30,10 @@ class EditQuarkWrapper extends Component {
         <div>Loading...</div>
       )
     }
+
+    let util = new Util();
+	  quark.values.start = util.date2str(quark.values.start, 'day');
+	  quark.values.end = util.date2str(quark.values.end, 'day');
     return (
       <LoggedinOnly>
         <EditQuark initialValues={{...quark.values, identity:this.props.match.params.id}} />

@@ -16,7 +16,7 @@ import SearchResults from './containers/search_results';
 import QuarkList     from './containers/quark_list';
 import Login         from './containers/login';
 import Signup        from './containers/signup';
-import AddQuark      from './containers/add_quark';
+import AddQuark      from './pages/add_quark_wrapper';
 import EditQuark     from './pages/edit_quark_wrapper';
 import AddGluon      from './pages/add_gluon_wrapper';
 import EditGluon     from './pages/edit_gluon_wrapper';

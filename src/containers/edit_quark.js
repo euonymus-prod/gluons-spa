@@ -14,11 +14,12 @@ import Navbar from './navbar';
 import { execLogout } from '../actions/login';
 import { fetchQuarkTypes } from '../actions/quark_types';
 // import { fetchEditingQuark, readEditingQuark, editQuark } from '../actions/quark';
-import { editQuark } from '../actions/quark';
 // common util
 import Util from '../utils/common';
+import QuarkUtil from '../utils/quark';
 // import LoginUtil from '../utils/login';
 
+import Api from '../utils/api'
 
 const validate = values => {
   const errors = {}
@@ -58,6 +59,10 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 )
 
 class EditQuark extends Component {
+  state = {
+    edited_quark: false
+  }
+
   componentDidMount() {
 	  // const { qtype_properties, quark_types } = this.props;
 	  const { quark_types } = this.props;
@@ -69,36 +74,23 @@ class EditQuark extends Component {
     // this.props.fetchEditingQuark(this.props.match.params.id, qtype_properties);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // initialize
- 	  // const login_util = new LoginUtil();
-    //  	  if (!nextProps.editing_quark ||
-    //  	      (nextProps.match.params.id !== nextProps.editing_quark.id)) {
-    //  	    this.props.readEditingQuark(nextProps.match.params.id, nextProps.quarks);
-    //  	  } else if (!login_util.isAuthorized(nextProps.logged_in_user, nextProps.editing_quark)) {
-    //   // !Important: Authorization check. This has to be after initialization of editing_quark
-    //  	    this.props.history.push('/');
-    //  	  }
-    
- 	  // after editing post
- 	  if (nextProps.submit_count > this.props.submit_count) {
-      
- 	    if (nextProps.editing_quark) {
- 		    if (!nextProps.editing_quark.message) {
- 		      alert('Please login again');
- 		      this.props.execLogout();
- 		    } else {
- 		      alert(nextProps.editing_quark.message);
- 		    }
-        
- 		    if (nextProps.editing_quark.status === 1) {
- 		      this.props.history.push('/subjects/relations/' + nextProps.editing_quark.result.values.name);
- 		    }
- 	    }
- 	  }
+  componentDidUpdate(prevProps, prevState){
+    const { edited_quark } = this.state;
+	  if (edited_quark) {
+		  if (edited_quark.message) {
+		    alert(edited_quark.message);
+		  } else {
+		    alert('Please login again');
+		    this.props.execLogout();
+		  }
+
+		  if (edited_quark.status === 1) {
+		    this.props.history.push('/subjects/relations/' + edited_quark.result.values.name);
+		  }
+	  }
   }
 
-  onSubmit = (values) => {
+  onSubmit = async (values) => {
 	  // if (!values.image_path && values.auto_fill) {
 	  if (!values.image_path) {
 	    let util = new Util();
@@ -115,7 +107,13 @@ class EditQuark extends Component {
 	    values.is_exclusive = 0;
 	  }
     // this.props.match.params.id
-	  this.props.editQuark(values);
+	  // this.props.editQuark(values);
+    const api = new Api()
+    const quark_util = new QuarkUtil();
+	  const sendingForm = quark_util.sanitizeFormData(values);
+    const result = await api.call(`quarks/${values.identity}`, 'patch', sendingForm)
+    const edited_quark = result.data
+    this.setState({edited_quark})
   }
 
   renderSelect = ({ input, label, type, meta: { touched, error } }) => (
@@ -220,17 +218,18 @@ const EditQuarkForm = reduxForm({
 
 export default connect(
   // ({ qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count }, ownProps) => {
-  ({ logged_in_user, quark_types, editing_quark, submit_count }, ownProps) => {
+  ({ logged_in_user, quark_types, submit_count }, ownProps) => {
     let ret = { 
 	    // initialValues: editing_quark,
 	    validate,
 	    // qtype_properties, logged_in_user, quark_types, editing_quark, quarks, submit_count
-	    logged_in_user, quark_types, editing_quark, submit_count
+	    logged_in_user, quark_types, submit_count
     };
     // if (ret.initialValues) {
     // 	    ret.initialValues['auto_fill'] = true
     // }
     return ret
   },
-  { fetchQuarkTypes, editQuark, execLogout }
+  // { fetchQuarkTypes, editQuark, execLogout }
+  { fetchQuarkTypes, execLogout }
 )(withRouter(EditQuarkForm))

@@ -13,11 +13,13 @@ import Navbar from './navbar';
 // action
 import { execLogout } from '../actions/login';
 import { fetchQuarkTypes } from '../actions/quark_types';
-import { addQuark } from '../actions/quark';
+// import { addQuark } from '../actions/quark';
 // common util
 import Util from '../utils/common';
-import LoginUtil from '../utils/login';
+import QuarkUtil from '../utils/quark';
+// import LoginUtil from '../utils/login';
 
+import Api from '../utils/api'
 
 
 const validate = values => {
@@ -66,6 +68,10 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 )
 
 class AddQuark extends Component {
+  state = {
+    added_quark: false
+  }
+
   componentDidMount() {
 	  const { quark_types } = this.props;
     if (!quark_types) {
@@ -73,33 +79,24 @@ class AddQuark extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    // initialize
-	  const login_util = new LoginUtil();
-	  if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
-	    this.props.history.push('/');
-	  }
+  componentDidUpdate(prevProps, prevState){
+    const { added_quark } = this.state;
+	  if (added_quark) {
+		  if (added_quark.message) {
+		    alert(added_quark.message);
+		  } else {
+		    alert('Please login again');
+		    this.props.execLogout();
+		  }
 
-	  // after editing post
-	  if (nextProps.submit_count > this.props.submit_count) {
-	    
-	    if (nextProps.added_quark) {
-		    if (!nextProps.added_quark.message) {
-		      alert('Please login again');
-		      this.props.execLogout();
-		    } else {
-		      alert(nextProps.added_quark.message);
-		    }
-
-		    if (nextProps.added_quark.status === 1) {
-		      this.props.history.push('/subjects/relations/' + nextProps.added_quark.result.values.name);
-		    }
-	    }
+		  if (added_quark.status === 1) {
+		    this.props.history.push('/subjects/relations/' + added_quark.result.values.name);
+		  }
 	  }
   }
 
-  onSubmit = (values) => {
-	  if (!values.image_path && values.auto_fill) {
+  onSubmit = async (values) => {
+	  if (!values.image_path) {
 	    let util = new Util();
 	    let default_image_name = util.fPascalToSnake(this.props.quark_types[values.quark_type_id]) + '.png';
 	    values.image_path = '/img/' + default_image_name
@@ -113,7 +110,13 @@ class AddQuark extends Component {
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
-	  this.props.addQuark(values);
+	  // this.props.addQuark(values);
+    const api = new Api()
+    const quark_util = new QuarkUtil();
+	  const sendingForm = quark_util.sanitizeFormData(values);
+    const result = await api.call('quarks', 'post', sendingForm)
+    const added_quark = result.data
+    this.setState({added_quark})
   }
 
   renderSelect = ({ input, label, type, meta: { touched, error, warning } }) => (
@@ -154,13 +157,6 @@ class AddQuark extends Component {
               <div className="form-group">
                 <Field name="name" component={renderField} type="text" id="name" label="Name" />
                 <Field name="image_path" component={renderField} type="text" id="image_path" label="Image Path" />
-                <div className="input checkbox">
-                  <label htmlFor="auto-fill">
-                    {/*  value="1" checked="checked" onChange={event => {}} */}
-                    <Field name="auto_fill" id="auto-fill" component="input" type="checkbox" />
-                    Auto Fill
-                  </label>
-                </div>
               </div>
               <div className="form-group">
                 <h4>optional</h4>
@@ -215,7 +211,8 @@ class AddQuark extends Component {
 //export default connect(state => state)(AddQuark);
 export default  reduxForm({
   form: 'add_quark', // a unique name for this form
-  　initialValues: {'auto_fill': true, 'quark_type_id':'1', 'is_exclusive': true},
+  　initialValues: {'quark_type_id':'1', 'is_exclusive': true},
   validate,
   warn
-})(withRouter(connect(state => state, { fetchQuarkTypes, addQuark, execLogout })(AddQuark)));
+  // })(withRouter(connect(state => state, { fetchQuarkTypes, addQuark, execLogout })(AddQuark)));
+})(withRouter(connect(state => state, { fetchQuarkTypes, execLogout })(AddQuark)));

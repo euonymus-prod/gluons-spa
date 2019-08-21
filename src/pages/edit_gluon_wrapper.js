@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 // redux
 import LoggedinOnly from '../containers/loggedin_only'
 import EditGluon     from '../containers/edit_gluon'
-// import LoginUtil from '../utils/login'
-// import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
-// import AxiosAgent from 'axios-agent'
+import Util from '../utils/common';
 import Api from '../utils/api'
 
 class EditGluonWrapper extends Component {
@@ -57,6 +55,10 @@ class EditGluonWrapper extends Component {
         <div>Loading...</div>
       )
     }
+
+    let util = new Util();
+	  gluon.values.start = util.date2str(gluon.values.start, 'day');
+	  gluon.values.end = util.date2str(gluon.values.end, 'day');
     return (
       <LoggedinOnly>
         <EditGluon initialValues={{...gluon.values, identity:this.props.match.params.id}}

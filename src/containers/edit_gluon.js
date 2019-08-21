@@ -15,9 +15,10 @@ import Navbar from './navbar';
 import { execLogout } from '../actions/login';
 import { fetchGluonTypes } from '../actions/gluon_types';
 // import { fetchEditingGluon, editGluon } from '../actions/gluon';
-import { editGluon } from '../actions/gluon';
 // common util
 // import LoginUtil from '../utils/login';
+import GluonUtil from '../utils/gluon';
+import Api from '../utils/api'
 
 
 const validate = values => {
@@ -52,49 +53,47 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 )
 
 class EditGluon extends Component {
+  state = {
+    edited_gluon: false
+  }
+
   componentDidMount() {
 	  const { gluon_types } = this.props;
     if (!gluon_types) {
       this.props.fetchGluonTypes();
     }
-    // initialize
-    // MEMO: fetchEditingGluon might need to be called in componentWillReceiveProps as well.
-    // this.props.fetchEditingGluon(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // initialize
-	  // const login_util = new LoginUtil();
-	  // if (!login_util.isLoggedIn(nextProps.logged_in_user)) {
-    // 	    this.props.history.push('/');
-    // 	  }
-
-	  // after editing post
-	  if (nextProps.submit_count > this.props.submit_count) {
-
-	    if (nextProps.editing_gluon) {
-		    if (!nextProps.editing_gluon.message) {
-		      alert('Please login again');
-		      this.props.execLogout();
-		    } else {
-		      alert(nextProps.editing_gluon.message);
-		    }
-
-		    if (nextProps.editing_gluon.status === 1) {
-	    	  this.props.history.push('/subjects/relations/' + nextProps.editing_gluon.result.active.name);
-		    }
-	    }
-	  }
+  componentDidUpdate(prevProps, prevState){
+    const { edited_gluon } = this.state;
+ 	  if (edited_gluon) {
+ 		  if (edited_gluon.message) {
+ 		    alert(edited_gluon.message);
+ 		  } else {
+ 		    alert('Please login again');
+ 		    this.props.execLogout();
+ 		  }
+      
+ 		  if (edited_gluon.status === 1) {
+ 		    this.props.history.push('/subjects/relations/' + this.props.active.values.name)
+ 		  }
+ 	  }
   }
 
-  onSubmit = (values) => {
+  onSubmit = async (values) => {
 	  if (!values.is_momentary) {
 	    values.is_momentary = 0;
 	  }
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
-	  this.props.editGluon(values);
+	  // this.props.editGluon(values);
+    const api = new Api()
+    const gluon_util = new GluonUtil();
+	  const sendingForm = gluon_util.sanitizeFormData(values);
+    const result = await api.call(`gluons/${values.identity}`, 'patch', sendingForm)
+    const edited_gluon = result.data
+    this.setState({edited_gluon})
   }
 
   renderSelect = ({ input, label, type, meta: { touched, error } }) => (
@@ -222,5 +221,5 @@ export default connect(
     return ret
   },
   // { fetchGluonTypes, fetchEditingGluon, editGluon, execLogout }
-  { fetchGluonTypes, editGluon, execLogout }
+  { fetchGluonTypes, execLogout }
 )(withRouter(EditGluonForm))

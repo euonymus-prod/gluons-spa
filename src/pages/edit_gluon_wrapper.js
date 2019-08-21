@@ -1,10 +1,12 @@
 // react
 import React, { Component } from 'react'
 // redux
+import LoggedinOnly from '../containers/loggedin_only'
 import EditGluon     from '../containers/edit_gluon'
-import LoginUtil from '../utils/login'
-import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
-import AxiosAgent from 'axios-agent'
+// import LoginUtil from '../utils/login'
+// import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
+// import AxiosAgent from 'axios-agent'
+import Api from '../utils/api'
 
 class EditGluonWrapper extends Component {
   state = {
@@ -28,37 +30,22 @@ class EditGluonWrapper extends Component {
   }
 
   setGluon = async () => {
-  	const result = await this.callAxios(`gluons/${this.props.match.params.id}`)
+    const api = new Api()
+    const result = await api.call(`gluons/${this.props.match.params.id}`, 'get')
     const gluon = result.data
     this.setState({gluon})
   }
   setActive = async (identity) => {
-  	const result = await this.callAxios(`quarks/${identity}`)
+    const api = new Api()
+    const result = await api.call(`quarks/${identity}`, 'get')
     const active = result.data
     this.setState({active})
   }
   setPassive = async (identity) => {
-  	const result = await this.callAxios(`quarks/${identity}`)
+    const api = new Api()
+    const result = await api.call(`quarks/${identity}`, 'get')
     const passive = result.data
     this.setState({passive})
-  }
-
-  callAxios = (action, params) => {
-    const login_util = new LoginUtil()
-    let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'))
-    if (!login_util.isLoggedIn(logged_in_user)) {
-  	  this.props.history.push('/')
-    }
-  	const authconfig = {
-      auth: {
-  		  username: logged_in_user.username,
-  		  password: logged_in_user.api_key_plain
-      }
-    }
-    
-    const axios = new AxiosAgent({ baseURL: API_URI, ...authconfig }, RETRY_LIMIT, NO_RETRY_CODE)
-    const method = 'get'
-    return axios[method](action, params)
   }
 
   render () {
@@ -69,8 +56,10 @@ class EditGluonWrapper extends Component {
       )
     }
     return (
-      <EditGluon initialValues={{...gluon.values, identity:this.props.match.params.id}}
-                 active={active} passive={passive} />
+      <LoggedinOnly>
+        <EditGluon initialValues={{...gluon.values, identity:this.props.match.params.id}}
+                   active={active} passive={passive} />
+      </LoggedinOnly>
     )
   }
 }

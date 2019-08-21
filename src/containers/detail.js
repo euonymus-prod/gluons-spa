@@ -16,9 +16,7 @@ import { initDetail } from '../actions/detail';
 import { fetchCurrentQuark } from '../actions/quark';
 import { changeCurrentQuark } from '../actions/quark';
 
-import AxiosAgent from 'axios-agent'
-import { API_URI, RETRY_LIMIT, NO_RETRY_CODE } from '../constants/config'
-import LoginUtil from '../utils/login'
+import Api from '../utils/api'
 
 class Detail extends Component {
   state = {
@@ -71,29 +69,14 @@ class Detail extends Component {
   }
 
   setGraph = async () => {
-	  const result = await this.callAxios(`graph/${this.props.match.params.quark_name}/${this.props.privacy}`)
-
+    const api = new Api(true)
+    const result = await api.call(`graph/${this.props.match.params.quark_name}/${this.props.privacy}`, 'get')
     const graph = result.data
     this.setState({graph})
     if(result.data.subject) {
       // Navbarなどで利用するためReduxに回す。
       this.props.changeCurrentQuark(graph.subject)
     }
-  }
-  callAxios = (action, params) => {
-    const authconfig = {}
-    const login_util = new LoginUtil()
-    let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'))
-    if (login_util.isLoggedIn(logged_in_user)) {
-      action = 'private_' + action
-	    authconfig.auth = {
-		    username: logged_in_user.username,
-		    password: logged_in_user.api_key_plain
-      }
-    }
-    const axios = new AxiosAgent({ baseURL: API_URI, ...authconfig }, RETRY_LIMIT, NO_RETRY_CODE)
-    const method = 'get'
-    return axios[method](action, params)
   }
 
   componentDidUpdate(prevProps){

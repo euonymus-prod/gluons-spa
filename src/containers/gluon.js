@@ -34,7 +34,7 @@ class Gluon extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.deleted_gluon && !prevState.deleted) {
-      if (nextProps.deleted_gluon.gluon_id === nextProps.gluon.relation.identity) {
+      if (nextProps.deleted_gluon.gluon_id === nextProps.gluon.relation.values.id) {
 		    if (nextProps.deleted_gluon.message) {
 			    alert(nextProps.deleted_gluon.message);
 		    } else {
@@ -63,7 +63,7 @@ class Gluon extends Component {
 	  if (window.confirm('Are you sure you want to delete?')) {
 	    // let doc_name = 'post_delete_gluon_' + gluon_id;
 	    // document.doc_name.submit();
-	    this.props.deleteGluon(this.props.gluon.relation.identity)
+	    this.props.deleteGluon(this.props.gluon.relation.values.id)
 	  }
 	  return false;
   }
@@ -71,7 +71,7 @@ class Gluon extends Component {
   renderGluonEdits(gluon) {
 	  return (
 	    <span>
-        <Link to={`/relations/edit/${gluon.relation.identity}`} className="glyphicon glyphicon glyphicon-pencil"></Link>
+        <Link to={`/relations/edit/${gluon.relation.values.id}`} className="glyphicon glyphicon glyphicon-pencil"></Link>
         {/*
             <form name={`post_delete_gluon_${gluon.id}`} style={{display:"none"}} method="post" action={`/relations/delete/${gluon.id}`}>
             <input type="hidden" name="_method" value="POST"/>

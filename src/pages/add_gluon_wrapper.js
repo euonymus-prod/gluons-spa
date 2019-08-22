@@ -30,7 +30,7 @@ class AddGluonWrapper extends Component {
     }
     return (
       <LoggedinOnly>
-        <AddGluon subject_quark={{...quark.values, identity:this.props.match.params.quark_id}} />
+        <AddGluon subject_quark={{...quark.values}} />
       </LoggedinOnly>
     )
   }

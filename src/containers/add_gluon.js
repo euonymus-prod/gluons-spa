@@ -206,11 +206,11 @@ class AddGluon extends Component {
 	  if (!values.is_exclusive) {
 	    values.is_exclusive = 0;
 	  }
-	  // this.props.addGluon(this.props.subject_quark.identity, values);
+	  // this.props.addGluon(this.props.subject_quark.values.id, values);
     const api = new Api()
     const gluon_util = new GluonUtil();
 	  const sendingForm = gluon_util.sanitizeFormData(values);
-    const result = await api.call(`gluons/${this.props.subject_quark.identity}`, 'post', sendingForm)
+    const result = await api.call(`gluons/${this.props.subject_quark.id}`, 'post', sendingForm)
     const added_gluon = result.data
     this.setState({added_gluon})
   }

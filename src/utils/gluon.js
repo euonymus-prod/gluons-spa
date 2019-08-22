@@ -1,9 +1,9 @@
 import Util from '../utils/common';
 class GluonUtil {
   gluedQuark(subject, gluon) {
-	  if (subject.identity === gluon.relation.start_node) {
+	  if (subject.values.id === gluon.active.values.id) {
 	    return gluon.passive
-	  } else if (subject.identity === gluon.relation.end_node) {
+	  } else if (subject.values.id === gluon.passive.values.id) {
 	    return gluon.active
 	  }
 	  return false;

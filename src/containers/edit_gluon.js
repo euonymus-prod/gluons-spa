@@ -91,7 +91,7 @@ class EditGluon extends Component {
     const api = new Api()
     const gluon_util = new GluonUtil();
 	  const sendingForm = gluon_util.sanitizeFormData(values);
-    const result = await api.call(`gluons/${values.identity}`, 'patch', sendingForm)
+    const result = await api.call(`gluons/${values.id}`, 'patch', sendingForm)
     const edited_gluon = result.data
     this.setState({edited_gluon})
   }

@@ -108,7 +108,7 @@ class EditQuark extends Component {
     const api = new Api()
     const quark_util = new QuarkUtil();
 	  const sendingForm = quark_util.sanitizeFormData(values);
-    const result = await api.call(`quarks/${values.identity}`, 'patch', sendingForm)
+    const result = await api.call(`quarks/${values.id}`, 'patch', sendingForm)
     const edited_quark = result.data
     this.setState({edited_quark})
   }

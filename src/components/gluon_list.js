@@ -18,9 +18,9 @@ class GluonList extends Component {
   		  return '';
   	  }
       return (
-        <div key={gluon.relation.identity}>
+        <div key={gluon.relation.values.id}>
           {(() => {
-             if (gluon.relation.identity !== first.relation.identity)
+             if (gluon.relation.values.id !== first.relation.values.id)
                return <hr />;
           })()}
           <Gluon gluon={gluon} subject={this.props.subject} />

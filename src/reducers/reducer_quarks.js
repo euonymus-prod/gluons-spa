@@ -67,8 +67,8 @@ export default (state = initState, action) => {
 	    action.payload.response.results.map(quark => {
 	      quark = quark_util.addExtendedInfo(quark, action.payload.qtype_properties);
 
-	      newQuarks[quark.identity] = quark;
-	      newQuarkName2Id[quark.name] = quark.identity;
+	      newQuarks[quark.values.id] = quark;
+	      newQuarkName2Id[quark.name] = quark.values.id;
 	      return null
 	    });
 	    return {

@@ -36,7 +36,7 @@ class EditQuarkWrapper extends Component {
 	  quark.values.end = util.date2str(quark.values.end, 'day');
     return (
       <LoggedinOnly>
-        <EditQuark initialValues={{...quark.values, identity:this.props.match.params.id}} />
+        <EditQuark initialValues={{...quark.values}} />
       </LoggedinOnly>
     )
   }

@@ -33,7 +33,7 @@ class TopPickups extends Component {
 	  const { pickups } = this.state;
 	  return _.map(pickups, pickup => {
 	    return (
-        <div key={pickup.identity} className="col-md-3">
+        <div key={pickup.values.id} className="col-md-3">
           <TopPickupDetail pickup={pickup.values}/>
         </div>
 	    );

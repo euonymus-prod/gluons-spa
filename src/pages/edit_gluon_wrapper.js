@@ -25,9 +25,9 @@ class EditGluonWrapper extends Component {
   componentDidUpdate(prevProps, prevState){
     const { gluon } = this.state;
     if (gluon) {
-      if (!prevState.gluon || (gluon.identity !== prevState.gluon.identity)) {
-        this.setActive(gluon.start_node)
-        this.setPassive(gluon.end_node)
+      if (!prevState.gluon || (gluon.values.id !== prevState.gluon.values.id)) {
+        this.setActive(gluon.values.active_id)
+        this.setPassive(gluon.values.passive_id)
       }
     }
   }
@@ -37,13 +37,13 @@ class EditGluonWrapper extends Component {
     const gluon = result.data
     this.setState({gluon})
   }
-  setActive = async (identity) => {
-    const result = await this.api.call(`quarks/${identity}`, 'get')
+  setActive = async (id) => {
+    const result = await this.api.call(`quarks/${id}`, 'get')
     const active = result.data
     this.setState({active})
   }
-  setPassive = async (identity) => {
-    const result = await this.api.call(`quarks/${identity}`, 'get')
+  setPassive = async (id) => {
+    const result = await this.api.call(`quarks/${id}`, 'get')
     const passive = result.data
     this.setState({passive})
   }
@@ -61,7 +61,7 @@ class EditGluonWrapper extends Component {
 	  gluon.values.end = util.date2str(gluon.values.end, 'day');
     return (
       <LoggedinOnly>
-        <EditGluon initialValues={{...gluon.values, identity:this.props.match.params.id}}
+        <EditGluon initialValues={{...gluon.values}}
                    active={active} passive={passive} />
       </LoggedinOnly>
     )

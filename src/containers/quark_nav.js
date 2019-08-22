@@ -41,7 +41,7 @@ class QuarkNav extends Component {
   onDeleteClick = () => {
 	  let r = window.confirm(`Are you sure you want to delete ${this.props.current_quark.name}?`);
 	  if (r === true) {
-	    this.props.deleteQuark(this.props.current_quark.identity);
+	    this.props.deleteQuark(this.props.current_quark.values.id);
 	  }
   }
 
@@ -63,7 +63,7 @@ class QuarkNav extends Component {
           */}
         <button className="dropdown-toggle plain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quark <span className="caret"></span></button>
         <ul className="dropdown-menu">
-          <li><Link to={`/subjects/edit/${current_quark.identity}`}>Edit Quark</Link></li>
+          <li><Link to={`/subjects/edit/${current_quark.values.id}`}>Edit Quark</Link></li>
           <li>
             {/*
                 <a href="javascript:void(0)" onClick={this.onDeleteClick}>Delete</a>

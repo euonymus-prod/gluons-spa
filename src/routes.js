@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
-import ScrollMemory from 'react-router-scroll-memory';
 
 // component
 import GlobalFooter  from './components/global_footer';
@@ -46,7 +45,6 @@ class AppRoutes extends Component {
         <LastLocationProvider>
           <div className="main-content">
 
-            <ScrollMemory />
             <Switch>
               {/* containers  */}
               <Route exact path='/' component={Home}/>

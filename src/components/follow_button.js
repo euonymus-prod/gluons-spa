@@ -1,14 +1,11 @@
 import React from "react"
-import { Follow } from 'react-twitter-widgets'
+import { TwitterFollowButton } from 'react-twitter-embed';
 
 export default class FollowButton extends React.Component {
   render() {
     return (
-      <Follow
-        username={'gluons_jp'}
-        options={{
-	        showCount: false,
-        }}
+      <TwitterFollowButton
+        screenName={'gluons_jp'}
       />
     )
   }

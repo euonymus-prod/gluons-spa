@@ -17,12 +17,6 @@ class QuarkPropertyList extends Component {
     // }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if ((nextProps.privacy !== this.props.privacy) || !nextProps.current_quark.is_gluon_fetched) {
-  //     this.props.fetchGluons(nextProps.current_quark, nextProps.qtype_properties, nextProps.privacy);
-  //   }
-  // }
-
   renderQuarkProperties() {
 	  // const { current_quark } = this.props;
     // 	  if (!current_quark.quark_properties) {

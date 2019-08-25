@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
 
 // component
+import ScrollToTop   from './components/scroll_to_top';
 import GlobalFooter  from './components/global_footer';
 import Home          from './components/home';
 import Terms         from './components/terms';
@@ -43,6 +44,7 @@ class AppRoutes extends Component {
 	  return (
       <BrowserRouter>
         <LastLocationProvider>
+          <ScrollToTop>
           <div className="main-content">
 
             <Switch>
@@ -72,7 +74,7 @@ class AppRoutes extends Component {
 
           </div>
           <GlobalFooter />
-
+          </ScrollToTop>
         </LastLocationProvider>
       </BrowserRouter>
 	  )

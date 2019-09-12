@@ -9,6 +9,7 @@ class ApiService {
   }
 
   call = (action, method, params) => {
+    console.log(action)
     const auth = {}
     const login_util = new LoginUtil()
     let logged_in_user = JSON.parse(localStorage.getItem('logged_in_user'))
@@ -18,6 +19,9 @@ class ApiService {
       }
  		  auth.username =  logged_in_user.username
  		  auth.password = logged_in_user.api_key_plain
+    } else if (action.startsWith('quarks/')) {
+      // NOTE: if not logged in, action has to be 'quarks', not 'quarks/1'.
+      action = action.replace(/(quarks)\/.*$/, '$1')
     }
 
     const repository = new Repository()

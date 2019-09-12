@@ -55,7 +55,11 @@ class Quarks extends Component {
 
   loadMore = async (page) => {
 	  const api_result = await this.props.quarkFetcher(page);
-    if (api_result.results.length === 100) {
+    let results = api_result.results
+    if (!api_result.results) {
+      results = []
+    }
+    if (results && (results.length === 100)) {
       // TODO: I can't figure out how to set has_next:true on CakePHP paginator without Model.
       // so briefly I just set always true here.
       api_result.pagination.has_next = true
@@ -63,9 +67,9 @@ class Quarks extends Component {
 
     let { quarks } = this.state
     if (page === 1) {
-      quarks = api_result.results
+      quarks = results
     } else {
-      quarks.push(...api_result.results)
+      quarks.push(...results)
     }
     this.setState({quarks, api_result})
   }
@@ -82,7 +86,7 @@ class Quarks extends Component {
             <div className="related" >
               <div className="well subject-relation white">
                 {(quarks.length === 0) ? (
-                  !api_result || api_result.pagination.has_next ? (
+                  !api_result || (api_result.pagination && api_result.pagination.has_next) ? (
                     'Loading ...'
                   ) : (
                     'No results'
